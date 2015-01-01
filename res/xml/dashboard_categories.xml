@@ -284,14 +284,6 @@
                 android:icon="@drawable/ic_settings_print"
                 />
 
-        <!-- Omni PerformanceControl -->
-        <dashboard-tile
-                android:id="@+id/performance_controls"
-                android:title="@string/performance_settings"
-                android:fragment="com.brewcrewfoo.performance.activities.MainActivity"
-                android:icon="@drawable/ic_settings_performances"
-                />
-
         <!-- CM Performance -->
         <dashboard-tile
                 android:id="@+id/performance_settings"
