@@ -746,4 +746,8 @@
     <string name="recents_show_searchbar">Show Search Bar in Recents</string>
     <string name="recents_show_searchbar_summary">Enable or disable the Google search bar in the recents menu</string>
 
+    <!-- PerformanceControl -->
+    <string name="performance_controls">Performance</string>
+    <string name="performance_controls_advanced">Advanced Controls</string>
+
 </resources>
