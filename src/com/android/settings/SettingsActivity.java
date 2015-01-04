@@ -1203,22 +1203,6 @@ public class SettingsActivity extends Activity
                     if (!hasPrintingSupport) {
                         removeTile = true;
                     }
-                } else if (id == R.id.superuser_settings) {
-                    if (!DevelopmentSettings.isRootForAppsEnabled()) {
-                        removeTile = true;
-                    } else {
-                        // Check if SuperSU is installed
-                        int suversion = 0;
-                        try {
-                            suversion = getPackageManager().getPackageInfo(
-                                "eu.chainfire.supersu", 0).versionCode;
-                        } catch (PackageManager.NameNotFoundException e) {
-                            suversion = 0;
-                        }
-                        if (suversion != 0) {
-                            removeTile = true;
-                        }
-                    }
                 } else if (id == R.id.development_settings) {
                     if (!showDev || um.hasUserRestriction(
                             UserManager.DISALLOW_DEBUGGING_FEATURES)) {
