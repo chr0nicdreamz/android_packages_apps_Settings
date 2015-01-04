@@ -60,6 +60,12 @@
                     android:targetClass="com.android.settings.cmremix.extrainfo.MainActivity" />
         </PreferenceScreen>
 
+        <!-- Contributors cloud -->
+        <PreferenceScreen android:key="contributor_cloud"
+            android:title="@string/contributor_cloud_title"
+            android:fragment="com.android.settings.cyanogenmod.ContributorsCloud" >
+        </PreferenceScreen>
+
         <!-- Legal Information -->
         <PreferenceScreen
                 android:key="container"
@@ -94,7 +100,8 @@
             <Preference
                     android:key="wallpaper_attributions"
                     android:title="@string/wallpaper_attributions"
-                    android:summary="@string/wallpaper_attributions_values" />
+                    android:summary="@string/wallpaper_attributions_values"
+                    />
 
         </PreferenceScreen>
 
@@ -183,17 +190,17 @@
                 android:title="@string/mod_version"
                 android:summary="@string/mod_version_default" />
 
-        <!-- cmRemiX version -->
-        <Preference android:key="cmremix_version"
-                style="?android:preferenceInformationStyle"
-                android:title="@string/cmremix_version"
-                android:summary="@string/cmremix_version_default" />
-
         <!-- Device firmware version -->
         <Preference android:key="firmware_version" 
                 style="?android:preferenceInformationStyle"
                 android:title="@string/firmware_version"
                 android:summary="@string/device_info_default"/>
+
+        <!-- cmRemiX version -->
+        <Preference android:key="cmremix_version"
+                style="?android:preferenceInformationStyle"
+                android:title="@string/cmremix_version"
+                android:summary="@string/cmremix_version_default" />
 
         <!-- Saber Build versions -->
         <Preference android:key="sm_android"
