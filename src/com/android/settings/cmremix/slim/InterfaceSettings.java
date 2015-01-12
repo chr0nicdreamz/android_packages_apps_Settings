@@ -41,9 +41,9 @@ public class InterfaceSettings extends SettingsPreferenceFragment implements
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mButtonSettings = (PreferenceScreen) findPreference(BUTTON_SETTINGS);
-
         addPreferencesFromResource(R.xml.cmremix_interface_settings);
+
+        mButtonSettings = (PreferenceScreen) findPreference(BUTTON_SETTINGS);
 
         boolean hasDeviceKeys = getResources().getInteger(
                 com.android.internal.R.integer.config_deviceHardwareKeys) != 0;
