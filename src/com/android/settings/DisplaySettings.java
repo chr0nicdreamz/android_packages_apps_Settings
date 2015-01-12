@@ -87,6 +87,7 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
     private static final String PROP_DISPLAY_DENSITY = "persist.sf.lcd_density";
     private static final String PROP_DISPLAY_DENSITY_MAX = "ro.sf.lcd_density.max";
     private static final String PROP_DISPLAY_DENSITY_MIN = "ro.sf.lcd_density.min";
+    private static final String PROP_DISPLAY_DENSITY_OVERRIDE = "persist.sf.lcd_density.override";
 
     private static final String KEY_SCREEN_TIMEOUT = "screen_timeout";
     private static final String KEY_FONT_SIZE = "font_size";
@@ -103,6 +104,7 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
     private static final String KEY_DISPLAY_ROTATION = "display_rotation";
     private static final String KEY_WAKE_WHEN_PLUGGED_OR_UNPLUGGED = "wake_when_plugged_or_unplugged";
     private static final String KEY_DISPLAY_DENSITY = "display_density";
+    private static final String KEY_DISPLAY_DENSITY_OVERRIDE = "display_density_override";
     private static final String KEY_TOAST_ANIMATION = "toast_animation";
 
     private static final String CATEGORY_ADVANCED = "advanced_display_prefs";
@@ -130,6 +132,7 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
     private SwitchPreference mSunlightEnhancement;
     private SwitchPreference mColorEnhancement;
     private EditTextPreference mDisplayDensity;
+    private EditTextPreference mDisplayDensityOverride;
     private ListPreference mToastAnimation;
 
     private SlimSeekBarPreference mDozeTimeout;
@@ -183,6 +186,10 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
         mDisplayDensity = (EditTextPreference) findPreference(KEY_DISPLAY_DENSITY);
         mDisplayDensity.setText(SystemProperties.get(PROP_DISPLAY_DENSITY, "0"));
         mDisplayDensity.setOnPreferenceChangeListener(this);
+
+        mDisplayDensityOverride = (EditTextPreference) findPreference(KEY_DISPLAY_DENSITY_OVERRIDE);
+        mDisplayDensityOverride.setText(SystemProperties.get(PROP_DISPLAY_DENSITY_OVERRIDE, "0"));
+        mDisplayDensityOverride.setOnPreferenceChangeListener(this);
 
         mToastAnimation = (ListPreference) findPreference(KEY_TOAST_ANIMATION);
         mToastAnimation.setSummary(mToastAnimation.getEntry());
@@ -656,6 +663,20 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
 
             SystemProperties.set(PROP_DISPLAY_DENSITY, String.valueOf(value));
             mDisplayDensity.setText(String.valueOf(value));
+
+            // we handle it, return false
+            return false;
+        }
+        if (KEY_DISPLAY_DENSITY_OVERRIDE.equals(key)) {
+            int value = SystemProperties.getInt(PROP_DISPLAY_DENSITY_OVERRIDE, 0);
+            try {
+                value = Integer.parseInt(String.valueOf(objValue));
+            } catch (NumberFormatException e) {
+                Log.e(TAG, "Invalid input", e);
+            }
+
+            SystemProperties.set(PROP_DISPLAY_DENSITY_OVERRIDE, String.valueOf(value));
+            mDisplayDensityOverride.setText(String.valueOf(value));
 
             // we handle it, return false
             return false;
