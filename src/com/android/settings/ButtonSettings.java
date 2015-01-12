@@ -215,6 +215,7 @@ public class ButtonSettings extends SettingsPreferenceFragment implements
             if (!Utils.isVoiceCapable(getActivity())) {
                 powerCategory.removePreference(mPowerEndCall);
                 mPowerEndCall = null;
+                prefScreen.removePreference(powerCategory);
             }
         } else {
             prefScreen.removePreference(powerCategory);
