@@ -778,4 +778,8 @@
     <string name="battery_bar_animate_title">Charging animation</string>
     <string name="battery_bar_animate_summary">The charging animation may result in a poor user experience. Enable at your own discretion.</string>
 
+    <!-- OmniSwitch -->
+    <string name="omniswitch_settings_title">OmniSwitch Settings</string>
+    <string name="omniswitch_settings_summary">Enable and configure omniSwitch recents</string>
+
 </resources>
