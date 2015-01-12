@@ -23,6 +23,8 @@
     <!-- cmRemiX custom settings -->
     <string name="cmremix_custom_title">cmRemiX Tweaks</string>
     <string name="status_bar_settings">Status bar settings</string>
+    <string name="recents_panel_title">Recents panel</string>
+    <string name="recents_panel_settings">Recents panel settings</string>
     <string name="recents_panel_settings">Recents panel settings</string>
      <string name="extras_cmremix_settings">cmRemiX extras</string>
 

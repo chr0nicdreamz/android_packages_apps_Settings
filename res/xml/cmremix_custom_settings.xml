@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Copyright (C) 2014 The CyanogenMod Project
+<!-- Copyright (C) 2014 cmRemiX
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -18,62 +18,28 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:title="@string/status_bar_title">
 
+    <!-- Recent panel settings -->
+    <PreferenceScreen
+         android:key="recents_panel"
+         android:fragment="com.android.settings.cmremix.RecentsPanelSettings"
+         android:title="@string/recents_panel_title"/>
+
+    <PreferenceScreen
+         android:id="@+id/app_circle_sidebar"
+         android:title="@string/app_circle_bar_title"
+         android:summary="@string/app_circle_sidebar_summary_real"
+         android:fragment="com.android.settings.cmremix.AppCircleSidebar" />
+
+    <!-- Gesture anywhere -->
+    <PreferenceScreen
+         android:key="gesture_anywhere"
+         android:fragment="com.android.settings.cmremix.gestureanywhere.GestureAnywhereSettings"
+         android:title="@string/gesture_anywhere_title" />
+
     <!-- Wakelock blocker -->
     <PreferenceScreen
-        android:key="wakelock_blocker"
-        android:title="@string/wakelock_blocker_title"
-        android:fragment="com.android.settings.cmremix.WakeLockBlocker"
-        android:icon="@drawable/ic_settings_privacy"
-        />
-
-    <PreferenceCategory
-        android:key="recents_panel"
-        android:title="@string/recents_panel_settings" >
-
-        <SwitchPreference
-            android:key="show_clear_all_recents"
-            android:title="@string/show_clear_all_recents_button_title"
-            android:summary="@string/show_clear_all_recents_button_summary"
-            android:defaultValue="true" />
-
-        <com.android.settings.cyanogenmod.SystemSettingSwitchPreference
-            android:key="recents_clear_all_dismiss_all"
-            android:title="@string/recents_clear_all_dismiss_all_title"
-            android:summary="@string/recents_clear_all_dismiss_all_summary"
-            android:defaultValue="true"
-            android:dependency="show_clear_all_recents" />
-
-        <ListPreference
-            android:key="recents_clear_all_location"
-            android:title="@string/recents_clear_all_location_title"
-            android:entries="@array/recents_clear_all_location_entries"
-            android:entryValues="@array/recents_clear_all_location_values"
-            android:defaultValue="0"
-            android:dependency="show_clear_all_recents" />
-
-        <com.android.settings.cyanogenmod.SystemSettingSwitchPreference
-            android:key="recents_show_hide_search_bar"
-            android:title="@string/recents_show_searchbar"
-            android:summary="@string/recents_show_searchbar_summary"
-            android:defaultValue="false" />
-
-    </PreferenceCategory>
-
-    <PreferenceCategory
-        android:title="@string/extras_cmremix_settings" >
-
-        <!-- Gesture anywhere -->
-        <PreferenceScreen
-            android:key="gesture_anywhere"
-            android:fragment="com.android.settings.cmremix.gestureanywhere.GestureAnywhereSettings"
-            android:title="@string/gesture_anywhere_title" />
-
-     <PreferenceScreen
-            android:id="@+id/app_circle_sidebar"
-            android:title="@string/app_circle_bar_title"
-            android:summary="@string/app_circle_sidebar_summary_real"
-            android:fragment="com.android.settings.cmremix.AppCircleSidebar" />
-
-    </PreferenceCategory>
+         android:key="wakelock_blocker"
+         android:fragment="com.android.settings.cmremix.WakeLockBlocker"
+         android:title="@string/wakelock_blocker_title" />
 
 </PreferenceScreen>
