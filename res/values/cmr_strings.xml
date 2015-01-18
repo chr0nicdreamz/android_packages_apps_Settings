@@ -20,6 +20,16 @@
     <string name="cmremix_version">cmRemiX version</string>
     <string name="cmremix_version_default">Unknown</string>
 
+    <!-- GCC version info -->
+    <string name="sm_android">Gcc android</string>
+    <string name="sm_android_default">Unknown</string>
+    <string name="sm_kernel">Gcc kernel</string>
+    <string name="sm_kernel_default">Unknown</string>
+
+    <!-- GCC build flags info -->
+    <string name="sm_flags">Build flags</string>
+    <string name="sm_flags_default">None</string>
+    
     <!-- cmRemiX custom settings -->
     <string name="cmremix_custom_title">cmRemiX Tweaks</string>
     <string name="status_bar_settings">Status bar settings</string>
@@ -43,12 +53,6 @@
 
     <string name="status_bar_quick_qs_pulldown_title">Quick pulldown</string>
     <string name="status_bar_quick_qs_pulldown_summary">Right edge of the status bar pulls down Quick Settings</string>
-
-    <!--Saber version-->
-    <string name="sm_android">Saber android version</string>
-    <string name="sm_android_default">Unknown</string>
-    <string name="sm_arm">Saber kernel version</string>
-    <string name="sm_arm_default">Unknown</string>
 
     <!-- Recents panel settings -->
     <string name="show_clear_all_recents_button_title">Clear all recents button</string>

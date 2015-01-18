@@ -98,7 +98,8 @@ public class DeviceInfoSettings extends SettingsPreferenceFragment implements In
     private static final String KEY_CM_UPDATES = "cm_updates";
     private static final String KEY_CMREMIX_VERSION = "cmremix_version";
     private static final String KEY_SM_AND = "sm_android";
-    private static final String KEY_SM_ARM = "sm_arm";
+    private static final String KEY_SM_KERNEL = "sm_kernel";
+    private static final String KEY_SM_FLAGS = "sm_flags";
 
     long[] mHits = new long[3];
 
@@ -123,9 +124,11 @@ public class DeviceInfoSettings extends SettingsPreferenceFragment implements In
         setValueSummary(KEY_CMREMIX_VERSION, "ro.cmremix.version");
         findPreference(KEY_CMREMIX_VERSION).setEnabled(true);
         findPreference(KEY_SM_AND).setEnabled(true);
-        findPreference(KEY_SM_ARM).setEnabled(true);
+        findPreference(KEY_SM_KERNEL).setEnabled(true);
+        findPreference(KEY_SM_FLAGS).setEnabled(true);
         setValueSummary(KEY_SM_AND, "ro.sm.android");
-        setValueSummary(KEY_SM_ARM, "ro.sm.arm");
+        setValueSummary(KEY_SM_KERNEL, "ro.sm.kernel");
+        setValueSummary(KEY_SM_FLAGS, "ro.sm.flags");
 
         if (!SELinux.isSELinuxEnabled()) {
             String status = getResources().getString(R.string.selinux_status_disabled);

@@ -202,17 +202,6 @@
                 android:title="@string/cmremix_version"
                 android:summary="@string/cmremix_version_default" />
 
-        <!-- Saber Build versions -->
-        <Preference android:key="sm_android"
-                style="?android:preferenceInformationStyle"
-                android:title="@string/sm_android"
-                android:summary="@string/sm_android_default" />
-
-        <Preference android:key="sm_arm"
-                style="?android:preferenceInformationStyle"
-                android:title="@string/sm_arm"
-                android:summary="@string/sm_arm_default" />
-
         <!-- Device FCC equipment id -->
         <Preference android:key="fcc_equipment_id"
                 style="?android:preferenceInformationStyle"
@@ -243,6 +232,23 @@
                 android:title="@string/build_number"
                 android:summary="@string/device_info_default"
                 android:selectable="false" />
+
+
+        <!-- GCC build info -->
+        <Preference android:key="sm_android"
+                style="?android:preferenceInformationStyle"
+                android:title="@string/sm_android"
+                android:summary="@string/sm_android_default" />
+
+        <Preference android:key="sm_kernel"
+                style="?android:preferenceInformationStyle"
+                android:title="@string/sm_kernel"
+                android:summary="@string/sm_kernel_default" />
+
+        <Preference android:key="sm_flags"
+                style="?android:preferenceInformationStyle"
+                android:title="@string/sm_flags"
+                android:summary="@string/sm_flags_default" />
 
         <!-- SELinux status information -->
         <Preference android:key="selinux_status"
