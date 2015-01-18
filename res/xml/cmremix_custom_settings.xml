@@ -42,4 +42,10 @@
          android:fragment="com.android.settings.cmremix.WakeLockBlocker"
          android:title="@string/wakelock_blocker_title" />
 
+    <!-- Lockscreen misc -->
+    <PreferenceScreen
+         android:key="lock_cmremix"
+         android:title="@string/cmremix_lock_title"
+         android:fragment="com.android.settings.cmremix.LockMisc" />
+
 </PreferenceScreen>
