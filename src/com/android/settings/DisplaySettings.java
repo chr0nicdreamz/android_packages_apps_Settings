@@ -85,8 +85,6 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
     private static final int FALLBACK_SCREEN_TIMEOUT_VALUE = 30000;
 
     private static final String PROP_DISPLAY_DENSITY = "persist.sf.lcd_density";
-    private static final String PROP_DISPLAY_DENSITY_MAX = "ro.sf.lcd_density.max";
-    private static final String PROP_DISPLAY_DENSITY_MIN = "ro.sf.lcd_density.min";
 
     private static final String KEY_SCREEN_TIMEOUT = "screen_timeout";
     private static final String KEY_FONT_SIZE = "font_size";
@@ -634,12 +632,12 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
                     Settings.System.DOZE_TIMEOUT, dozeTimeout);
         }
         if (KEY_DISPLAY_DENSITY.equals(key)) {
-            final int max = SystemProperties.getInt(PROP_DISPLAY_DENSITY_MAX, 640);
-            final int min = SystemProperties.getInt(PROP_DISPLAY_DENSITY_MIN, 240);
+            final int max = getResources().getInteger(R.integer.display_density_max);
+            final int min = getResources().getInteger(R.integer.display_density_min);
 
             int value = SystemProperties.getInt(PROP_DISPLAY_DENSITY, 0);
             try {
-                value = Integer.parseInt(String.valueOf(objValue));
+                value = Integer.parseInt((String) objValue);
             } catch (NumberFormatException e) {
                 Log.e(TAG, "Invalid input", e);
             }
