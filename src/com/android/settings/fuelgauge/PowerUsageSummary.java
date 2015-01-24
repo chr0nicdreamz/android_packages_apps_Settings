@@ -291,6 +291,9 @@ public class PowerUsageSummary extends PreferenceFragment {
                     if ("user".equals(Build.TYPE) || "userdebug".equals(Build.TYPE)) {
                         continue;
                     }
+                    if ("user".equals(Build.TYPE) || "userdebug".equals(Build.TYPE)) {
+                        continue;
+                    }
                 }
                 if (sipper.drainType == BatterySipper.DrainType.UNACCOUNTED) {
                     // Don't show over-counted unless it is at least 1/2 the size of
@@ -299,6 +302,9 @@ public class PowerUsageSummary extends PreferenceFragment {
                         continue;
                     }
                     if (percentOfTotal < 5) {
+                        continue;
+                    }
+                    if ("user".equals(Build.TYPE) || "userdebug".equals(Build.TYPE)) {
                         continue;
                     }
                     if ("user".equals(Build.TYPE) || "userdebug".equals(Build.TYPE)) {
