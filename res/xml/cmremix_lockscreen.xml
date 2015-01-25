@@ -19,6 +19,30 @@
         android:key="lock_screen">
 
     <PreferenceCategory
+        android:key="lockscreen_shortcuts_category"
+        android:title="@string/cmremix_lockscreen_shortcuts_category" >
+
+        <PreferenceScreen
+                 android:key="lockscreen_shortcuts"
+                 android:fragment="com.android.settings.cmremix.dslv.ActionListViewSettings"
+                 android:summary="@string/lockscreen_shortcuts_summary"
+                 android:title="@string/lockscreen_shortcuts_title">
+             <extra android:name="actionMode" android:value="4" />
+             <extra android:name="maxAllowedActions" android:value="5" />
+             <extra android:name="disableLongpress" android:value="true" />
+             <extra android:name="useAppPickerOnly" android:value="true" />
+             <extra android:name="fragment" android:value="com.android.settings.cmremix.LockscreenShortcut" />
+        </PreferenceScreen>
+
+        <PreferenceScreen
+            android:key="cm_lockscreen_shortcuts"
+            android:fragment="com.android.settings.cyanogenmod.LockscreenShortcuts"
+            android:title="@string/cm_lockscreen_shortcuts_title"
+            android:summary="@string/cm_lockscreen_shortcuts_summary" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
         android:key="lockscreen_category"
         android:title="@string/lockscreen_category" >
 
