@@ -825,4 +825,7 @@
     <string name="hfm_whitelist_pref_empty">Whitelist is empty</string>
     <string name="hfm_whitelist_pref_menu_apply">Apply</string>
 
+    <!-- Text for forcing expanded notifications -->
+    <string name="disable_fc_notifications_title">Diable FC Notifications</string>
+    <string name="disable_fc_notifications_summary">This will hide all force close notificaitons</string>
 </resources>
