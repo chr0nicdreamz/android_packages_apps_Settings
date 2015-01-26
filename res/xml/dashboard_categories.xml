@@ -84,28 +84,12 @@
                 android:icon="@drawable/ic_settings_home"
                 />
 
-        <!-- Notification drawer -->
-        <dashboard-tile
-                android:id="@+id/notification_drawer_settings"
-                android:title="@string/notification_drawer_title"
-                android:fragment="com.android.settings.cyanogenmod.NotificationDrawerSettings"
-                android:icon="@drawable/ic_settings_notification_drawer"
-                />
-
         <!-- cmRemiX Interface Settings -->
         <dashboard-tile
                 android:id="@+id/interface_settings"
                 android:icon="@drawable/ic_settings_interface"
                 android:fragment="com.android.settings.cmremix.slim.InterfaceSettings"
                 android:title="@string/interface_settings_title"
-                />
-
-        <!-- cmRemiX Custom Settings -->
-        <dashboard-tile
-                android:id="@+id/cmremix_custom_settings"
-                android:title="@string/cmremix_custom_title"
-                android:fragment="com.android.settings.cmremix.CustomSettings"
-                android:icon="@drawable/ic_settings_system"
                 />
 
         <!-- Themes -->

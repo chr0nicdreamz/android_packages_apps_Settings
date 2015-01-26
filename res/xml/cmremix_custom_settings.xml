@@ -17,41 +17,35 @@
 <PreferenceScreen
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:title="@string/status_bar_title">
-
-    <!-- Recent panel settings -->
-    <PreferenceScreen
-         android:key="recents_panel"
-         android:fragment="com.android.settings.cmremix.RecentsPanelSettings"
-         android:title="@string/recents_panel_title"/>
-
+    
+    <!-- app circle sidebar -->
     <PreferenceScreen
          android:id="@+id/app_circle_sidebar"
          android:title="@string/app_circle_bar_title"
          android:summary="@string/app_circle_sidebar_summary_real"
-         android:fragment="com.android.settings.cmremix.AppCircleSidebar" />
-
-    <!-- Display -->
-    <PreferenceScreen
-         android:key="display_settings"
-         android:fragment="com.android.settings.cmremix.DisplaySettings"
-         android:title="@string/display_settings_title" />
+         android:fragment="com.android.settings.cmremix.AppCircleSidebar" 
+         />
 
     <!-- Gesture anywhere -->
     <PreferenceScreen
          android:key="gesture_anywhere"
          android:fragment="com.android.settings.cmremix.gestureanywhere.GestureAnywhereSettings"
-         android:title="@string/gesture_anywhere_title" />
+         android:title="@string/gesture_anywhere_title" 
+         />
 
     <!-- Wakelock blocker -->
     <PreferenceScreen
          android:key="wakelock_blocker"
          android:fragment="com.android.settings.cmremix.WakeLockBlocker"
-         android:title="@string/wakelock_blocker_title" />
+         android:title="@string/wakelock_blocker_title" 
+         />
 
-    <!-- Lockscreen misc -->
+    <!-- Screen Recorder -->
     <PreferenceScreen
-         android:key="lock_cmremix"
-         android:title="@string/cmremix_lock_title"
-         android:fragment="com.android.settings.cmremix.LockMisc" />
+        android:key="screen_recorder"
+        android:title="@string/screen_recorder_title"
+        android:fragment="com.android.settings.cmremix.ScreenRecorderSettings"
+        android:icon="@drawable/ic_settings_advanced"
+        />
 
 </PreferenceScreen>
