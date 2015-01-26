@@ -40,13 +40,15 @@
         android:key="recents_panel"
         android:fragment="com.android.settings.cmremix.RecentsPanelSettings"
         android:title="@string/recents_panel_title"
+        android:icon="@drawable/ic_settings_advanced"
         />
 
     <!-- Lockscreen misc -->
     <PreferenceScreen
         android:key="lock_cmremix"
         android:title="@string/cmremix_lock_title"
-        android:fragment="com.android.settings.cmremix.LockMisc" 
+        android:fragment="com.android.settings.cmremix.LockMisc"
+        android:icon="@drawable/ic_settings_security" 
         />
 
     <!-- Display and Animations -->
