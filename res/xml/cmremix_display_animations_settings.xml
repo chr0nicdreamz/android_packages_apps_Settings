@@ -28,6 +28,13 @@
          android:fragment="com.android.settings.cmremix.DisplaySettings"
          android:title="@string/display_settings_title" />
 
+        <ListPreference
+                android:key="toast_animation"
+                android:title="@string/toast_animation_title"
+                android:entries="@array/toast_animation_entries"
+                android:entryValues="@array/toast_animation_values"
+                android:persistent="false" />
+
         <PreferenceScreen
             android:key="aokp_animation"
             android:title="@string/aokp_animation_title"

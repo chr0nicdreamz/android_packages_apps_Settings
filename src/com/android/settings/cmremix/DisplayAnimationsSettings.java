@@ -33,6 +33,7 @@ import android.preference.PreferenceScreen;
 import android.provider.Settings;
 import android.provider.Settings.SettingNotFoundException;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -43,9 +44,11 @@ public class DisplayAnimationsSettings extends SettingsPreferenceFragment implem
         Preference.OnPreferenceChangeListener, OnPreferenceClickListener {
     private static final String TAG = "DisplayAnimationsSettings";
 
+    private static final String KEY_TOAST_ANIMATION = "toast_animation";
     private static final String KEY_LISTVIEW_ANIMATION = "listview_animation";
     private static final String KEY_LISTVIEW_INTERPOLATOR = "listview_interpolator";
 
+    private ListPreference mToastAnimation;
     private ListPreference mListViewAnimation;
     private ListPreference mListViewInterpolator;
 
@@ -57,6 +60,15 @@ public class DisplayAnimationsSettings extends SettingsPreferenceFragment implem
         addPreferencesFromResource(R.xml.cmremix_display_animations_settings);
 
         PreferenceScreen prefSet = getPreferenceScreen();
+
+        // Toast Animations
+        mToastAnimation = (ListPreference) findPreference(KEY_TOAST_ANIMATION);
+        mToastAnimation.setSummary(mToastAnimation.getEntry());
+        int CurrentToastAnimation = Settings.System.getInt(resolver,
+                Settings.System.TOAST_ANIMATION, 1);
+        mToastAnimation.setValueIndex(CurrentToastAnimation); //set to index of default value
+        mToastAnimation.setSummary(mToastAnimation.getEntries()[CurrentToastAnimation]);
+        mToastAnimation.setOnPreferenceChangeListener(this);
 
         // ListView Animations
         mListViewAnimation = (ListPreference) prefSet.findPreference(KEY_LISTVIEW_ANIMATION);
@@ -76,6 +88,11 @@ public class DisplayAnimationsSettings extends SettingsPreferenceFragment implem
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+    @Override
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
         return super.onPreferenceTreeClick(preferenceScreen, preference);
     }
@@ -83,6 +100,13 @@ public class DisplayAnimationsSettings extends SettingsPreferenceFragment implem
     @Override
     public boolean onPreferenceChange(Preference preference, Object objValue) {
         final String key = preference.getKey();
+        if (preference == mToastAnimation) {
+            int index = mToastAnimation.findIndexOfValue((String) objValue);
+            Settings.System.putString(getContentResolver(), Settings.System.TOAST_ANIMATION, (String) objValue);
+            mToastAnimation.setSummary(mToastAnimation.getEntries()[index]);
+            Toast.makeText(mContext, "Toast Test", Toast.LENGTH_SHORT).show();
+            return true;
+        }
         if (KEY_LISTVIEW_ANIMATION.equals(key)) {
             int value = Integer.parseInt((String) objValue);
             int index = mListViewAnimation.findIndexOfValue((String) objValue);
