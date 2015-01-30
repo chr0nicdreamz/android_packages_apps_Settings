@@ -817,10 +817,6 @@
     <string name="stats_collection_title">Stats collection</string>
     <string name="stats_collection_summary">When enabled, allows metrics collection</string>
 
-    <!-- Weather in status bar -->
-    <string name="status_bar_show_weather_title">Show weather</string>
-    <string name="status_bar_show_weather_summary">Show the weather in the status bar header</string>
-
     <!-- Category title for Charging sounds (Power state change) specific Settings.
          [CHAR LIMIT=40] -->
     <string name="power_notifications_category_title">Charging sounds</string>
@@ -912,6 +908,10 @@
 
     <string name="link_volume_option_title">Link ringtone &amp; notification volumes</string>
     <string name="notification_volume_option_title">Notification volume</string>
+
+    <!-- Weather in status bar header -->
+    <string name="status_bar_show_weather_title">Show weather</string>
+    <string name="status_bar_show_weather_summary">Show the weather above the Quick Settings panel</string>
 
     <!-- Notification drawer -->
     <string name="notification_drawer_title">Notification</string>
