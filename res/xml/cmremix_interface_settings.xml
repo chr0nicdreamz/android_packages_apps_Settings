@@ -75,4 +75,10 @@
         android:icon="@drawable/ic_settings_system"
         />
 
+        <!-- Change Log -->
+    <PreferenceScreen android:key="changelog"
+        android:title="@string/changelog_title"
+        android:icon="@drawable/ic_settings_about"
+        android:fragment="com.android.settings.cmremix.ChangeLog" />
+
 </PreferenceScreen>
