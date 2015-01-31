@@ -23,14 +23,16 @@
          android:id="@+id/app_circle_sidebar"
          android:title="@string/app_circle_bar_title"
          android:summary="@string/app_circle_sidebar_summary_real"
-         android:fragment="com.android.settings.cmremix.AppCircleSidebar" 
+         android:fragment="com.android.settings.cmremix.AppCircleSidebar"
+         android:icon="@drawable/ic_settings_appcirclebar" 
          />
 
     <!-- Gesture anywhere -->
     <PreferenceScreen
          android:key="gesture_anywhere"
          android:fragment="com.android.settings.cmremix.gestureanywhere.GestureAnywhereSettings"
-         android:title="@string/gesture_anywhere_title" 
+         android:title="@string/gesture_anywhere_title"
+         android:icon="@drawable/ic_settings_gestures" 
          />
 
     <!-- Wakelock blocker -->
@@ -38,6 +40,7 @@
          android:key="wakelock_blocker"
          android:fragment="com.android.settings.cmremix.WakeLockBlocker"
          android:title="@string/wakelock_blocker_title" 
+         android:icon="@drawable/ic_settings_wakelock_blocker"
          />
 
     <!-- Screen Recorder -->
@@ -45,14 +48,15 @@
         android:key="screen_recorder"
         android:title="@string/screen_recorder_title"
         android:fragment="com.android.settings.cmremix.ScreenRecorderSettings"
-        android:icon="@drawable/ic_settings_advanced"
+        android:icon="@drawable/ic_settings_dock"
         />
 
     <!-- Ad Blocker -->
     <PreferenceScreen
         android:key="hfm_settings"
         android:title="@string/hfm_pref_screen_title"
-        android:fragment="com.android.settings.cmremix.hfm.HfmSettings" 
+        android:fragment="com.android.settings.cmremix.hfm.HfmSettings"
+        android:icon="@drawable/ic_settings_viper"
         />
 
 </PreferenceScreen>

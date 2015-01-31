@@ -56,7 +56,7 @@
         android:id="@+id/disp_anim_settings"
         android:title="@string/disp_anim_settings_title"
         android:fragment="com.android.settings.cmremix.DisplayAnimationsSettings"
-        android:icon="@drawable/ic_settings_home"
+        android:icon="@drawable/ic_settings_animations"
         />
 
     <!-- Buttons settings -->
