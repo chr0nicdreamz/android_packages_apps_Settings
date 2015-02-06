@@ -18,7 +18,6 @@ package com.android.settings.cyanogenmod;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.preference.ListPreference;
@@ -29,7 +28,6 @@ import android.preference.PreferenceScreen;
 import android.preference.SwitchPreference;
 import android.provider.Settings;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 
 import com.android.settings.R;
@@ -51,10 +49,8 @@ public class StatusBarSettings extends SettingsPreferenceFragment
     private static final String TAG = "StatusBar";
 
     private static final String KEY_STATUS_BAR_CLOCK = "clock_style_pref";
-    private static final String KEY_STATUS_BAR_TICKER = "status_bar_ticker_enabled";
 
     private PreferenceScreen mClockStyle;
-    private SwitchPreference mTicker;
 
     @Override
     public void onCreate(Bundle icicle) {
@@ -64,34 +60,12 @@ public class StatusBarSettings extends SettingsPreferenceFragment
         PreferenceScreen prefSet = getPreferenceScreen();
         ContentResolver resolver = getActivity().getContentResolver();
 
-        PackageManager pm = getPackageManager();
-        Resources systemUiResources;
-        try {
-            systemUiResources = pm.getResourcesForApplication("com.android.systemui");
-        } catch (Exception e) {
-            Log.e(TAG, "can't access systemui resources",e);
-            return;
-        }
-
         mClockStyle = (PreferenceScreen) prefSet.findPreference(KEY_STATUS_BAR_CLOCK);
         updateClockStyleDescription();
-
-        mTicker = (SwitchPreference) prefSet.findPreference(KEY_STATUS_BAR_TICKER);
-        final boolean tickerEnabled = systemUiResources.getBoolean(systemUiResources.getIdentifier(
-                    "com.android.systemui:bool/enable_ticker", null, null));
-        mTicker.setChecked(Settings.CMREMIX.getInt(getContentResolver(),
-                Settings.CMREMIX.STATUS_BAR_TICKER_ENABLED, tickerEnabled ? 1 : 0) == 1);
-        mTicker.setOnPreferenceChangeListener(this);
 
     }
 
     public boolean onPreferenceChange(Preference preference, Object newValue) {
-        if (preference == mTicker) {
-            Settings.CMREMIX.putInt(getContentResolver(),
-                    Settings.CMREMIX.STATUS_BAR_TICKER_ENABLED,
-                    (Boolean) newValue ? 1 : 0);
-            return true;
-        }
         return false;
     }
 
