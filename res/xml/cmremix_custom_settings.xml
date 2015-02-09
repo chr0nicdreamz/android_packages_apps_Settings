@@ -17,7 +17,15 @@
 <PreferenceScreen
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:title="@string/status_bar_title">
-    
+
+    <!-- Heads up notifications -->
+    <Preference
+         android:key="heads_up_enabled"
+         android:fragment="com.android.settings.cmremix.HeadsUpSettings"
+         android:title="@string/category_heads_up" 
+         android:icon="@drawable/ic_settings_viper" 
+         />
+
     <!-- app circle sidebar -->
     <PreferenceScreen
          android:id="@+id/app_circle_sidebar"
@@ -56,7 +64,7 @@
         android:key="hfm_settings"
         android:title="@string/hfm_pref_screen_title"
         android:fragment="com.android.settings.cmremix.hfm.HfmSettings"
-        android:icon="@drawable/ic_settings_viper"
+        android:icon="@drawable/ic_settings_applications"
         />
 
 </PreferenceScreen>
