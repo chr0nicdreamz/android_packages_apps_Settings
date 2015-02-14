@@ -37,7 +37,8 @@
     <PreferenceScreen
         android:fragment="com.android.settings.cmremix.BatterySettings"
         android:key="battery_settings"
-        android:title="@string/battery_settings_title" />
+        android:title="@string/battery_settings_title"
+        android:icon="@drawable/ic_settings_battery" />
 
     <!-- Status bar tweaks -->
     <PreferenceCategory
@@ -46,19 +47,22 @@
         <PreferenceScreen
             android:fragment="com.android.settings.cmremix.slim.StatusBarClockStyle"
             android:key="clock_style_pref"
-            android:title="@string/status_bar_clock" />
+            android:title="@string/status_bar_clock"
+            android:icon="@drawable/ic_statusbarclock" />
 
     <PreferenceScreen
             android:key="network_traffic_state"
             android:fragment="com.android.settings.cmremix.NetworkTraffic"
 	    android:summary="@string/network_traffic_summary"
-	    android:title="@string/network_traffic_title" />
+	    android:title="@string/network_traffic_title"
+            android:icon="@drawable/ic_traffic" />
 
      <com.android.settings.cyanogenmod.SystemSettingSwitchPreference
             android:key="show_su_indicator"
             android:title="@string/su_indicator"
             android:summary="@string/su_indicator_summary"
-            android:defaultValue="true" />
+            android:defaultValue="true"
+            android:icon="@drawable/ic_settings_supersu" />
 
     </PreferenceCategory>
 

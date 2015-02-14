@@ -40,7 +40,7 @@
         android:key="recents_panel"
         android:fragment="com.android.settings.cmremix.RecentsPanelSettings"
         android:title="@string/recents_panel_title"
-        android:icon="@drawable/ic_settings_advanced"
+        android:icon="@drawable/ic_recents"
         />
 
     <!-- Lockscreen misc -->
@@ -48,7 +48,7 @@
         android:key="lock_cmremix"
         android:title="@string/cmremix_lock_title"
         android:fragment="com.android.settings.cmremix.LockMisc"
-        android:icon="@drawable/ic_settings_security" 
+        android:icon="@drawable/ic_lockscreentargets" 
         />
 
     <!-- Display and Animations -->
@@ -72,7 +72,7 @@
         android:id="@+id/cmremix_custom_settings"
         android:title="@string/cmremix_custom_title"
         android:fragment="com.android.settings.cmremix.CustomSettings"
-        android:icon="@drawable/ic_settings_system"
+        android:icon="@drawable/ic_misctweaks"
         />
 
         <!-- Change Log -->
