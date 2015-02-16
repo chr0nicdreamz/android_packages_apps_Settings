@@ -29,6 +29,12 @@
          android:title="@string/display_settings_title"
          android:icon="@drawable/ic_density" />
 
+	<!-- Custom bootanim -->
+	<Preference
+		android:key="custom_bootanimation"
+		android:title="@string/custom_bootanimation_title"
+		android:summary="@string/custom_bootanimation_summary" />
+
         <ListPreference
                 android:key="toast_animation"
                 android:title="@string/toast_animation_title"
