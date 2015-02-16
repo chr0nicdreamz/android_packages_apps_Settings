@@ -164,8 +164,8 @@ public class ButtonSettings extends SettingsPreferenceFragment implements
         // Enable/disable navigation bar
         boolean hasNavBarByDefault = getResources().getBoolean(
                 com.android.internal.R.bool.config_showNavigationBar);
-        boolean enableNavigationBar = Settings.CMREMIX.getInt(getContentResolver(),
-                Settings.CMREMIX.NAVIGATION_BAR_SHOW, hasNavBarByDefault ? 1 : 0) == 1;
+        boolean enableNavigationBar = Settings.System.getInt(getContentResolver(),
+                Settings.System.NAVIGATION_BAR_SHOW, hasNavBarByDefault ? 1 : 0) == 1;
         mEnableNavigationBar = (SwitchPreference) prefScreen.findPreference(KEY_ENABLE_NAVIGATION_BAR);
         mEnableNavigationBar.setChecked(enableNavigationBar);
         mEnableNavigationBar.setOnPreferenceChangeListener(this);
@@ -173,8 +173,8 @@ public class ButtonSettings extends SettingsPreferenceFragment implements
         // Navigation bar button color
         mNavbarButtonTint = (ColorPickerPreference) findPreference(NAVIGATION_BAR_TINT);
         mNavbarButtonTint.setOnPreferenceChangeListener(this);
-        int intColor = Settings.CMREMIX.getInt(getActivity().getContentResolver(),
-                Settings.CMREMIX.NAVIGATION_BAR_TINT, 0xffffffff);
+        int intColor = Settings.System.getInt(getActivity().getContentResolver(),
+                Settings.System.NAVIGATION_BAR_TINT, 0xffffffff);
         String hexColor = String.format("#%08x", (0xffffffff & intColor));
         mNavbarButtonTint.setSummary(hexColor);
         mNavbarButtonTint.setNewPreviewColor(intColor);
@@ -186,8 +186,8 @@ public class ButtonSettings extends SettingsPreferenceFragment implements
         mOverflowButtonMode.setOnPreferenceChangeListener(this);
 
         // Enable/disable hw keys
-        boolean enableHwKeys = Settings.CMREMIX.getInt(getContentResolver(),
-                Settings.CMREMIX.ENABLE_HW_KEYS, 1) == 1;
+        boolean enableHwKeys = Settings.System.getInt(getContentResolver(),
+                Settings.System.ENABLE_HW_KEYS, 1) == 1;
         mEnableHwKeys = (SwitchPreference) findPreference(KEY_ENABLE_HW_KEYS);
         mEnableHwKeys.setChecked(enableHwKeys);
         mEnableHwKeys.setOnPreferenceChangeListener(this);
@@ -450,8 +450,8 @@ public class ButtonSettings extends SettingsPreferenceFragment implements
     }
 
     private void updateNavBarSettings() {
-        boolean enableNavigationBar = Settings.CMREMIX.getInt(getContentResolver(),
-                Settings.CMREMIX.NAVIGATION_BAR_SHOW,
+        boolean enableNavigationBar = Settings.System.getInt(getContentResolver(),
+                Settings.System.NAVIGATION_BAR_SHOW,
                 CrUtils.isNavBarDefault(getActivity()) ? 1 : 0) == 1;
         mEnableNavigationBar.setChecked(enableNavigationBar);
 
@@ -470,8 +470,8 @@ public class ButtonSettings extends SettingsPreferenceFragment implements
     public boolean onPreferenceChange(Preference preference, Object newValue) {
         if (preference == mEnableNavigationBar) {
             mEnableNavigationBar.setEnabled(true);
-            Settings.CMREMIX.putInt(getActivity().getContentResolver(),
-                    Settings.CMREMIX.NAVIGATION_BAR_SHOW,
+            Settings.System.putInt(getActivity().getContentResolver(),
+                    Settings.System.NAVIGATION_BAR_SHOW,
                         ((Boolean) newValue) ? 1 : 0);
             // Enable overflow button
             Settings.System.putInt(getContentResolver(), Settings.System.UI_OVERFLOW_BUTTON, 2);
@@ -481,8 +481,8 @@ public class ButtonSettings extends SettingsPreferenceFragment implements
             return true;
         } else if (preference == mEnableHwKeys) {
             boolean hWkeysValue = (Boolean) newValue;
-            Settings.CMREMIX.putInt(getActivity().getApplicationContext().getContentResolver(),
-                    Settings.CMREMIX.ENABLE_HW_KEYS, hWkeysValue ? 1 : 0);
+            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
+                    Settings.System.ENABLE_HW_KEYS, hWkeysValue ? 1 : 0);
             writeDisableHwKeysOption(getActivity(), hWkeysValue);
             updateDisableHwKeysOption();
             return true;
@@ -534,8 +534,8 @@ public class ButtonSettings extends SettingsPreferenceFragment implements
                     Integer.valueOf(String.valueOf(newValue)));
             preference.setSummary(hex);
             int intHex = ColorPickerPreference.convertToColorInt(hex);
-            Settings.CMREMIX.putInt(getActivity().getContentResolver(),
-                    Settings.CMREMIX.NAVIGATION_BAR_TINT, intHex);
+            Settings.System.putInt(getActivity().getContentResolver(),
+                    Settings.System.NAVIGATION_BAR_TINT, intHex);
             return true;
 	   } else if (preference == mVolumeAnswerCall) {
 	    boolean value = (Boolean) newValue;
@@ -569,8 +569,8 @@ public class ButtonSettings extends SettingsPreferenceFragment implements
         final int defaultBrightness = context.getResources().getInteger(
                 com.android.internal.R.integer.config_buttonBrightnessSettingDefault);
 
-        Settings.CMREMIX.putInt(context.getContentResolver(),
-                Settings.CMREMIX.ENABLE_HW_KEYS, enabled ? 1 : 0);
+        Settings.System.putInt(context.getContentResolver(),
+                Settings.System.ENABLE_HW_KEYS, enabled ? 1 : 0);
 
         if (isKeyDisablerSupported()) {
             KeyDisabler.setActive(!enabled);
@@ -599,8 +599,8 @@ public class ButtonSettings extends SettingsPreferenceFragment implements
     }
 
     private void updateDisableHwKeysOption() {
-        boolean enabled = Settings.CMREMIX.getInt(getActivity().getContentResolver(),
-                Settings.CMREMIX.ENABLE_HW_KEYS, 1) == 1;
+        boolean enabled = Settings.System.getInt(getActivity().getContentResolver(),
+                Settings.System.ENABLE_HW_KEYS, 1) == 1;
 
         mEnableHwKeys.setChecked(enabled);
 
@@ -648,8 +648,8 @@ public class ButtonSettings extends SettingsPreferenceFragment implements
             return;
         }
 
-        writeDisableHwKeysOption(context, Settings.CMREMIX.getInt(context.getContentResolver(),
-                Settings.CMREMIX.ENABLE_HW_KEYS, 1) == 1);
+        writeDisableHwKeysOption(context, Settings.System.getInt(context.getContentResolver(),
+                Settings.System.ENABLE_HW_KEYS, 1) == 1);
     }
 
     private static boolean isKeyDisablerSupported() {
