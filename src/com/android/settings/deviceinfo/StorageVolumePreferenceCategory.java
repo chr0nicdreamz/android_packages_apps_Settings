@@ -205,6 +205,7 @@ public class StorageVolumePreferenceCategory extends PreferenceCategory implemen
         }
 
         final boolean isRemovable = mVolume != null ? mVolume.isRemovable() : false;
+        boolean isAccessible = true;
         // Always create the preference since many code rely on it existing
         mMountTogglePreference = new Preference(context);
         mMountNotification = new CheckBoxPreference(context);
@@ -228,12 +229,16 @@ public class StorageVolumePreferenceCategory extends PreferenceCategory implemen
             } else {
                 titleResId = R.string.sd_eject;
                 summaryResId = R.string.sd_eject_summary;
+                isAccessible = mResources.getBoolean(
+                        com.android.internal.R.bool.config_batterySdCardAccessibility);
             }
 
             mMountTogglePreference.setTitle(titleResId);
             mMountTogglePreference.setSummary(summaryResId);
 
-            addPreference(mMountTogglePreference);
+            if (isAccessible) {
+                addPreference(mMountTogglePreference);
+            }
 
             mMountNotification.setTitle(R.string.mount_notification_title);
             mMountNotification.setSummary(R.string.mount_notification_summary);
