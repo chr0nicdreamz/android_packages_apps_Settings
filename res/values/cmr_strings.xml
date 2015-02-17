@@ -50,6 +50,10 @@
          <!-- CM-Remix Custom Interface Settings -->
     <string name="interface_settings_title">cmRemiX Settings</string>
 
+    <!-- cmRemiX Updater -->
+    <string name="cmremixupdate_settings_title">cmRemiX updates</string>
+    <string name="cmremixupdate_settings_summary">Download latest available build of cmRemiX Rom for your device</string>
+
     <!-- Settings main menu category heading. Rom (Launcher, Themes, System). [CHAR LIMIT=40] -->
     <string name="header_category_rom_settings">Advanced settings</string>
 

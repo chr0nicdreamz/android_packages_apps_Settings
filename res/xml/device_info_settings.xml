@@ -38,13 +38,14 @@
                     android:targetClass="@string/additional_system_update_menu" />
         </PreferenceScreen>
 
-        <!-- CyanogenMod Updates -->
-        <PreferenceScreen android:key="cm_updates"
-                android:title="@string/cmupdate_settings_title"
-                android:summary="@string/system_update_settings_list_item_summary">
+        <!-- cmRemiX Updates -->
+        <PreferenceScreen android:key="cmremix_updates"
+                android:title="@string/cmremixupdate_settings_title"
+                android:icon="@drawable/ic_download"
+                android:summary="@string/cmremixupdate_settings_summary">
             <intent android:action="android.intent.action.MAIN"
-                    android:targetPackage="com.cyanogenmod.updater"
-                    android:targetClass="com.cyanogenmod.updater.UpdatesSettings" />
+                    android:targetPackage="com.cmremix.updater"
+                    android:targetClass="com.cmremix.updater.UpdatesSettings" />
         </PreferenceScreen>
 
         <!-- Device status - launches activity -->
