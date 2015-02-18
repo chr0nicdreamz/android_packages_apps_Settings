@@ -65,12 +65,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.android.settings.cyanogenmod.DisplayRotation;
-import com.android.settings.livedisplay.DisplayColor;
-import com.android.settings.livedisplay.DisplayGamma;
 
-import org.cyanogenmod.hardware.AdaptiveBacklight;
-import org.cyanogenmod.hardware.ColorEnhancement;
-import org.cyanogenmod.hardware.SunlightEnhancement;
 import org.cyanogenmod.hardware.TapToWake;
 import org.cyanogenmod.hardware.SweepToWake;
 import org.cyanogenmod.hardware.SweepToSleep;
@@ -111,7 +106,6 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
 
     private FontDialogPreference mFontSizePref;
     private PreferenceScreen mDisplayRotationPreference;
-    private PreferenceScreen mScreenColorSettings;
 
     private final Configuration mCurConfig = new Configuration();
 
@@ -124,15 +118,10 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
     private SwitchPreference mWakeWhenPluggedOrUnplugged;
     private PreferenceScreen mDozeFragment;
 
-    private SwitchPreference mAdaptiveBacklight;
-    private SwitchPreference mSunlightEnhancement;
-    private SwitchPreference mColorEnhancement;
     private EditTextPreference mDisplayDensity;
     private SwitchPreference mSweepToWake;
     private SwitchPreference mSweepToSleep;
     private PreferenceScreen mWakeGestures;
-
-    private ListPreference mLiveDisplay;
 
     private TwoStatePreference mNotificationPulse;
 

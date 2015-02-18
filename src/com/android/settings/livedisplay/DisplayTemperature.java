@@ -31,7 +31,6 @@ import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-import com.android.settings.IntervalSeekBar;
 import com.android.settings.R;
 
 /**
@@ -45,20 +44,20 @@ public class DisplayTemperature extends DialogPreference {
     private ColorTemperatureSeekBar mDayTemperature;
     private ColorTemperatureSeekBar mNightTemperature;
 
-    private float mOriginalDayTemperature;
-    private float mOriginalNightTemperature;
+    private int mOriginalDayTemperature;
+    private int mOriginalNightTemperature;
 
-    private final float mDefaultDayTemperature;
-    private final float mDefaultNightTemperature;
+    private final int mDefaultDayTemperature;
+    private final int mDefaultNightTemperature;
 
     public DisplayTemperature(Context context, AttributeSet attrs) {
         super(context, attrs);
         mContext = context;
 
-        mDefaultDayTemperature = Float.valueOf(mContext.getResources().getString(
-                com.android.internal.R.string.config_dayColorTemperature));
-        mDefaultNightTemperature = Float.valueOf(mContext.getResources().getString(
-                com.android.internal.R.string.config_nightColorTemperature));
+        mDefaultDayTemperature = mContext.getResources().getInteger(
+                com.android.internal.R.integer.config_dayColorTemperature);
+        mDefaultNightTemperature = mContext.getResources().getInteger(
+                com.android.internal.R.integer.config_nightColorTemperature);
 
         setDialogLayoutResource(R.layout.display_temperature);
     }
@@ -77,25 +76,25 @@ public class DisplayTemperature extends DialogPreference {
     protected void onBindDialogView(View view) {
         super.onBindDialogView(view);
 
-        mOriginalDayTemperature = Settings.System.getFloatForUser(mContext.getContentResolver(),
+        mOriginalDayTemperature = Settings.System.getIntForUser(mContext.getContentResolver(),
                 Settings.System.DISPLAY_TEMPERATURE_DAY,
                 mDefaultDayTemperature,
                 UserHandle.USER_CURRENT);
-        mOriginalNightTemperature = Settings.System.getFloatForUser(mContext.getContentResolver(),
+        mOriginalNightTemperature = Settings.System.getIntForUser(mContext.getContentResolver(),
                 Settings.System.DISPLAY_TEMPERATURE_NIGHT,
                 mDefaultNightTemperature,
                 UserHandle.USER_CURRENT);
 
-        IntervalSeekBar day = (IntervalSeekBar) view.findViewById(R.id.day_temperature_seekbar);
+        SeekBar day = (SeekBar) view.findViewById(R.id.day_temperature_seekbar);
         TextView dayText = (TextView) view.findViewById(R.id.day_temperature_value);
         mDayTemperature = new ColorTemperatureSeekBar(day, dayText);
 
-        IntervalSeekBar night = (IntervalSeekBar) view.findViewById(R.id.night_temperature_seekbar);
+        SeekBar night = (SeekBar) view.findViewById(R.id.night_temperature_seekbar);
         TextView nightText = (TextView) view.findViewById(R.id.night_temperature_value);
         mNightTemperature = new ColorTemperatureSeekBar(night, nightText);
 
-        mDayTemperature.setProgressFloat(mOriginalDayTemperature);
-        mNightTemperature.setProgressFloat(mOriginalNightTemperature);
+        mDayTemperature.setProgress(mOriginalDayTemperature);
+        mNightTemperature.setProgress(mOriginalNightTemperature);
     }
 
     @Override
@@ -109,8 +108,8 @@ public class DisplayTemperature extends DialogPreference {
         defaultsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mDayTemperature.setProgressFloat(mDefaultDayTemperature);
-                mNightTemperature.setProgressFloat(mDefaultNightTemperature);
+                mDayTemperature.setProgress(mDefaultDayTemperature);
+                mNightTemperature.setProgress(mDefaultNightTemperature);
                 updateTemperature(true);
             }
         });
@@ -133,8 +132,8 @@ public class DisplayTemperature extends DialogPreference {
         final SavedState myState = new SavedState(superState);
         myState.originalDayTemperature = mOriginalDayTemperature;
         myState.originalNightTemperature = mOriginalNightTemperature;
-        myState.currentDayTemperature = mDayTemperature.getProgressFloat();
-        myState.currentNightTemperature = mNightTemperature.getProgressFloat();
+        myState.currentDayTemperature = mDayTemperature.getProgress();
+        myState.currentNightTemperature = mNightTemperature.getProgress();
 
         // Restore the old state when the activity or dialog is being paused
         updateTemperature(false);
@@ -152,20 +151,20 @@ public class DisplayTemperature extends DialogPreference {
 
         SavedState myState = (SavedState) state;
         super.onRestoreInstanceState(myState.getSuperState());
- 
+
         mOriginalDayTemperature = myState.originalDayTemperature;
         mOriginalNightTemperature = myState.originalNightTemperature;
-        mDayTemperature.setProgressFloat(myState.currentDayTemperature);
-        mNightTemperature.setProgressFloat(myState.currentNightTemperature);;
+        mDayTemperature.setProgress(myState.currentDayTemperature);
+        mNightTemperature.setProgress(myState.currentNightTemperature);;
 
         updateTemperature(true);
     }
 
     private static class SavedState extends BaseSavedState {
-        float originalDayTemperature;
-        float originalNightTemperature;
-        float currentDayTemperature;
-        float currentNightTemperature;
+        int originalDayTemperature;
+        int originalNightTemperature;
+        int currentDayTemperature;
+        int currentNightTemperature;
 
         public SavedState(Parcelable superState) {
             super(superState);
@@ -173,19 +172,19 @@ public class DisplayTemperature extends DialogPreference {
 
         public SavedState(Parcel source) {
             super(source);
-            originalDayTemperature = source.readFloat();
-            originalNightTemperature = source.readFloat();
-            currentDayTemperature = source.readFloat();
-            currentNightTemperature = source.readFloat();
+            originalDayTemperature = source.readInt();
+            originalNightTemperature = source.readInt();
+            currentDayTemperature = source.readInt();
+            currentNightTemperature = source.readInt();
         }
 
         @Override
         public void writeToParcel(Parcel dest, int flags) {
             super.writeToParcel(dest, flags);
-            dest.writeFloat(originalDayTemperature);
-            dest.writeFloat(originalNightTemperature);
-            dest.writeFloat(currentDayTemperature);
-            dest.writeFloat(currentNightTemperature);
+            dest.writeInt(originalDayTemperature);
+            dest.writeInt(originalNightTemperature);
+            dest.writeInt(currentDayTemperature);
+            dest.writeInt(currentNightTemperature);
         }
 
         public static final Parcelable.Creator<SavedState> CREATOR =
@@ -202,48 +201,52 @@ public class DisplayTemperature extends DialogPreference {
     }
 
     private void updateTemperature(boolean accept) {
-        float day = accept ? mDayTemperature.getProgressFloat() : mOriginalDayTemperature;
-        float night = accept ? mNightTemperature.getProgressFloat() : mOriginalNightTemperature;
-        callChangeListener(new Float[] { day, night });
+        int day = accept ? mDayTemperature.getProgress() : mOriginalDayTemperature;
+        int night = accept ? mNightTemperature.getProgress() : mOriginalNightTemperature;
+        callChangeListener(new Integer[] { day, night });
 
-        Settings.System.putFloatForUser(mContext.getContentResolver(),
+        Settings.System.putIntForUser(mContext.getContentResolver(),
                 Settings.System.DISPLAY_TEMPERATURE_DAY, day,
                 UserHandle.USER_CURRENT);
 
-        Settings.System.putFloatForUser(mContext.getContentResolver(),
+        Settings.System.putIntForUser(mContext.getContentResolver(),
                 Settings.System.DISPLAY_TEMPERATURE_NIGHT, night,
                 UserHandle.USER_CURRENT);
     }
 
     private class ColorTemperatureSeekBar implements SeekBar.OnSeekBarChangeListener {
-        private final IntervalSeekBar mSeekBar;
+        private final SeekBar mSeekBar;
         private final TextView mValue;
 
-        public ColorTemperatureSeekBar(IntervalSeekBar seekBar, TextView value) {
+        private static final int MIN = 1000;
+        private static final int MAX = 10000;
+
+        public ColorTemperatureSeekBar(SeekBar seekBar, TextView value) {
             mSeekBar = seekBar;
             mValue = value;
 
+            mSeekBar.setMax(MAX - MIN);
             mSeekBar.setOnSeekBarChangeListener(this);
         }
 
         @Override
         public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-            IntervalSeekBar isb = (IntervalSeekBar)seekBar;
-            float fp = isb.getProgressFloat();
             if (fromUser) {
                 updateTemperature(true);
             }
-            mValue.setText(String.format("%dK", (int)fp));
+            mValue.setText(mContext.getResources().getString(
+                    R.string.live_display_color_temperature_label, progress + MIN));
         }
 
-        public float getProgressFloat() {
-            return mSeekBar.getProgressFloat();
+        public void setProgress(int progress) {
+            int p = progress < MIN ? MIN : progress;
+            mSeekBar.setProgress(p - MIN);
         }
 
-        public void setProgressFloat(float progress) {
-            mSeekBar.setProgressFloat(progress);
+        public int getProgress() {
+            return mSeekBar.getProgress() + MIN;
         }
- 
+
         @Override
         public void onStartTrackingTouch(SeekBar seekBar) {
             // Do nothing here

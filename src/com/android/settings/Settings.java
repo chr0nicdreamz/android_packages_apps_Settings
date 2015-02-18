@@ -113,3 +113,4 @@ public class Settings extends SettingsActivity {
     public static class LiveDisplayActivity extends SettingsActivity { /* empty */ }
     public static class ASSRamBarActivity extends Settings { /* empty */ }
 }
+
