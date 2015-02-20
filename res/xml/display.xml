@@ -69,15 +69,6 @@
                 android:summary="@string/double_tap_to_sleep_summary"
                 android:defaultValue="true" />
 
-       <!-- S2W and S2S  -->
-       <SwitchPreference
-               android:key="sweep_wake_gesture"
-               android:title="@string/sweep_to_wake_title" />
-
-       <SwitchPreference
-               android:key="sweep_sleep_gesture"
-               android:title="@string/sweep_to_sleep_title" />
-
         <!-- Seconds before sleep -->
         <ListPreference
                 android:key="screen_timeout"

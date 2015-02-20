@@ -294,12 +294,6 @@
     <string name="proximity_wake_title">Prevent accidental wake-up</string>
     <string name="proximity_wake_summary">Check the proximity sensor prior to waking up screen</string>
 
-    <!--- Sweep To Wake -->
-    <string name="sweep_to_wake_title">Sweep to wake</string>
-
-    <!--- Sweep To Sleep -->
-    <string name="sweep_to_sleep_title">Sweep to sleep</string>
-
     <!-- Privacy Settings Header item -->
     <string name="privacy_settings_cyanogenmod_title">Privacy</string>
 
