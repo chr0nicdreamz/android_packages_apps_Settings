@@ -203,18 +203,24 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
         mDisplayDensity.setText(SystemProperties.get(PROP_DISPLAY_DENSITY, "0"));
         mDisplayDensity.setOnPreferenceChangeListener(this);
 
-        if (isAutomaticBrightnessAvailable(getResources())) {
-            mAutoBrightnessPreference = (SwitchPreference) findPreference(KEY_AUTO_BRIGHTNESS);
+        mAutoBrightnessPreference = (SwitchPreference) findPreference(KEY_AUTO_BRIGHTNESS);
+        if (mAutoBrightnessPreference != null && isAutomaticBrightnessAvailable(getResources())) {
             mAutoBrightnessPreference.setOnPreferenceChangeListener(this);
         } else {
-            removePreference(KEY_AUTO_BRIGHTNESS);
+            if (displayPrefs != null && mAutoBrightnessPreference != null) {
+                displayPrefs.removePreference(mAutoBrightnessPreference);
+                mAutoBrightnessPreference = null;
+            }
         }
 
-        if (isLiftToWakeAvailable(activity)) {
-            mLiftToWakePreference = (SwitchPreference) findPreference(KEY_LIFT_TO_WAKE);
+        mLiftToWakePreference = (SwitchPreference) findPreference(KEY_LIFT_TO_WAKE);
+        if (mLiftToWakePreference != null && isLiftToWakeAvailable(activity)) {
             mLiftToWakePreference.setOnPreferenceChangeListener(this);
         } else {
-            removePreference(KEY_LIFT_TO_WAKE);
+            if (displayPrefs != null && mLiftToWakePreference != null) {
+                displayPrefs.removePreference(mLiftToWakePreference);
+                mLiftToWakePreference = null;
+            }
         }
 
         mAdaptiveBacklight = (SwitchPreference) findPreference(KEY_ADAPTIVE_BACKLIGHT);
