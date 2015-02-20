@@ -25,6 +25,7 @@
         android:title="@string/status_bar_title"
         android:fragment="com.android.settings.cyanogenmod.StatusBarSettings"
         android:icon="@drawable/ic_settings_extdesk_hidenavbar"
+        settings:advanced="true"
         />
 
     <!-- Notification drawer -->
@@ -33,6 +34,7 @@
         android:title="@string/notification_drawer_title"
         android:fragment="com.android.settings.cyanogenmod.NotificationDrawerSettings"
         android:icon="@drawable/ic_settings_notification_drawer"
+        settings:advanced="true"
         />
 
     <!-- Recent panel settings -->
@@ -66,6 +68,13 @@
         android:fragment="com.android.settings.ButtonSettings"
         android:icon="@drawable/ic_settings_buttons"
         />
+
+        <!-- Advanced options -->
+        <PreferenceScreen
+                android:key="advanced_sound_settings"
+                android:title="@string/advanced_sound_title"
+                android:persistent="false"
+                android:fragment="com.android.settings.cmremix.SoundSettings" />
 
         <!-- cmRemiX Custom Settings -->
     <PreferenceScreen
