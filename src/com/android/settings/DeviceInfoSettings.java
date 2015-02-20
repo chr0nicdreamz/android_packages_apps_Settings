@@ -44,6 +44,7 @@ import android.text.TextUtils;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.widget.Toast;
+import com.android.settings.cyanogenmod.SecureSettingSwitchPreference;
 import com.android.settings.search.BaseSearchIndexProvider;
 import com.android.settings.search.Index;
 import com.android.settings.search.Indexable;
@@ -102,10 +103,9 @@ public class DeviceInfoSettings extends SettingsPreferenceFragment implements In
     private static final String KEY_SM_KERNEL = "sm_kernel";
     private static final String KEY_SM_FLAGS = "sm_flags";
 
-    public static final String PREFS_FILE = "device";
     public static final String KEY_ADVANCED_MODE = "advanced_mode";
 
-    SwitchPreference mAdvancedSettings;
+    SecureSettingSwitchPreference mAdvancedSettings;
 
     long[] mHits = new long[3];
 
@@ -245,7 +245,7 @@ public class DeviceInfoSettings extends SettingsPreferenceFragment implements In
                 getPreferenceScreen().removePreference(pref);
             }
         }
-        mAdvancedSettings = (SwitchPreference) findPreference(KEY_ADVANCED_MODE);
+        mAdvancedSettings = (SecureSettingSwitchPreference) findPreference(KEY_ADVANCED_MODE);
 
         // Remove CM Changelog, Contributors and Stats
         removePreference(KEY_MOD_VERSION);
@@ -290,12 +290,6 @@ public class DeviceInfoSettings extends SettingsPreferenceFragment implements In
                     Log.e(LOG_TAG, "Unable to start activity " + intent.toString());
                 }
             }
-        } else if (preference.getKey().equals(KEY_ADVANCED_MODE)) {
-            final boolean isEnabled = mAdvancedSettings.isChecked();
-            getActivity().getSharedPreferences(PREFS_FILE, 0)
-                    .edit()
-                    .putBoolean(KEY_ADVANCED_MODE, isEnabled)
-                    .apply();
         }
         return super.onPreferenceTreeClick(preferenceScreen, preference);
     }
