@@ -114,7 +114,7 @@
     <string name="help">Help</string>
     <string name="dialog_restart">Restart</string>
     <string name="dialog_cancel">Cancel</string>
-
+    <string name="general_category">General</string>
 
     <!-- Color Picker -->
     <string name="dialog_color_picker">Color Picker</string>

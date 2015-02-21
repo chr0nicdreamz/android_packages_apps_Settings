@@ -69,13 +69,6 @@
         android:icon="@drawable/ic_settings_buttons"
         />
 
-        <!-- Advanced options -->
-        <PreferenceScreen
-                android:key="advanced_sound_settings"
-                android:title="@string/advanced_sound_title"
-                android:persistent="false"
-                android:fragment="com.android.settings.cmremix.SoundSettings" />
-
         <!-- cmRemiX Custom Settings -->
     <PreferenceScreen
         android:id="@+id/cmremix_custom_settings"
