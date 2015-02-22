@@ -24,7 +24,7 @@
 
     <!-- Display -->
     <PreferenceScreen
-         android:key="display_settings"
+         android:key="display_density"
          android:fragment="com.android.settings.cmremix.DisplaySettings"
          android:title="@string/display_settings_title"
          android:icon="@drawable/ic_density" />

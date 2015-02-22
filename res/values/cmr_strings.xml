@@ -58,6 +58,8 @@
     <string name="header_category_rom_settings">Advanced settings</string>
 
     <!-- Brightness adjust -->
+    <string name="auto_brightness_reset_button">Reset</string>
+    <string name="settings_reset_button">Reset</string>
     <string name="status_bar_toggle_brightness">Brightness control</string>
     <string name="status_bar_toggle_brightness_summary">Adjust brightness by sliding across the status bar</string>
 
