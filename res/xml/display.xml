@@ -79,6 +79,11 @@
                android:title="@string/sweep_to_sleep_title"
                android:summary="@string/sweep_to_sleep_summary" />
 
+    <PreferenceScreen
+              android:key="wake_gestures"
+              android:title="@string/wake_gestures_title"
+              android:fragment="com.android.settings.cmremix.WakeGestures" />
+
         <!-- Seconds before sleep -->
         <ListPreference
                 android:key="screen_timeout"
