@@ -71,6 +71,8 @@ import org.cyanogenmod.hardware.AdaptiveBacklight;
 import org.cyanogenmod.hardware.ColorEnhancement;
 import org.cyanogenmod.hardware.SunlightEnhancement;
 import org.cyanogenmod.hardware.TapToWake;
+import org.cyanogenmod.hardware.SweepToWake;
+import org.cyanogenmod.hardware.SweepToSleep;
 
 public class DisplaySettings extends SettingsPreferenceFragment implements
         Preference.OnPreferenceChangeListener, OnPreferenceClickListener, Indexable {
@@ -98,6 +100,8 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
     private static final String KEY_DISPLAY_ROTATION = "display_rotation";
     private static final String KEY_WAKE_WHEN_PLUGGED_OR_UNPLUGGED = "wake_when_plugged_or_unplugged";
     private static final String KEY_DISPLAY_DENSITY = "display_density";
+    private static final String KEY_SWEEP_TO_WAKE = "sweep_wake_gesture";
+    private static final String KEY_SWEEP_TO_SLEEP = "sweep_sleep_gesture";
 
     private static final String KEY_NOTIFICATION_LIGHT = "notification_light";
     private static final String KEY_BATTERY_LIGHT = "battery_light";
@@ -129,6 +133,8 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
     private SwitchPreference mSunlightEnhancement;
     private SwitchPreference mColorEnhancement;
     private EditTextPreference mDisplayDensity;
+    private SwitchPreference mSweepToWake;
+    private SwitchPreference mSweepToSleep;
 
     private TwoStatePreference mNotificationPulse;
 
@@ -250,6 +256,18 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
         if (displayPrefs != null && !isTapToWakeSupported()) {
             displayPrefs.removePreference(mTapToWake);
             mTapToWake = null;
+        }
+
+        mSweepToWake = (SwitchPreference) findPreference(KEY_SWEEP_TO_WAKE);
+        if (!isSweepToWakeSupported()) {
+            advancedPrefs.removePreference(mSweepToWake);
+            mSweepToWake = null;
+        }
+
+        mSweepToSleep = (SwitchPreference) findPreference(KEY_SWEEP_TO_SLEEP);
+        if (!isSweepToSleepSupported()) {
+            advancedPrefs.removePreference(mSweepToSleep);
+            mSweepToSleep = null;
         }
 
         boolean proximityCheckOnWake = getResources().getBoolean(
@@ -444,6 +462,14 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
             mTapToWake.setChecked(TapToWake.isEnabled());
         }
 
+        if (mSweepToWake != null) {
+            mSweepToWake.setChecked(SweepToWake.isEnabled());
+        }
+
+        if (mSweepToSleep != null) {
+            mSweepToSleep.setChecked(SweepToSleep.isEnabled());
+        }
+
         RotationPolicy.registerRotationPolicyListener(getActivity(),
                 mRotationPolicyListener);
 
@@ -531,6 +557,24 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
         }
     }
 
+    private static boolean isSweepToWakeSupported() {
+        try {
+            return SweepToWake.isSupported();
+        } catch (NoClassDefFoundError e) {
+            // Hardware abstraction framework not installed
+            return false;
+        }
+    }
+
+    private static boolean isSweepToSleepSupported() {
+        try {
+            return SweepToSleep.isSupported();
+        } catch (NoClassDefFoundError e) {
+            // Hardware abstraction framework not installed
+            return false;
+        }
+     }
+
     // === Pulse notification light ===
 
     private void initPulse(PreferenceCategory parent) {
@@ -577,6 +621,10 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
         if (preference == mTapToWake) {
             return TapToWake.setEnabled(mTapToWake.isChecked());
+        } else if (preference == mSweepToWake) {
+            return SweepToWake.setEnabled(mSweepToWake.isChecked());
+        } else if (preference == mSweepToSleep) {
+            return SweepToSleep.setEnabled(mSweepToSleep.isChecked());
         } else if (preference == mAdaptiveBacklight) {
             if (mSunlightEnhancement != null &&
                     SunlightEnhancement.isAdaptiveBacklightRequired()) {
@@ -682,6 +730,28 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
                 Log.e(TAG, "Failed to restore tap-to-wake settings.");
             } else {
                 Log.d(TAG, "Tap-to-wake settings restored.");
+            }
+        }
+
+        if (isSweepToWakeSupported()) {
+            final boolean enabled = prefs.getBoolean(KEY_SWEEP_TO_WAKE,
+                SweepToWake.isEnabled());
+
+            if (!SweepToWake.setEnabled(enabled)) {
+                Log.e(TAG, "Failed to restore sweep-to-wake settings.");
+            } else {
+                Log.d(TAG, "Sweep-to-wake settings restored.");
+            }
+        }
+
+        if (isSweepToSleepSupported()) {
+            final boolean enabled = prefs.getBoolean(KEY_SWEEP_TO_SLEEP,
+                SweepToSleep.isEnabled());
+
+            if (!SweepToSleep.setEnabled(enabled)) {
+                Log.e(TAG, "Failed to restore sweep-to-sleep settings.");
+            } else {
+                Log.d(TAG, "Sweep-to-sleep settings restored.");
             }
         }
 
