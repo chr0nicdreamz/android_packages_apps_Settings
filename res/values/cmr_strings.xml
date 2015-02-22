@@ -997,4 +997,7 @@
     <string name="sweep_up">Sweep up</string>
     <string name="sweep_down">Sweep down</string>
 
+    <!-- Vibrator gestures -->
+    <string name="vibrator_gestures_title">Gestures vibration intensity</string>
+
 </resources>
