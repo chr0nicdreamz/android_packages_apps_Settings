@@ -129,7 +129,7 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
     private SwitchPreference mAutoBrightnessPreference;
     private SwitchPreference mTapToWake;
     private SwitchPreference mWakeWhenPluggedOrUnplugged;
-    private PreferenceScreen mDozeFragement;
+    private PreferenceScreen mDozeFragment;
 
     private SwitchPreference mAdaptiveBacklight;
     private SwitchPreference mSunlightEnhancement;
@@ -256,9 +256,9 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
             }
         }
 
-        mDozeFragement = (PreferenceScreen) findPreference(KEY_DOZE_FRAGMENT);
+        mDozeFragment = (PreferenceScreen) findPreference(KEY_DOZE_FRAGMENT);
         if (!isDozeAvailable(activity)) {
-            getPreferenceScreen().removePreference(mDozeFragement);
+            getPreferenceScreen().removePreference(mDozeFragment);
         }
 
         mTapToWake = (SwitchPreference) findPreference(KEY_TAP_TO_WAKE);
