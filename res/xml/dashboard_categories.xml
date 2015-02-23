@@ -120,6 +120,18 @@
                 android:title="@string/interface_settings_title"
                 settings:advanced="true"
                 />
+
+        <!-- cmRemiX Center -->
+               <dashboard-tile
+               android:id="@+id/cmremix_center"
+               android:title="@string/cmremix_center_title"
+               android:icon="@drawable/ic_download">
+               <intent
+                   android:action="android.intent.action.MAIN"
+                   android:targetPackage="com.slim.ota"
+                   android:targetClass="com.slim.center.SlimCenter" />
+              </dashboard-tile>
+
     </dashboard-category>
 
     <!-- DEVICE -->

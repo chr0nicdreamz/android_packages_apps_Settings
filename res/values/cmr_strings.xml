@@ -49,6 +49,7 @@
 
          <!-- CM-Remix Custom Interface Settings -->
     <string name="interface_settings_title">cmRemiX Settings</string>
+    <string name="cmremix_center_title">cmRemiX Center</string>
 
     <!-- cmRemiX Updater -->
     <string name="cmremixupdate_settings_title">cmRemiX updates</string>
