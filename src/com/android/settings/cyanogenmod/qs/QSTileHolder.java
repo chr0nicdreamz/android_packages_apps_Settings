@@ -181,6 +181,10 @@ public class QSTileHolder {
                 resourceName = "ic_qs_reboot";
                 stringId = R.string.qs_tile_reboot;
                 break;
+	    case QSConstants.TILE_HEADS_UP:
+                resourceName = "ic_qs_heads_up_on";
+                stringId = R.string.qs_tile_headsup;
+                break;
             default:
                 return null;
         }

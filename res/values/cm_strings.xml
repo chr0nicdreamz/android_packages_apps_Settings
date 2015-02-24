@@ -1063,6 +1063,7 @@
     <string name="qs_notifications_tile">Notifications</string>
     <string name="qs_screen_off_tile">Screen off</string>
     <string name="qs_tile_reboot">Reboot</string>
+    <string name="qs_tile_headsup">Heads up</string>
 
     <!-- Gesture Settings -->
     <!-- Settings main menu entry -->
