@@ -53,11 +53,14 @@ public class StatusBarSettings extends SettingsPreferenceFragment
     private static final String SMS_BREATH = "sms_breath";
     private static final String MISSED_CALL_BREATH = "missed_call_breath";
     private static final String VOICEMAIL_BREATH = "voicemail_breath";
+    private static final String KEY_STATUS_BAR_NETWORK_ARROWS= "status_bar_show_network_activity";
+
 
     private PreferenceScreen mClockStyle;
     private SwitchPreference mSMSBreath;
     private SwitchPreference mMissedCallBreath;
     private SwitchPreference mVoicemailBreath;
+    private SwitchPreference mNetworkArrows;
 
     @Override
     public void onCreate(Bundle icicle) {
@@ -69,6 +72,15 @@ public class StatusBarSettings extends SettingsPreferenceFragment
 
         mClockStyle = (PreferenceScreen) prefSet.findPreference(KEY_STATUS_BAR_CLOCK);
         updateClockStyleDescription();
+
+        // Network arrows
+        mNetworkArrows = (SwitchPreference) prefSet.findPreference(KEY_STATUS_BAR_NETWORK_ARROWS);
+        mNetworkArrows.setChecked(Settings.CMREMIX.getInt(getActivity().getContentResolver(),
+            Settings.CMREMIX.STATUS_BAR_SHOW_NETWORK_ACTIVITY, 1) == 1);
+        mNetworkArrows.setOnPreferenceChangeListener(this);
+        int networkArrows = Settings.CMREMIX.getInt(getContentResolver(),
+                Settings.CMREMIX.STATUS_BAR_SHOW_NETWORK_ACTIVITY, 1);
+        updateNetworkArrowsSummary(networkArrows);
 
         mSMSBreath = (SwitchPreference) findPreference(SMS_BREATH);
         mMissedCallBreath = (SwitchPreference) findPreference(MISSED_CALL_BREATH);
@@ -104,6 +116,14 @@ public class StatusBarSettings extends SettingsPreferenceFragment
             boolean value = (Boolean) objValue;
             Settings.CMREMIX.putInt(resolver,
                     Settings.CMREMIX.KEY_SMS_BREATH, value ? 1 : 0);
+        } else if (preference == mNetworkArrows) {
+            Settings.CMREMIX.putInt(getContentResolver(),
+                    Settings.CMREMIX.STATUS_BAR_SHOW_NETWORK_ACTIVITY,
+                    (Boolean) objValue ? 1 : 0);
+            int networkArrows = Settings.CMREMIX.getInt(getContentResolver(),
+                    Settings.CMREMIX.STATUS_BAR_SHOW_NETWORK_ACTIVITY, 1);
+            updateNetworkArrowsSummary(networkArrows);
+            return true;
         } else if (preference == mMissedCallBreath) {
             boolean value = (Boolean) objValue;
             Settings.CMREMIX.putInt(resolver,
@@ -157,4 +177,11 @@ public class StatusBarSettings extends SettingsPreferenceFragment
                     return result;
                 }
             };
+
+    private void updateNetworkArrowsSummary(int value) {
+        String summary = value != 0
+                ? getResources().getString(R.string.enabled)
+                : getResources().getString(R.string.disabled);
+        mNetworkArrows.setSummary(summary);
+    }
 }
