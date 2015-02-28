@@ -37,12 +37,9 @@ import com.android.settings.search.Indexable;
 import java.util.ArrayList;
 import java.util.List;
 import android.text.TextUtils;
-import android.view.View;
 import android.widget.Toast;
 
 import com.android.internal.widget.LockPatternUtils;
-
-import java.util.Locale;
 
 public class NotificationDrawerSettings extends SettingsPreferenceFragment implements Indexable,
         Preference.OnPreferenceChangeListener {
@@ -51,12 +48,9 @@ public class NotificationDrawerSettings extends SettingsPreferenceFragment imple
 
     private Preference mQSTiles;
 
-    private static final String PREF_QUICK_PULLDOWN = "quick_pulldown";
     private static final String PREF_BLOCK_ON_SECURE_KEYGUARD = "block_on_secure_keyguard";
     private static final String PREF_SMART_PULLDOWN = "smart_pulldown";
 
-
-    private ListPreference mQuickPulldown;
     private ListPreference mSmartPulldown;
     private SwitchPreference mBlockOnSecureKeyguard;
 
@@ -70,15 +64,7 @@ public class NotificationDrawerSettings extends SettingsPreferenceFragment imple
         PreferenceScreen prefSet = getPreferenceScreen();
         ContentResolver resolver = getActivity().getContentResolver();
 
-        mQuickPulldown = (ListPreference) findPreference(PREF_QUICK_PULLDOWN);
         mSmartPulldown = (ListPreference) findPreference(PREF_SMART_PULLDOWN);
-
-        // Quick Pulldown
-        mQuickPulldown.setOnPreferenceChangeListener(this);
-        int statusQuickPulldown = Settings.CMREMIX.getInt(getContentResolver(),
-                Settings.CMREMIX.STATUS_BAR_QUICK_QS_PULLDOWN, 1);
-        mQuickPulldown.setValue(String.valueOf(statusQuickPulldown));
-        updateQuickPulldownSummary(statusQuickPulldown);
 
         // Smart Pulldown
         mSmartPulldown.setOnPreferenceChangeListener(this);
@@ -96,18 +82,22 @@ public class NotificationDrawerSettings extends SettingsPreferenceFragment imple
         } else {
             prefSet.removePreference(mBlockOnSecureKeyguard);
         }
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        int qsTileCount = QSTiles.determineTileCount(getActivity());
+        mQSTiles.setSummary(getResources().getQuantityString(R.plurals.qs_tiles_summary,
+                    qsTileCount, qsTileCount));
     }
 
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
-        if (preference == mQuickPulldown) {
-            int statusQuickPulldown = Integer.valueOf((String) newValue);
-            Settings.CMREMIX.putInt(getContentResolver(),
-                    Settings.CMREMIX.STATUS_BAR_QUICK_QS_PULLDOWN,
-                    statusQuickPulldown);
-            updateQuickPulldownSummary(statusQuickPulldown);
-            return true;
-        } else if (preference == mSmartPulldown) {
+        ContentResolver resolver = getActivity().getContentResolver();
+        if (preference == mSmartPulldown) {
             int smartPulldown = Integer.valueOf((String) newValue);
             Settings.CMREMIX.putInt(getContentResolver(),
                     Settings.CMREMIX.QS_SMART_PULLDOWN,
@@ -146,31 +136,6 @@ public class NotificationDrawerSettings extends SettingsPreferenceFragment imple
             type = type.toLowerCase();
             mSmartPulldown.setSummary(res.getString(R.string.smart_pulldown_summary, type));
         }
-    }
-
-    private void updateQuickPulldownSummary(int value) {
-        Resources res = getResources();
-
-        if (value == 0) {
-            // quick pulldown deactivated
-            mQuickPulldown.setSummary(res.getString(R.string.quick_pulldown_off));
-        } else {
-            Locale l = Locale.getDefault();
-            boolean isRtl = TextUtils.getLayoutDirectionFromLocale(l) == View.LAYOUT_DIRECTION_RTL;
-            String direction = res.getString(value == 2
-                    ? (isRtl ? R.string.quick_pulldown_right : R.string.quick_pulldown_left)
-                    : (isRtl ? R.string.quick_pulldown_left : R.string.quick_pulldown_right));
-            mQuickPulldown.setSummary(res.getString(R.string.summary_quick_pulldown, direction));
-        }
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        int qsTileCount = QSTiles.determineTileCount(getActivity());
-        mQSTiles.setSummary(getResources().getQuantityString(R.plurals.qs_tiles_summary,
-                    qsTileCount, qsTileCount));
     }
 
     public static final Indexable.SearchIndexProvider SEARCH_INDEX_DATA_PROVIDER =
