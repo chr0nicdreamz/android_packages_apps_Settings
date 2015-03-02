@@ -1046,4 +1046,8 @@
     <string name="qs_transparent_shade_title">Shade alpha</string>
     <string name="qs_transparent_shade_summary">Ability to apply color alpha value and make notification shade transparent.</string>
 
+    <!-- Show bluetooth icon when disconnected -->
+    <string name="status_bar_bluetooth_icon">Show Bluetooth icon</string>
+    <string name="status_bar_bluetooth_icon_summary">Display the bluetooth icon when it is enabled but not connected</string>
+
 </resources>
