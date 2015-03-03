@@ -40,6 +40,7 @@ import com.android.settings.SettingsPreferenceFragment;
 import com.android.settings.Utils;
 import com.android.settings.search.BaseSearchIndexProvider;
 import com.android.settings.search.Indexable;
+import com.android.settings.cmremix.utils.SeekBarPreferenceCham;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,6 +60,7 @@ public class StatusBarSettings extends SettingsPreferenceFragment
     private static final String VOICEMAIL_BREATH = "voicemail_breath";
     private static final String KEY_STATUS_BAR_NETWORK_ARROWS= "status_bar_show_network_activity";
     private static final String KEY_STATUS_BAR_GREETING = "status_bar_greeting";
+    private static final String KEY_STATUS_BAR_GREETING_TIMEOUT = "status_bar_greeting_timeout";
 
 
     private PreferenceScreen mClockStyle;
@@ -67,9 +69,9 @@ public class StatusBarSettings extends SettingsPreferenceFragment
     private SwitchPreference mVoicemailBreath;
     private SwitchPreference mNetworkArrows;
     private SwitchPreference mStatusBarGreeting;
+    private SeekBarPreferenceCham mStatusBarGreetingTimeout;
 
     private String mCustomGreetingText = "";
-
 
     @Override
     public void onCreate(Bundle icicle) {
@@ -97,6 +99,13 @@ public class StatusBarSettings extends SettingsPreferenceFragment
                 Settings.CMREMIX.STATUS_BAR_GREETING);
         boolean greeting = mCustomGreetingText != null && !TextUtils.isEmpty(mCustomGreetingText);
         mStatusBarGreeting.setChecked(greeting);
+
+        mStatusBarGreetingTimeout =
+                (SeekBarPreferenceCham) prefSet.findPreference(KEY_STATUS_BAR_GREETING_TIMEOUT);
+        int statusBarGreetingTimeout = Settings.CMREMIX.getInt(getContentResolver(),
+                Settings.CMREMIX.STATUS_BAR_GREETING_TIMEOUT, 400);
+        mStatusBarGreetingTimeout.setValue(statusBarGreetingTimeout / 1);
+        mStatusBarGreetingTimeout.setOnPreferenceChangeListener(this);
 
         mSMSBreath = (SwitchPreference) findPreference(SMS_BREATH);
         mMissedCallBreath = (SwitchPreference) findPreference(MISSED_CALL_BREATH);
@@ -140,6 +149,11 @@ public class StatusBarSettings extends SettingsPreferenceFragment
                     Settings.CMREMIX.STATUS_BAR_SHOW_NETWORK_ACTIVITY, 1);
             updateNetworkArrowsSummary(networkArrows);
             return true;
+        } else if (preference == mStatusBarGreetingTimeout) {
+            int timeout = (Integer) objValue;
+            Settings.CMREMIX.putInt(getActivity().getContentResolver(),
+                    Settings.CMREMIX.STATUS_BAR_GREETING_TIMEOUT, timeout * 1);
+            return true;
         } else if (preference == mMissedCallBreath) {
             boolean value = (Boolean) objValue;
             Settings.CMREMIX.putInt(resolver,
@@ -166,7 +180,8 @@ public class StatusBarSettings extends SettingsPreferenceFragment
 
                 // Set an EditText view to get user input
                 final EditText input = new EditText(getActivity());
-                input.setText(mCustomGreetingText != null ? mCustomGreetingText : "Welcome to cmRemiX");
+                input.setText(mCustomGreetingText != null ? mCustomGreetingText :
+                        getResources().getString(R.string.status_bar_greeting_main));
                 alert.setView(input);
                 alert.setPositiveButton(getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
