@@ -54,6 +54,12 @@
             android:dependency="enable_nav_bar"
             settings:advanced="true"/>
 
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="navigation_ring"
+        android:title="@string/navigation_ring_category" >
+
         <com.android.settings.cyanogenmod.SecureSettingSwitchPreference
             android:key="search_panel_enabled"
             android:title="@string/navigation_ring_enable_title"

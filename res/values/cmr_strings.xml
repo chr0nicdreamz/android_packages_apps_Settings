@@ -341,6 +341,7 @@
     <string name="lockscreen_shorcuts_longpress_summary">Open custom lockscreen shortcuts on longpress</string>
 
     <!-- Navigation bar -->
+    <string name="navigation_ring_category">Navigation Ring</string>
     <string name="nav_bar_title">Navigation bar</string>
     <string name="navbar_enable_bar_title">Navigation bar buttons</string>
     <string name="navbar_enable_bar_summary">Enable on-screen nav bar buttons</string>
