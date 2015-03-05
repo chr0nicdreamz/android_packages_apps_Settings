@@ -15,19 +15,38 @@
  */
 package com.android.settings.cmremix;
 
-import android.os.Bundle;
-import android.os.UserHandle;
+import com.android.settings.SettingsPreferenceFragment;
+import com.android.settings.Utils;
+
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
 import android.content.res.Resources;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
+import android.net.Uri;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.UserHandle;
+import android.os.Message;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
+import android.preference.PreferenceGroup;
 import android.preference.PreferenceScreen;
-import android.preference.SwitchPreference;
+import android.provider.MediaStore;
 import android.provider.Settings;
+import android.provider.Settings.SettingNotFoundException;
+import android.preference.SwitchPreference;
 
-import com.android.settings.SettingsPreferenceFragment;
+import android.util.Log;
+
 import com.android.settings.R;
+import java.util.List;
 
 public class RecentsPanelSettings extends SettingsPreferenceFragment implements
         Preference.OnPreferenceChangeListener {
@@ -36,13 +55,15 @@ public class RecentsPanelSettings extends SettingsPreferenceFragment implements
 
     private static final String SHOW_CLEAR_ALL_RECENTS = "show_clear_all_recents";
     private static final String RECENTS_CLEAR_ALL_LOCATION = "recents_clear_all_location";
+    private static final String RECENT_RAM_BAR = "recents_ram_bar";
     
     private SwitchPreference mRecentsClearAll;
     private ListPreference mRecentsClearAllLocation;
+    private Preference mRecentRamBar;
 
     @Override
-    public void onCreate(Bundle icicle) {
-        super.onCreate(icicle);
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.recents_panel_settings);
 
         PreferenceScreen prefSet = getPreferenceScreen();
@@ -52,6 +73,9 @@ public class RecentsPanelSettings extends SettingsPreferenceFragment implements
         mRecentsClearAll.setChecked(Settings.System.getIntForUser(resolver,
             Settings.System.SHOW_CLEAR_ALL_RECENTS, 1, UserHandle.USER_CURRENT) == 1);
         mRecentsClearAll.setOnPreferenceChangeListener(this);
+
+        mRecentRamBar = findPreference(RECENT_RAM_BAR);
+        updateRamBarStatus();
 
         mRecentsClearAllLocation = (ListPreference) prefSet.findPreference(RECENTS_CLEAR_ALL_LOCATION);
         int location = Settings.System.getIntForUser(resolver,
@@ -75,6 +99,27 @@ public class RecentsPanelSettings extends SettingsPreferenceFragment implements
             return true;
         }
         return false;
+    }
+
+    private void updateRamBarStatus() {
+        int ramBarMode = Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
+                Settings.System.RECENTS_RAM_BAR_MODE, 0);
+        if (ramBarMode != 0)
+            mRecentRamBar.setSummary(getResources().getString(R.string.ram_bar_color_enabled));
+        else
+            mRecentRamBar.setSummary(getResources().getString(R.string.ram_bar_color_disabled));
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        updateRamBarStatus();
+    }
+
+    @Override
+    public void onPause() {
+        super.onResume();
+        updateRamBarStatus();
     }
 
     private void updateRecentsLocation(int value) {
