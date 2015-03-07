@@ -29,6 +29,7 @@ import android.preference.Preference.OnPreferenceChangeListener;
 import android.provider.SearchIndexableResource;
 import android.preference.PreferenceScreen;
 import android.preference.SwitchPreference;
+import android.telephony.TelephonyManager;
 import android.provider.Settings;
 import android.text.TextUtils;
 import android.text.Spannable;
@@ -131,6 +132,9 @@ public class StatusBarSettings extends SettingsPreferenceFragment
             prefSet.removePreference(mSMSBreath);
             prefSet.removePreference(mMissedCallBreath);
             prefSet.removePreference(mVoicemailBreath);
+        }
+        if (TelephonyManager.getDefault().getPhoneCount() <= 1) {
+            removePreference(Settings.System.STATUS_BAR_MSIM_SHOW_EMPTY_ICONS);
         }
     }
 
