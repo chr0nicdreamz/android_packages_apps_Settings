@@ -1131,4 +1131,7 @@
     <string name="ram_bar_reset_message">Reset RAM bar style to default?</string>
     <string name="ram_bar_settings_category">Ram Bar Settings</string>
 
+    <!-- Slim Shortcuts -->
+    <string name="slim_shortcut_picker">Slim Actions</string>
+
 </resources>
