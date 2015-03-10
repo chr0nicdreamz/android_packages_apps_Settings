@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-      Copyright (C) 2014, The cmRemiX-ROMs Project
+      Copyright (C) 2014, The CMRemix-ROMs Project
 
       Licensed under the Apache License, Version 2.0 (the "License");
       you may not use this file except in compliance with the License.
@@ -16,8 +16,8 @@
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
-    <!-- cmRemiX Version -->
-    <string name="cmremix_version">cmRemiX version</string>
+    <!-- CMRemix Version -->
+    <string name="cmremix_version">CMRemix version</string>
     <string name="cmremix_version_default">Unknown</string>
 
     <!-- GCC version info -->
@@ -30,30 +30,30 @@
     <string name="sm_flags">Build flags</string>
     <string name="sm_flags_default">None</string>
     
-    <!-- cmRemiX custom settings -->
+    <!-- CMRemix custom settings -->
     <string name="cmremix_custom_title">Tweaks</string>
     <string name="status_bar_settings">Status bar settings</string>
     <string name="recents_panel_title">Recents panel</string>
     <string name="recents_panel_settings">Recents panel settings</string>
     <string name="recents_panel_settings">Recents panel settings</string>
-     <string name="extras_cmremix_settings">cmRemiX extras</string>
+     <string name="extras_cmremix_settings">CMRemix extras</string>
     <string name="display_settings">Display</string>
     <string name="display_settings_title">Display settings</string>
 
-    <!-- cmRemiX Change Logs -->
+    <!-- CMRemix Change Logs -->
     <string name="changelog_title"><i><b>Changelog</b></i></string>
     <string name="changelog_loading">Loading changelog...</string>
     <string name="changelog_error">Unable to load changelog</string>
     <string name="changelog_unknown">Unknown</string>
     <string name="changelog_version">Version</string>
 
-         <!-- CM-Remix Custom Interface Settings -->
-    <string name="interface_settings_title">cmRemiX Settings</string>
-    <string name="cmremix_center_title">cmRemiX Center</string>
+         <!-- CMRemix Custom Interface Settings -->
+    <string name="interface_settings_title">CMRemix Settings</string>
+    <string name="cmremix_center_title">CMRemix Center</string>
 
-    <!-- cmRemiX Updater -->
-    <string name="cmremixupdate_settings_title">cmRemiX updates</string>
-    <string name="cmremixupdate_settings_summary">Download latest available build of cmRemiX Rom for your device</string>
+    <!-- CMRemix Updater -->
+    <string name="cmremixupdate_settings_title">CMRemix updates</string>
+    <string name="cmremixupdate_settings_summary">Download latest available build of CMRemix Rom for your device</string>
 
     <!-- Settings main menu category heading. Rom (Launcher, Themes, System). [CHAR LIMIT=40] -->
     <string name="header_category_rom_settings">Advanced settings</string>
@@ -87,7 +87,7 @@
     <string name="cpu_info">CPU</string>
     <string name="mem_info">Memory</string>
 
-    <!-- cmRemiX Extra Info -->
+    <!-- CMRemix Extra Info -->
     <string name="cmremixextrainfo">Extra information</string>
     <string name="cmremixextrainfo_summary">Display extra info for cpu, display, etc</string>
 
@@ -327,7 +327,7 @@
     <string name="wakelock_blocker_warning_title">Proceed with caution</string>
     <string name="wakelock_blocker_warning">Blocking wakelocks have the potential to cause instability, crashes or data loss</string>
 
-    <!-- cmRemiX lockscreen -->
+    <!-- CMRemix lockscreen -->
     <string name="cmremix_lockscreen_title">Lockscreen</string>
     <string name="cmremix_lockscreen_category">Lockscreen settings</string>
     <string name="cmremix_lockscreen_shortcuts_category">Shortcuts</string>
@@ -800,7 +800,7 @@
     <string name="omniswitch_first_time_title">Information</string>
     <string name="omniswitch_first_time_message">Make sure you have enabled OmniSwitch. You can do this by using \"Settings\" below</string>
 
-    <!-- cmRemiX lockscreen -->
+    <!-- CMRemix lockscreen -->
     <string name="cmremix_lock_title">Lockscreen misc</string>
     <string name="lockscreen_category">Lockscreen settings</string>
 
@@ -823,10 +823,10 @@
     <string name="alarm_ringtone_title">Default alarm ringtone</string>
 
     <!-- [CHAR LIMIT=40] Sound & display settings screen, title of dialog for picking LCD density -->
-    <!-- cmRemiX display settings screen, setting option name to change LCD density -->
+    <!-- CMRemix display settings screen, setting option name to change LCD density -->
     <string name="lcd_density">LCD density</string>
     <string name="dialog_title_lcd_density">LCD density</string>
-    <!-- cmRemiX display settings screen, setting option summary to change LCD density -->
+    <!-- CMRemix display settings screen, setting option summary to change LCD density -->
     <string name="lcd_density_summary">xxx DPI</string>
     <string name="custom_density_title">Change to whatever you like</string>
     <string name="custom_density_summary">If you ever have compatibility issues with the Play Store, be sure to doublecheck if a Multi-DPI Play Store is installed</string>
