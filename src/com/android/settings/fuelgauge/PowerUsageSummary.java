@@ -263,8 +263,8 @@ public class PowerUsageSummary extends SettingsPreferenceFragment
     }
 
     private void initColorPicker() {
-        int intColor = Settings.System.getInt(getActivity().getContentResolver(),
-                    Settings.System.BATTERY_SAVER_MODE_COLOR, -2);
+        int intColor = Settings.CMREMIX.getInt(getActivity().getContentResolver(),
+                    Settings.CMREMIX.BATTERY_SAVER_MODE_COLOR, -2);
         if (intColor == -2) {
             intColor = getResources().getColor(
                     com.android.internal.R.color.battery_saver_mode_color);
@@ -283,8 +283,8 @@ public class PowerUsageSummary extends SettingsPreferenceFragment
                     .valueOf(newValue)));
             preference.setSummary(hex);
             int intHex = ColorPickerPreference.convertToColorInt(hex);
-            Settings.System.putInt(getActivity().getContentResolver(),
-                    Settings.System.BATTERY_SAVER_MODE_COLOR, intHex);
+            Settings.CMREMIX.putInt(getActivity().getContentResolver(),
+                    Settings.CMREMIX.BATTERY_SAVER_MODE_COLOR, intHex);
             return true;
         } else if (newValue != null) {
                if (preference == mPerfProfilePref) {
