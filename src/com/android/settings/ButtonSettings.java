@@ -47,6 +47,7 @@ import android.view.WindowManagerGlobal;
 
 import com.android.internal.util.cm.ScreenType;
 import com.android.internal.util.cmremix.CrUtils;
+import com.android.settings.cmremix.utils.CustomActionListPreference;
 import com.android.settings.cyanogenmod.ButtonBacklightBrightness;
 
 import android.widget.Toast;
@@ -87,6 +88,7 @@ public class ButtonSettings extends SettingsPreferenceFragment implements
     private static final String KEY_VOLUME_MUSIC_CONTROLS = "volbtn_music_controls";
 
     private static final String CATEGORY_POWER = "power_key";
+    private static final String CATEGORY_POWER_CHORD = "power_chord";
     private static final String CATEGORY_HOME = "home_key";
     private static final String CATEGORY_BACK = "back_key";
     private static final String CATEGORY_MENU = "menu_key";
@@ -131,6 +133,8 @@ public class ButtonSettings extends SettingsPreferenceFragment implements
     private ListPreference mAppSwitchPressAction;
     private ListPreference mAppSwitchLongPressAction;
     private ListPreference mVolumeKeyCursorControl;
+    private CustomActionListPreference mPowerKeyDownAction;
+    private CustomActionListPreference mPowerKeyUpAction;
     private SwitchPreference mVolumeWakeScreen;
     private SwitchPreference mVolumeMusicControls;
     private SwitchPreference mSwapVolumeButtons;
@@ -253,6 +257,18 @@ public class ButtonSettings extends SettingsPreferenceFragment implements
             }
         }
 
+        mPowerKeyDownAction = (CustomActionListPreference)
+                findPreference(Settings.System.POWER_CHORD_ACTION_DOWN);
+        if (mPowerKeyDownAction != null) {
+            mPowerKeyDownAction.setOnPreferenceChangeListener(this);
+        }
+
+        mPowerKeyUpAction = (CustomActionListPreference)
+                findPreference(Settings.System.POWER_CHORD_ACTION_UP);
+        if (mPowerKeyUpAction != null) {
+            mPowerKeyUpAction.setOnPreferenceChangeListener(this);
+        }
+
         updateDisableHwKeysOption();
         updateNavBarSettings();
     }
@@ -295,6 +311,7 @@ public class ButtonSettings extends SettingsPreferenceFragment implements
             }
         } else {
             result.put(CATEGORY_POWER, null);
+            result.put(CATEGORY_POWER_CHORD, null);
         }
 
         if (hasHomeKey) {
@@ -611,6 +628,14 @@ public class ButtonSettings extends SettingsPreferenceFragment implements
         } else if (preference == mVolumeKeyCursorControl) {
             handleActionListChange(mVolumeKeyCursorControl, newValue,
                     Settings.System.VOLUME_KEY_CURSOR_CONTROL);
+            return true;
+        } else if (preference == mPowerKeyDownAction) {
+            final String value = String.valueOf(newValue);
+            mPowerKeyDownAction.putSystemValue(value);
+            return true;
+        } else if (preference == mPowerKeyUpAction) {
+            final String value = String.valueOf(newValue);
+            mPowerKeyUpAction.putSystemValue(value);
             return true;
         } else if (preference == mOverflowButtonMode) {
             int val = Integer.parseInt((String) newValue);
