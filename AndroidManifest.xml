@@ -2259,14 +2259,6 @@
             </intent-filter>
         </receiver>
 
-        <receiver android:name="com.android.settings.cmremix.hfm.IntentReceiver" >
-            <intent-filter>
-                 <action android:name="android.intent.action.BOOT_COMPLETED" />
-            </intent-filter>
-        </receiver>
-
-        <service android:name="com.android.settings.cmremix.hfm.CheckHosts" />
-
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.android.settings.files"
@@ -2329,6 +2321,20 @@
 
         <activity android:name=".cmremix.gestureanywhere.GestureAnywhereBuilderActivity" />
         <activity android:name=".cmremix.gestureanywhere.GestureAnywhereCreateGestureActivity" />
+
+        <receiver android:name="com.android.settings.cmremix.hfm.IntentReceiver" >
+            <intent-filter>
+                 <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+        <service android:name="com.android.settings.cmremix.hfm.CheckHosts" />
+
+
+        <activity android:name="com.android.settings.cmremix.hfm.HfmWhitelist"
+            android:label="@string/hfm_whitelist_title"
+            android:taskAffinity="com.android.settings" />
+
         <!-- End of cmRemiX activities -->
 
         <provider
