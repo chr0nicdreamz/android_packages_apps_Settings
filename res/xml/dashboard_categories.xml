@@ -129,7 +129,7 @@
                <dashboard-tile
                android:id="@+id/cmremix_center"
                android:title="@string/cmremix_center_title"
-               android:icon="@drawable/cmremix_device_center">
+               android:icon="@drawable/ic_settings_cmremixcenter">
                <intent
                    android:action="android.intent.action.MAIN"
                    android:targetPackage="com.slim.ota"
