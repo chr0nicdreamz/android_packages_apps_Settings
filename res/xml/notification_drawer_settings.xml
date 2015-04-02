@@ -17,6 +17,14 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     android:title="@string/notification_drawer_title">
 
+    <!-- Notification manager -->
+   <PreferenceScreen
+       android:id="@+id/notification_manager"
+       android:title="@string/notification_manager"
+       android:fragment="com.android.settings.notification.NotificationManagerSettings"
+       android:icon="@drawable/ic_settings_notifications"
+       />
+
     <ListPreference
         android:key="quick_pulldown"
         android:title="@string/quick_pulldown_title"
