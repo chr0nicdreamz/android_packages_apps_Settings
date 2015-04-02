@@ -1273,7 +1273,7 @@ public class SettingsActivity extends Activity
                 } else if (id == R.id.cmremix_center) {
                     boolean supported = false;
                     try {
-                        supported = (getPackageManager().getPackageInfo("com.slim.ota", 0).versionCode > 0);
+                        supported = (getPackageManager().getPackageInfo("com.cmremix.ota", 0).versionCode > 0);
                     } catch (PackageManager.NameNotFoundException e) {
                     }
                     if (!supported) {
