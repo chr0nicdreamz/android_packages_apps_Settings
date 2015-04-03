@@ -31,4 +31,7 @@
     <string name="cmremix_settings_title">CMRemix Settings</string>
     <string name="cmremix_tweaks_title">Tweaks</string>
 
+    <!-- SuperSU -->
+    <string name="supersu_title">SuperSU</string>
+
 </resources>
