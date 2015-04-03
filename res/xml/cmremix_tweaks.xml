@@ -19,4 +19,16 @@
     android:title="@string/cmremix_tweaks_title"
     xmlns:settings="http://schemas.android.com/apk/res/com.android.settings">
 
+    <!-- Viper4Android -->
+    <PreferenceScreen
+       android:id="@+id/viper_settings"
+       android:key="viper_settings"
+       android:icon="@drawable/ic_bt_headphones_a2dp"
+       android:title="@string/viper_title">
+    <intent
+          android:action="android.intent.action.MAIN"
+          android:targetPackage="com.vipercn.viper4android_v2"
+          android:targetClass="com.vipercn.viper4android_v2.activity.ViPER4Android" />
+     </PreferenceScreen>
+
 </PreferenceScreen>

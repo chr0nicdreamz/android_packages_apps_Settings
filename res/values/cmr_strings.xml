@@ -34,4 +34,7 @@
     <!-- SuperSU -->
     <string name="supersu_title">SuperSU</string>
 
+    <!-- Viper4Android -->
+    <string name="viper_title">Viper4Android</string>
+
 </resources>
