@@ -31,6 +31,23 @@
     <string name="cmremix_settings_title">CMRemix Settings</string>
     <string name="cmremix_tweaks_title">Tweaks</string>
 
+    <!-- General strings -->
+    <string name="ok">OK</string>
+    <string name="reset">Reset</string>
+    <string name="help">Help</string>
+    <string name="add">Add</string>
+    <string name="help">Help</string>
+    <string name="attention">Attention</string>
+    <string name="enabled">Enabled</string>
+    <string name="disabled">Disabled</string>
+    <string name="default_string">Default</string>
+    <string name="choose_app">Choose application</string>
+    <string name="reset_message">Reset all entries to default?</string>
+    <string name="help">Help</string>
+    <string name="dialog_restart">Restart</string>
+    <string name="dialog_cancel">Cancel</string>
+    <string name="general_category">General</string>
+
     <!-- SuperSU -->
     <string name="supersu_title">SuperSU</string>
 
