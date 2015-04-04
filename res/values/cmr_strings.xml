@@ -42,6 +42,10 @@
     <string name="cpu_info">CPU</string>
     <string name="mem_info">Memory</string>
 
+    <!-- cmRemiX Extra Info -->
+    <string name="cmremixextrainfo">Extra information</string>
+    <string name="cmremixextrainfo_summary">Display extra info for cpu, display, etc</string>
+
     <!-- General strings -->
     <string name="ok">OK</string>
     <string name="reset">Reset</string>

@@ -140,6 +140,15 @@
                 android:title="@string/cmremix_version"
                 android:summary="@string/cmremix_version_default" />
 
+        <!-- CMRemiX Extra Info -->
+        <PreferenceScreen android:key="extrainfo"
+                android:title="@string/cmremixextrainfo"
+                android:summary="@string/cmremixextrainfo_summary">
+            <intent android:action="android.intent.action.MAIN"
+                    android:targetPackage="com.android.settings"
+                    android:targetClass="com.android.settings.cmremix.extrainfo.MainActivity" />
+        </PreferenceScreen>
+
         <!-- Device firmware version -->
         <Preference android:key="firmware_version" 
                 style="?android:preferenceInformationStyle"

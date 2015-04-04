@@ -2244,6 +2244,14 @@
 
         <!-- Start of cmRemiX activities -->
 
+        <!-- cmRemiX Extra info -->
+        <activity android:name="com.android.settings.cmremix.extrainfo.MainActivity"
+                  android:theme="@android:style/Theme.Material.Light.Dialog.NoActionBar.MinWidth">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
+
         <!-- Partition Info -->
         <activity android:name="PartitionInfo" android:label="@string/partition_info_title">
             <intent-filter>
