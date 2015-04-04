@@ -2242,6 +2242,18 @@
                        android:resource="@id/lockscreen_settings" />
         </activity>
 
+        <!-- Start of cmRemiX activities -->
+
+        <!-- Partition Info -->
+        <activity android:name="PartitionInfo" android:label="@string/partition_info_title">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.VOICE_LAUNCH" />
+            </intent-filter>
+        </activity>
+        <!-- End of cmRemiX activities -->
+
         <provider
             android:name=".search.SettingsSearchIndexablesProvider"
             android:authorities="com.android.settings"
