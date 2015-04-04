@@ -38,6 +38,10 @@
     <string name="changelog_unknown">Unknown</string>
     <string name="changelog_version">Version</string>
 
+    <!-- About device screen, CPU and RAM info. -->
+    <string name="cpu_info">CPU</string>
+    <string name="mem_info">Memory</string>
+
     <!-- General strings -->
     <string name="ok">OK</string>
     <string name="reset">Reset</string>
