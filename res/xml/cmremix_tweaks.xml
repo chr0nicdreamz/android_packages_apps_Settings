@@ -38,4 +38,12 @@
         android:fragment="com.android.settings.cmremix.WakeLockBlocker"
         />
 
+    <!-- Gesture anywhere -->
+    <PreferenceScreen
+        android:key="gesture_anywhere"
+        android:title="@string/gesture_anywhere_title"
+        android:fragment="com.android.settings.cmremix.gestureanywhere.GestureAnywhereSettings"
+        android:icon="@drawable/ic_settings_gestureanywhere"
+        />
+
 </PreferenceScreen>

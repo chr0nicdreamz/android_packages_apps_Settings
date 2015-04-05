@@ -2260,6 +2260,10 @@
                 <category android:name="android.intent.category.VOICE_LAUNCH" />
             </intent-filter>
         </activity>
+
+        <!-- Gesture anywhere -->
+        <activity android:name=".cmremix.gestureanywhere.GestureAnywhereBuilderActivity" />
+        <activity android:name=".cmremix.gestureanywhere.GestureAnywhereCreateGestureActivity" />
         <!-- End of cmRemiX activities -->
 
         <provider
