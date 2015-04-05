@@ -36,6 +36,7 @@
         android:key="wakelock_blocker"
         android:title="@string/wakelock_blocker_title"
         android:fragment="com.android.settings.cmremix.WakeLockBlocker"
+        android:icon="@drawable/ic_settings_wakelock_blocker"
         />
 
     <!-- Gesture anywhere -->
