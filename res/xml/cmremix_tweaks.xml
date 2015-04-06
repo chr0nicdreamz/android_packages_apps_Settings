@@ -19,6 +19,14 @@
     android:title="@string/cmremix_tweaks_title"
     xmlns:settings="http://schemas.android.com/apk/res/com.android.settings">
 
+    <!-- Animation Controls -->
+    <PreferenceScreen
+        android:key="animation_settings"
+        android:title="@string/animation_settings_title"
+        android:fragment="com.android.settings.cmremix.animations.AnimationSettings"
+        android:icon="@drawable/ic_settings_animations"
+        />
+
     <!-- Viper4Android -->
     <PreferenceScreen
        android:id="@+id/viper_settings"
