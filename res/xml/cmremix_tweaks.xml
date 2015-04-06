@@ -31,6 +31,14 @@
           android:targetClass="com.vipercn.viper4android_v2.activity.ViPER4Android" />
      </PreferenceScreen>
 
+    <!-- App Circle sidebar -->
+    <PreferenceScreen
+        android:key="app_circle_bar"
+        android:title="@string/app_circle_bar_title"
+        android:fragment="com.android.settings.cmremix.AppCircleBar"
+        android:icon="@drawable/ic_settings_appcirclebar"
+        />
+
     <!-- Wakelock blocker -->
     <PreferenceScreen
         android:key="wakelock_blocker"
