@@ -36,6 +36,11 @@ LOCAL_AAPT_FLAGS := \
 
 LOCAL_AAPT_INCLUDE_ALL_RESOURCES := true
 
+LOCAL_AAPT_FLAGS += --extra-packages com.brewcrewfoo.performance
+LOCAL_SRC_FILES += $(call all-java-files-under,../PerformanceControl/src)
+LOCAL_RESOURCE_DIR += packages/apps/PerformanceControl/res
+LOCAL_ASSET_DIR += packages/apps/PerformanceControl/assets
+
 include frameworks/opt/setupwizard/navigationbar/common.mk
 include $(BUILD_PACKAGE)
 
