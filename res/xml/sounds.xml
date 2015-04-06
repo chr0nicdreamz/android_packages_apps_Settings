@@ -20,6 +20,18 @@
                   android:key="sound_settings"
                   settings:keywords="@string/keywords_sounds_and_notifications">
 
+        <!-- Viper4Android -->
+     <PreferenceScreen
+          android:id="@+id/viper_settings"
+          android:key="viper_settings"
+          android:icon="@drawable/ic_bt_headphones_a2dp"
+          android:title="@string/viper_title">
+       <intent
+             android:action="android.intent.action.MAIN"
+              android:targetPackage="com.vipercn.viper4android_v2"
+               android:targetClass="com.vipercn.viper4android_v2.activity.ViPER4Android" />
+     </PreferenceScreen>
+
     <PreferenceCategory
             android:key="volumes"
             android:title="@string/category_volume" >
