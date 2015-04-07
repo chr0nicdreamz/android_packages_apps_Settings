@@ -496,4 +496,7 @@
     <string name="performance_controls">Performance</string>
     <string name="performance_controls_advanced">Advanced Controls</string>
 
+    <!-- Restart SystemUI -->
+    <string name="restart_systemui">Restart SystemUI</string>
+
 </resources>
