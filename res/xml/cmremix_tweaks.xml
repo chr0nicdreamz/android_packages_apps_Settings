@@ -35,6 +35,14 @@
         android:icon="@drawable/ic_settings_appcirclebar"
         />
 
+    <!-- Gesture anywhere -->
+    <PreferenceScreen
+        android:key="gesture_anywhere"
+        android:title="@string/gesture_anywhere_title"
+        android:fragment="com.android.settings.cmremix.gestureanywhere.GestureAnywhereSettings"
+        android:icon="@drawable/ic_settings_gestureanywhere"
+        />
+
     <!-- Wakelock blocker -->
     <PreferenceScreen
         android:key="wakelock_blocker"
@@ -43,12 +51,12 @@
         android:icon="@drawable/ic_settings_wakelock_blocker"
         />
 
-    <!-- Gesture anywhere -->
+    <!-- Ad Blocker -->
     <PreferenceScreen
-        android:key="gesture_anywhere"
-        android:title="@string/gesture_anywhere_title"
-        android:fragment="com.android.settings.cmremix.gestureanywhere.GestureAnywhereSettings"
-        android:icon="@drawable/ic_settings_gestureanywhere"
+        android:key="hfm_settings"
+        android:title="@string/hfm_pref_screen_title"
+        android:fragment="com.android.settings.cmremix.hfm.HfmSettings" 
+        android:icon="@drawable/ic_settings_ad_blocker"
         />
 
 </PreferenceScreen>
