@@ -833,5 +833,8 @@
     <string name="privacy_guard_notification_title">Notification</string>
     <string name="privacy_guard_notifiation_summary">Show a notification if privacy guard is active</string>
 
+    <!-- QuickSettings collapse panel -->
+    <string name="quick_settings_collapse_title">Auto close panel</string>
+    <string name="quick_settings_collapse_summary">Close the Quick Settings panel upon toggle</string>
 
 </resources>
