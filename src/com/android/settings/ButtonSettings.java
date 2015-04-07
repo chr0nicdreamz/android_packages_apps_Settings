@@ -43,6 +43,7 @@ import android.view.IWindowManager;
 import android.view.KeyCharacterMap;
 import android.view.KeyEvent;
 import android.view.WindowManagerGlobal;
+import android.widget.Toast;
 
 import com.android.internal.util.cm.ScreenType;
 
@@ -69,6 +70,7 @@ public class ButtonSettings extends SettingsPreferenceFragment implements
     private static final String KEY_MENU_LONG_PRESS = "hardware_keys_menu_long_press";
     private static final String KEY_ASSIST_PRESS = "hardware_keys_assist_press";
     private static final String KEY_ASSIST_LONG_PRESS = "hardware_keys_assist_long_press";
+    private static final String KEYS_OVERFLOW_BUTTON = "keys_overflow_button";
     private static final String KEY_APP_SWITCH_PRESS = "hardware_keys_app_switch_press";
     private static final String KEY_APP_SWITCH_LONG_PRESS = "hardware_keys_app_switch_long_press";
     private static final String KEY_VOLUME_KEY_CURSOR_CONTROL = "volume_key_cursor_control";
@@ -122,6 +124,7 @@ public class ButtonSettings extends SettingsPreferenceFragment implements
     private ListPreference mMenuLongPressAction;
     private ListPreference mAssistPressAction;
     private ListPreference mAssistLongPressAction;
+    private ListPreference mOverflowButtonMode;
     private ListPreference mAppSwitchPressAction;
     private ListPreference mAppSwitchLongPressAction;
     private ListPreference mVolumeKeyCursorControl;
@@ -180,6 +183,9 @@ public class ButtonSettings extends SettingsPreferenceFragment implements
                     getPreferenceScreen().findPreference(CATEGORY_HW_KEYS);
             getPreferenceScreen().removePreference(hwKeysPref);
         }
+
+        mOverflowButtonMode = (ListPreference) findPreference(KEYS_OVERFLOW_BUTTON);
+        mOverflowButtonMode.setOnPreferenceChangeListener(this);
 
         // Navigation bar recents long press activity needs custom setup
         mNavigationRecentsLongPressAction =
@@ -516,6 +522,11 @@ public class ButtonSettings extends SettingsPreferenceFragment implements
                 CMRemixUtils.isNavBarDefault(getActivity()) ? 1 : 0) == 1;
         mEnableNavigationBar.setChecked(enableNavigationBar);
 
+        String overflowButtonMode = Integer.toString(Settings.System.getInt(getContentResolver(),
+                Settings.System.UI_OVERFLOW_BUTTON, 2));
+        mOverflowButtonMode.setValue(overflowButtonMode);
+        mOverflowButtonMode.setSummary(mOverflowButtonMode.getEntry());
+
         updateNavbarPreferences(enableNavigationBar);
     }
 
@@ -529,6 +540,11 @@ public class ButtonSettings extends SettingsPreferenceFragment implements
             Settings.System.putInt(getActivity().getContentResolver(),
                     Settings.System.NAVIGATION_BAR_SHOW,
                         ((Boolean) newValue) ? 1 : 0);
+            // Enable overflow button
+            Settings.System.putInt(getContentResolver(), Settings.System.UI_OVERFLOW_BUTTON, 2);
+            if (mOverflowButtonMode != null) {
+                mOverflowButtonMode.setSummary(mOverflowButtonMode.getEntries()[2]);
+            }
             return true;
         } else if (preference == mEnableHwKeys) {
             boolean hWkeysValue = (Boolean) newValue;
@@ -586,6 +602,13 @@ public class ButtonSettings extends SettingsPreferenceFragment implements
             }
             Settings.Secure.putString(getContentResolver(),
                     Settings.Secure.RECENTS_LONG_PRESS_ACTIVITY, putString);
+            return true;
+        } else if (preference == mOverflowButtonMode) {
+            int val = Integer.parseInt((String) newValue);
+            int index = mOverflowButtonMode.findIndexOfValue((String) newValue);
+            Settings.System.putInt(getContentResolver(), Settings.System.UI_OVERFLOW_BUTTON, val);
+            mOverflowButtonMode.setSummary(mOverflowButtonMode.getEntries()[index]);
+            Toast.makeText(getActivity(), R.string.keys_overflow_toast, Toast.LENGTH_LONG).show();
             return true;
         }
         return false;

@@ -68,6 +68,12 @@
             android:title="@string/navigation_bar_recents_title"
             android:persistent="false" />
 
+       <ListPreference
+            android:key="keys_overflow_button"
+            android:title="@string/keys_overflow_title"
+            android:entries="@array/overflow_button_entries"
+            android:entryValues="@array/overflow_button_values" />
+
     </PreferenceCategory>
 
     <PreferenceCategory
