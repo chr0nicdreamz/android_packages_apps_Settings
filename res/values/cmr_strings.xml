@@ -803,4 +803,8 @@
     <string name="overflow_show">Show</string>
     <string name="overflow_hide">Hide</string>
 
+    <!-- QuickSettings: Quick Pulldown -->
+    <string name="block_on_secure_keyguard_title">Disable on lockscreen</string>
+    <string name="block_on_secure_keyguard_summary">Disable quick settings on secure lockscreen</string>
+
 </resources>

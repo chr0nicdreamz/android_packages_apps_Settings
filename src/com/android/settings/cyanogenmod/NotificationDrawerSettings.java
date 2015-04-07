@@ -24,6 +24,7 @@ import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceScreen;
 import android.preference.Preference.OnPreferenceChangeListener;
+import android.preference.SwitchPreference;
 import android.provider.Settings;
 
 import android.provider.SearchIndexableResource;
@@ -33,6 +34,8 @@ import com.android.settings.cyanogenmod.qs.QSTiles;
 import com.android.settings.search.BaseSearchIndexProvider;
 import com.android.settings.search.Indexable;
 
+import com.android.internal.widget.LockPatternUtils;
+
 import java.util.ArrayList;
 import java.util.List;
 import android.widget.Toast;
@@ -41,10 +44,12 @@ public class NotificationDrawerSettings extends SettingsPreferenceFragment imple
         Preference.OnPreferenceChangeListener {
     private static final String QUICK_PULLDOWN = "quick_pulldown";
     private static final String PREF_SMART_PULLDOWN = "smart_pulldown";
+    private static final String BLOCK_ON_SECURE_KEYGUARD = "block_on_secure_keyguard";
 
     private ListPreference mQuickPulldown;
-    private Preference mQSTiles;
     private ListPreference mSmartPulldown;
+    private SwitchPreference mBlockOnSecureKeyguard;
+    private Preference mQSTiles;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -52,6 +57,7 @@ public class NotificationDrawerSettings extends SettingsPreferenceFragment imple
         addPreferencesFromResource(R.xml.notification_drawer_settings);
 
         mQSTiles = findPreference("qs_order");
+
         PreferenceScreen prefSet = getPreferenceScreen();
         ContentResolver resolver = getActivity().getContentResolver();
     }
@@ -77,6 +83,16 @@ public class NotificationDrawerSettings extends SettingsPreferenceFragment imple
                  Settings.CMREMIX.QS_SMART_PULLDOWN, 0);
         mSmartPulldown.setValue(String.valueOf(smartPulldown));
         updateSmartPulldownSummary(smartPulldown);
+
+        final LockPatternUtils lockPatternUtils = new LockPatternUtils(getActivity());
+        mBlockOnSecureKeyguard = (SwitchPreference) findPreference(BLOCK_ON_SECURE_KEYGUARD);
+        if (lockPatternUtils.isSecure()) {
+            mBlockOnSecureKeyguard.setChecked(Settings.Secure.getInt(getContentResolver(),
+                    Settings.Secure.STATUS_BAR_LOCKED_ON_SECURE_KEYGUARD, 1) == 1);
+            mBlockOnSecureKeyguard.setOnPreferenceChangeListener(this);
+        } else {
+            prefSet.removePreference(mBlockOnSecureKeyguard);
+        }
 
     }
 
@@ -104,6 +120,11 @@ public class NotificationDrawerSettings extends SettingsPreferenceFragment imple
                     Settings.CMREMIX.QS_SMART_PULLDOWN,
                     smartPulldown);
             updateSmartPulldownSummary(smartPulldown);
+            return true;
+        } else if (preference == mBlockOnSecureKeyguard) {
+            Settings.Secure.putInt(getContentResolver(),
+                    Settings.Secure.STATUS_BAR_LOCKED_ON_SECURE_KEYGUARD,
+                    (Boolean) newValue ? 1 : 0);
             return true;
         }
         return false;
