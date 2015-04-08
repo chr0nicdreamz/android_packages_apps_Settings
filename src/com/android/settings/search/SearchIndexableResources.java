@@ -31,6 +31,7 @@ import com.android.settings.R;
 import com.android.settings.SecuritySettings;
 import com.android.settings.WirelessSettings;
 import com.android.settings.accessibility.AccessibilitySettings;
+import com.android.settings.cmremix.AmbientSettings;
 import com.android.settings.bluetooth.BluetoothSettings;
 import com.android.settings.cyanogenmod.NotificationDrawerSettings;
 import com.android.settings.cyanogenmod.StatusBarSettings;
@@ -302,6 +303,13 @@ public final class SearchIndexableResources {
                         R.xml.privacy_settings_cyanogenmod,
                         com.android.settings.cyanogenmod.PrivacySettings.class.getName(),
                         R.drawable.ic_settings_privacy));
+
+        sResMap.put(AmbientSettings.class.getName(),
+                new SearchIndexableResource(
+                        Ranking.getRankForClassName(AmbientSettings.class.getName()),
+                        NO_DATA_RES_ID,
+                        AmbientSettings.class.getName(),
+                        R.drawable.ic_settings_display));
     }
 
     private SearchIndexableResources() {
