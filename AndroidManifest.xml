@@ -2310,6 +2310,8 @@
             android:label="@string/hfm_whitelist_title"
             android:taskAffinity="com.android.settings" />
 
+        <activity android:name=".headsup.HeadsUpSettings" />
+
         <!-- End of cmRemiX activities -->
 
         <provider

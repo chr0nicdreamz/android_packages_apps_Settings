@@ -19,6 +19,13 @@
     android:title="@string/cmremix_tweaks_title"
     xmlns:settings="http://schemas.android.com/apk/res/com.android.settings">
 
+    <!-- Heads up notifications -->
+    <Preference
+         android:key="heads_up_enabled"
+         android:fragment="com.android.settings.cmremix.HeadsUpSettings"
+         android:title="@string/category_heads_up" 
+         android:icon="@drawable/ic_settings_viper" />
+
     <!-- Animation Controls -->
     <PreferenceScreen
         android:key="animation_settings"
