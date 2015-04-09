@@ -989,4 +989,12 @@
     <string name="volume_panel_time_out_12sec">12 seconds</string>
     <string name="volume_panel_time_out_15sec">15 seconds</string>
 
+    <!-- Breathing Notifications -->
+    <string name="sms_breath">Breathing SMS</string>
+    <string name="sms_breath_summary">Will give your sms notifications a breathing effect in the statusbar</string>
+    <string name="title_missed_call_breath">Breathing Missed Call</string>
+    <string name="missed_call_breath_summary">Will give your missed call notifications a breathing effect in the statusbar</string>
+    <string name="title_voicemail_breath">Breathing Voicemail</string>
+    <string name="voicemail_breath_summary">Will give your voicemail notifications a breathing effect in the statusbar</string>
+
 </resources>
