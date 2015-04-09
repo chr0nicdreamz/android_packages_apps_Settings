@@ -70,14 +70,6 @@
                 android:icon="@drawable/ic_settings_buttons"
                 />
 
-        <!-- Recent panel settings -->
-        <PreferenceScreen
-                android:key="recents_panel"
-                android:fragment="com.android.settings.cmremix.RecentsPanelSettings"
-                android:title="@string/recents_panel_title"
-                android:icon="@drawable/ic_recents"
-                />
-
         <!-- CMRemix Tweaks -->
         <PreferenceScreen
                 android:key="cmremix_tweaks"

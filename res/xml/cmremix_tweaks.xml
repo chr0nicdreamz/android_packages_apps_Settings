@@ -19,6 +19,14 @@
     android:title="@string/cmremix_tweaks_title"
     xmlns:settings="http://schemas.android.com/apk/res/com.android.settings">
 
+    <!-- Recent panel settings -->
+    <PreferenceScreen
+         android:key="recents_panel"
+         android:fragment="com.android.settings.cmremix.RecentsPanelSettings"
+         android:title="@string/recents_panel_title"
+         android:icon="@drawable/ic_recents"
+         />
+
     <!-- Heads up notifications -->
     <Preference
          android:key="heads_up_enabled"
