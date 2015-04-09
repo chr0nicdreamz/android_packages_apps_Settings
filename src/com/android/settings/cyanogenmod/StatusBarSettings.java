@@ -36,6 +36,8 @@ import android.telephony.TelephonyManager;
 import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.EditText;
+import android.text.Spannable;
+import android.text.TextUtils;
 
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
@@ -61,6 +63,7 @@ public class StatusBarSettings extends SettingsPreferenceFragment
     private static final String STATUS_BAR_BATTERY_STYLE = "status_bar_battery_style";
     private static final String STATUS_BAR_SHOW_BATTERY_PERCENT = "status_bar_show_battery_percent";
     private static final String KEY_STATUS_BAR_NETWORK_ARROWS= "status_bar_show_network_activity";
+    private static final String KEY_STATUS_BAR_GREETING = "status_bar_greeting";
 
     private static final int STATUS_BAR_BATTERY_STYLE_HIDDEN = 4;
     private static final int STATUS_BAR_BATTERY_STYLE_TEXT = 6;
@@ -75,6 +78,11 @@ public class StatusBarSettings extends SettingsPreferenceFragment
     private ListPreference mStatusBarDateStyle;
     private ListPreference mStatusBarDateFormat;
     private SwitchPreference mNetworkArrows;
+
+    private SwitchPreference mStatusBarGreeting;
+
+    private String mCustomGreetingText = "";
+
 
     private ListPreference mStatusBarBattery;
     private ListPreference mStatusBarBatteryShowPercent;
@@ -102,6 +110,13 @@ public class StatusBarSettings extends SettingsPreferenceFragment
         int networkArrows = Settings.CMREMIX.getInt(getContentResolver(),
                 Settings.CMREMIX.STATUS_BAR_SHOW_NETWORK_ACTIVITY, 1);
         updateNetworkArrowsSummary(networkArrows);
+
+        // Greeting
+        mStatusBarGreeting = (SwitchPreference) findPreference(KEY_STATUS_BAR_GREETING);
+        mCustomGreetingText = Settings.CMREMIX.getString(getActivity().getContentResolver(),
+                Settings.CMREMIX.STATUS_BAR_GREETING);
+        boolean greeting = mCustomGreetingText != null && !TextUtils.isEmpty(mCustomGreetingText);
+        mStatusBarGreeting.setChecked(greeting);
 
         mStatusBarBattery = (ListPreference) findPreference(STATUS_BAR_BATTERY_STYLE);
         mStatusBarBatteryShowPercent =
@@ -276,6 +291,47 @@ public class StatusBarSettings extends SettingsPreferenceFragment
             return true;
         }
         return false;
+    }
+
+    @Override
+    public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
+       if (preference == mStatusBarGreeting) {
+           boolean enabled = mStatusBarGreeting.isChecked();
+           if (enabled) {
+                AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
+
+                alert.setTitle(R.string.status_bar_greeting_title);
+                alert.setMessage(R.string.status_bar_greeting_dialog);
+
+                // Set an EditText view to get user input
+                final EditText input = new EditText(getActivity());
+                input.setText(mCustomGreetingText != null ? mCustomGreetingText : "Welcome to cmRemiX");
+                alert.setView(input);
+                alert.setPositiveButton(getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        String value = ((Spannable) input.getText()).toString();
+                        Settings.CMREMIX.putString(getActivity().getContentResolver(),
+                                Settings.CMREMIX.STATUS_BAR_GREETING, value);
+                        updateCheckState(value);
+                    }
+                });
+                alert.setNegativeButton(getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        // Canceled.
+                    }
+                });
+
+                alert.show();
+            } else {
+                Settings.CMREMIX.putString(getActivity().getContentResolver(),
+                        Settings.CMREMIX.STATUS_BAR_GREETING, "");
+            }
+        }
+        return super.onPreferenceTreeClick(preferenceScreen, preference);
+    }
+
+    private void updateCheckState(String value) {
+        if (value == null || TextUtils.isEmpty(value)) mStatusBarGreeting.setChecked(false);
     }
 
     private void enableStatusBarBatteryDependents(int batteryIconStyle) {

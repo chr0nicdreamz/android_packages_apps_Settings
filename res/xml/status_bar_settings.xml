@@ -60,6 +60,12 @@
         android:entries="@array/status_bar_battery_style_entries"
         android:entryValues="@array/status_bar_battery_style_values" />
 
+    <SwitchPreference
+        android:key="status_bar_greeting"
+        android:title="@string/status_bar_greeting_title"
+        android:summary="@string/status_bar_greeting_summary"
+        android:icon="@drawable/ic_settings_battery" />
+
     <ListPreference
         android:key="status_bar_show_battery_percent"
         android:title="@string/status_bar_battery_percentage_title"
