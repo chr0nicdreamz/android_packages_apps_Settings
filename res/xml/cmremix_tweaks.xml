@@ -58,6 +58,14 @@
         android:icon="@drawable/ic_settings_gestureanywhere"
         />
 
+    <!-- App sidebar -->
+    <PreferenceScreen
+        android:key="app_sidebar"
+        android:fragment="com.android.settings.cmremix.AppSidebar"
+        android:title="@string/app_sidebar_title"
+        android:icon="@drawable/ic_settings_appcirclebar"
+        />
+
     <!-- Wakelock blocker -->
     <PreferenceScreen
         android:key="wakelock_blocker"
