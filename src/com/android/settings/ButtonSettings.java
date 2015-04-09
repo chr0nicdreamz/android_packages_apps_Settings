@@ -96,7 +96,7 @@ public class ButtonSettings extends SettingsPreferenceFragment implements
     private static final String CATEGORY_CAMERA = "camera_key";
     private static final String CATEGORY_VOLUME = "volume_keys";
     private static final String CATEGORY_BACKLIGHT = "key_backlight";
-    private static final String CATEGORY_NAVBAR = "nav_bar";
+    private static final String CATEGORY_NAVBAR = "nav_cat";
     private static final String CATEGORY_HW_KEYS = "hw_keys";
 
     // Available custom actions to perform on a key press.
@@ -161,18 +161,20 @@ public class ButtonSettings extends SettingsPreferenceFragment implements
 
         mHandler = new Handler();
 
+        // Navigation bar category
+        final PreferenceCategory navBarCategory = (PreferenceCategory) findPreference(CATEGORY_NAVBAR);
+
+        // Navigation bar keys switch
+        mEnableNavigationBar = (SwitchPreference) findPreference(KEY_ENABLE_NAVIGATION_BAR);
+
         // Navigation bar left
         mNavigationBarLeftPref = (SwitchPreference) findPreference(KEY_NAVIGATION_BAR_LEFT);
 
-        // Navigation bar category.
-        final PreferenceCategory navBarCategory =
-                (PreferenceCategory) prefScreen.findPreference(CATEGORY_NAVBAR);
-        // Enable/disable navigation bar
+        // Internal bool to check if the device have a navbar by default or not!
         boolean hasNavBarByDefault = getResources().getBoolean(
                 com.android.internal.R.bool.config_showNavigationBar);
         boolean enableNavigationBar = Settings.System.getInt(getContentResolver(),
                 Settings.System.NAVIGATION_BAR_SHOW, hasNavBarByDefault ? 1 : 0) == 1;
-        mEnableNavigationBar = (SwitchPreference) prefScreen.findPreference(KEY_ENABLE_NAVIGATION_BAR);
         mEnableNavigationBar.setChecked(enableNavigationBar);
         mEnableNavigationBar.setOnPreferenceChangeListener(this);
 
@@ -536,12 +538,12 @@ public class ButtonSettings extends SettingsPreferenceFragment implements
                 CMRemixUtils.isNavBarDefault(getActivity()) ? 1 : 0) == 1;
         mEnableNavigationBar.setChecked(enableNavigationBar);
 
+        updateNavbarPreferences(enableNavigationBar);
+
         String overflowButtonMode = Integer.toString(Settings.System.getInt(getContentResolver(),
                 Settings.System.UI_OVERFLOW_BUTTON, 2));
         mOverflowButtonMode.setValue(overflowButtonMode);
         mOverflowButtonMode.setSummary(mOverflowButtonMode.getEntry());
-
-        updateNavbarPreferences(enableNavigationBar);
     }
 
     private void updateNavbarPreferences(boolean show) {
