@@ -1042,11 +1042,8 @@
     <string name="trigger_bottom_title">Trigger height</string>
     <string name="trigger_bottom_summary">Adjust the height of the trigger area</string>
 
-    <!-- App Circle Sidebar -->
-    <string name="app_circle_bar_title">Apps circle sidebar</string>
-    <string name="app_circle_sidebar_summary_real">Launch apps faster from a sidebar and open multiple apps on one screen to multitask</string>
-    <string name="app_circle_bar_summary">Show app launcher after touching right side of screen</string>
-    <string name="app_circle_bar_included_apps_title">Included apps</string>
-    <string name="app_circle_bar_included_apps_summary">Apps will show in app sidebar</string>
+    <!-- Force expand notifications -->
+    <string name="notification_force_expand_title">Force expanded notification</string>
+    <string name="notification_force_expand_summary">Force expanded notifications on all apps that support it</string>
 
 </resources>
