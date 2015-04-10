@@ -90,12 +90,6 @@
         android:layout="@layout/preference_carrierlabel"
         android:title="@string/carrier_options" />
 
-    <PreferenceScreen
-        android:key="network_traffic_state"
-        android:fragment="com.android.settings.cmremix.NetworkTraffic"
-	    android:summary="@string/network_traffic_summary"
-	    android:title="@string/network_traffic_title" />
-
     <!--Vector Network traffic indicator -->
     <PreferenceScreen
        android:key="network_traffic_state"
