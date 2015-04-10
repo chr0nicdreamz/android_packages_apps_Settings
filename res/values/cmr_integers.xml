@@ -2,6 +2,14 @@
 
 <resources>
 
+    <!-- Overlays for NetworkTraffic Vector to use -->
+    <integer name="maskMeter">0x00000001</integer>
+    <integer name="maskText">0x00000002</integer>
+    <integer name="maskUp">0x00000004</integer>
+    <integer name="maskDown">0x00000008</integer>
+    <integer name="maskUnit">0x00000010</integer>
+    <integer name="maskPeriod">0xFFFF0000</integer>
+
     <!-- Overlays for NetworkTraffic to use -->
     <integer name="maskUp">0x00000001</integer>
     <integer name="maskDown">0x00000002</integer>
