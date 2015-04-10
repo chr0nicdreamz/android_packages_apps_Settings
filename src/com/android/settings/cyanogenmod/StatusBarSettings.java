@@ -44,6 +44,7 @@ import com.android.settings.SettingsPreferenceFragment;
 import com.android.settings.Utils;
 import com.android.settings.search.BaseSearchIndexProvider;
 import com.android.settings.search.Indexable;
+import com.android.settings.cmremix.utils.SeekBarPreferenceCham;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -64,6 +65,7 @@ public class StatusBarSettings extends SettingsPreferenceFragment
     private static final String STATUS_BAR_SHOW_BATTERY_PERCENT = "status_bar_show_battery_percent";
     private static final String KEY_STATUS_BAR_NETWORK_ARROWS= "status_bar_show_network_activity";
     private static final String KEY_STATUS_BAR_GREETING = "status_bar_greeting";
+    private static final String KEY_STATUS_BAR_GREETING_TIMEOUT = "status_bar_greeting_timeout";
 
     private static final int STATUS_BAR_BATTERY_STYLE_HIDDEN = 4;
     private static final int STATUS_BAR_BATTERY_STYLE_TEXT = 6;
@@ -80,6 +82,7 @@ public class StatusBarSettings extends SettingsPreferenceFragment
     private SwitchPreference mNetworkArrows;
 
     private SwitchPreference mStatusBarGreeting;
+    private SeekBarPreferenceCham mStatusBarGreetingTimeout;
 
     private String mCustomGreetingText = "";
 
@@ -103,7 +106,7 @@ public class StatusBarSettings extends SettingsPreferenceFragment
         mStatusBarDateFormat = (ListPreference) findPreference(STATUS_BAR_DATE_FORMAT);
 
         // Network arrows
-        mNetworkArrows = (SwitchPreference) findPreference(KEY_STATUS_BAR_NETWORK_ARROWS);
+        mNetworkArrows = (SwitchPreference) prefSet.findPreference(KEY_STATUS_BAR_NETWORK_ARROWS);
         mNetworkArrows.setChecked(Settings.CMREMIX.getInt(getActivity().getContentResolver(),
             Settings.CMREMIX.STATUS_BAR_SHOW_NETWORK_ACTIVITY, 1) == 1);
         mNetworkArrows.setOnPreferenceChangeListener(this);
@@ -112,11 +115,18 @@ public class StatusBarSettings extends SettingsPreferenceFragment
         updateNetworkArrowsSummary(networkArrows);
 
         // Greeting
-        mStatusBarGreeting = (SwitchPreference) findPreference(KEY_STATUS_BAR_GREETING);
+        mStatusBarGreeting = (SwitchPreference) prefSet.findPreference(KEY_STATUS_BAR_GREETING);
         mCustomGreetingText = Settings.CMREMIX.getString(getActivity().getContentResolver(),
                 Settings.CMREMIX.STATUS_BAR_GREETING);
         boolean greeting = mCustomGreetingText != null && !TextUtils.isEmpty(mCustomGreetingText);
         mStatusBarGreeting.setChecked(greeting);
+
+        mStatusBarGreetingTimeout =
+                (SeekBarPreferenceCham) prefSet.findPreference(KEY_STATUS_BAR_GREETING_TIMEOUT);
+        int statusBarGreetingTimeout = Settings.CMREMIX.getInt(getContentResolver(),
+                Settings.CMREMIX.STATUS_BAR_GREETING_TIMEOUT, 400);
+        mStatusBarGreetingTimeout.setValue(statusBarGreetingTimeout / 1);
+        mStatusBarGreetingTimeout.setOnPreferenceChangeListener(this);
 
         mStatusBarBattery = (ListPreference) findPreference(STATUS_BAR_BATTERY_STYLE);
         mStatusBarBatteryShowPercent =
@@ -289,6 +299,11 @@ public class StatusBarSettings extends SettingsPreferenceFragment
                     Settings.CMREMIX.STATUS_BAR_SHOW_NETWORK_ACTIVITY, 1);
             updateNetworkArrowsSummary(networkArrows);
             return true;
+        } else if (preference == mStatusBarGreetingTimeout) {
+            int timeout = (Integer) newValue;
+            Settings.CMREMIX.putInt(getActivity().getContentResolver(),
+                    Settings.CMREMIX.STATUS_BAR_GREETING_TIMEOUT, timeout * 1);
+            return true;
         }
         return false;
     }
@@ -305,7 +320,8 @@ public class StatusBarSettings extends SettingsPreferenceFragment
 
                 // Set an EditText view to get user input
                 final EditText input = new EditText(getActivity());
-                input.setText(mCustomGreetingText != null ? mCustomGreetingText : "Welcome to cmRemiX");
+                input.setText(mCustomGreetingText != null ? mCustomGreetingText :
+                        getResources().getString(R.string.status_bar_greeting_main));
                 alert.setView(input);
                 alert.setPositiveButton(getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
