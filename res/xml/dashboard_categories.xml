@@ -183,6 +183,14 @@
                 android:icon="@drawable/ic_settings_battery"
                 />
 
+        <!-- Lock screen -->
+        <dashboard-tile
+                android:id="@+id/lockscreen_settings"
+                android:title="@string/lockscreen_settings"
+                android:fragment="com.android.settings.lockscreen.LockScreenSettings"
+                android:icon="@drawable/ic_settings_security"
+                />
+
         <!-- Security -->
         <dashboard-tile
                 android:id="@+id/security_settings"

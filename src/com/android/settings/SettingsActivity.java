@@ -244,6 +244,7 @@ public class SettingsActivity extends Activity
             R.id.battery_settings,
             R.id.personal_section,
             R.id.location_settings,
+            R.id.lockscreen_settings,
             R.id.security_settings,
             R.id.language_settings,
             R.id.user_settings,
