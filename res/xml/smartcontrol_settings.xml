@@ -23,12 +23,12 @@
         android:key="direct_control"
         android:title="@string/direct_control_title" >
 
-        <com.android.settings.cmremix.utils.cmRemiXSwitchPreference
+        <com.android.settings.cmremix.utils.CMRemixSwitchPreference
             android:key="direct_call_for_dialer"
             android:summary="@string/direct_call_for_dialer_summary"
             android:title="@string/direct_call_for_dialer_title" />
 
-        <com.android.settings.cmremix.utils.cmRemiXSwitchPreference
+        <com.android.settings.cmremix.utils.CMRemixSwitchPreference
             android:key="direct_call_for_mms"
             android:summary="@string/direct_call_for_mms_summary"
             android:title="@string/direct_call_for_mms_title" />
