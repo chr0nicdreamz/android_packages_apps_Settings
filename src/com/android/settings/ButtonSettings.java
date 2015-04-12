@@ -193,6 +193,9 @@ public class ButtonSettings extends SettingsPreferenceFragment implements
         mNavbarButtonTint.setSummary(hexColor);
         mNavbarButtonTint.setNewPreviewColor(intColor);
 
+        mOverflowButtonMode = (ListPreference) findPreference(KEYS_OVERFLOW_BUTTON);
+        mOverflowButtonMode.setOnPreferenceChangeListener(this);
+
         // Enable/disable hw keys
         boolean enableHwKeys = Settings.System.getInt(getContentResolver(),
                 Settings.System.ENABLE_HW_KEYS, 1) == 1;
@@ -205,9 +208,6 @@ public class ButtonSettings extends SettingsPreferenceFragment implements
                     getPreferenceScreen().findPreference(CATEGORY_HW_KEYS);
             getPreferenceScreen().removePreference(hwKeysPref);
         }
-
-        mOverflowButtonMode = (ListPreference) findPreference(KEYS_OVERFLOW_BUTTON);
-        mOverflowButtonMode.setOnPreferenceChangeListener(this);
 
         // Navigation bar recents long press activity needs custom setup
         mNavigationRecentsLongPressAction =
