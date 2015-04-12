@@ -23,6 +23,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
@@ -66,6 +67,9 @@ public class StatusBarSettings extends SettingsPreferenceFragment
     private static final String KEY_STATUS_BAR_NETWORK_ARROWS= "status_bar_show_network_activity";
     private static final String KEY_STATUS_BAR_GREETING = "status_bar_greeting";
     private static final String KEY_STATUS_BAR_GREETING_TIMEOUT = "status_bar_greeting_timeout";
+    private static final String SMS_BREATH = "sms_breath";
+    private static final String MISSED_CALL_BREATH = "missed_call_breath";
+    private static final String VOICEMAIL_BREATH = "voicemail_breath";
 
     private static final int STATUS_BAR_BATTERY_STYLE_HIDDEN = 4;
     private static final int STATUS_BAR_BATTERY_STYLE_TEXT = 6;
@@ -80,6 +84,9 @@ public class StatusBarSettings extends SettingsPreferenceFragment
     private ListPreference mStatusBarDateStyle;
     private ListPreference mStatusBarDateFormat;
     private SwitchPreference mNetworkArrows;
+    private SwitchPreference mSMSBreath;
+    private SwitchPreference mMissedCallBreath;
+    private SwitchPreference mVoicemailBreath;
 
     private SwitchPreference mStatusBarGreeting;
     private SeekBarPreferenceCham mStatusBarGreetingTimeout;
@@ -184,6 +191,32 @@ public class StatusBarSettings extends SettingsPreferenceFragment
 
         if (TelephonyManager.getDefault().getPhoneCount() <= 1) {
             removePreference(Settings.System.STATUS_BAR_MSIM_SHOW_EMPTY_ICONS);
+        }
+
+        mSMSBreath = (SwitchPreference) findPreference(SMS_BREATH);
+        mMissedCallBreath = (SwitchPreference) findPreference(MISSED_CALL_BREATH);
+        mVoicemailBreath = (SwitchPreference) findPreference(VOICEMAIL_BREATH);
+
+        Context context = getActivity();
+        ConnectivityManager cm = (ConnectivityManager)
+                context.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        if(cm.isNetworkSupported(ConnectivityManager.TYPE_MOBILE)) {
+            mSMSBreath.setChecked(Settings.CMREMIX.getInt(resolver,
+                    Settings.CMREMIX.KEY_SMS_BREATH, 0) == 1);
+            mSMSBreath.setOnPreferenceChangeListener(this);
+
+            mMissedCallBreath.setChecked(Settings.CMREMIX.getInt(resolver,
+                    Settings.CMREMIX.KEY_MISSED_CALL_BREATH, 0) == 1);
+            mMissedCallBreath.setOnPreferenceChangeListener(this);
+
+            mVoicemailBreath.setChecked(Settings.CMREMIX.getInt(resolver,
+                    Settings.CMREMIX.KEY_VOICEMAIL_BREATH, 0) == 1);
+            mVoicemailBreath.setOnPreferenceChangeListener(this);
+        } else {
+            prefSet.removePreference(mSMSBreath);
+            prefSet.removePreference(mMissedCallBreath);
+            prefSet.removePreference(mVoicemailBreath);
         }
     }
 
@@ -303,6 +336,19 @@ public class StatusBarSettings extends SettingsPreferenceFragment
             int timeout = (Integer) newValue;
             Settings.CMREMIX.putInt(getActivity().getContentResolver(),
                     Settings.CMREMIX.STATUS_BAR_GREETING_TIMEOUT, timeout * 1);
+            return true;
+        } else if (preference == mSMSBreath) {
+            boolean value = (Boolean) newValue;
+            Settings.CMREMIX.putInt(resolver,
+                    Settings.CMREMIX.KEY_SMS_BREATH, value ? 1 : 0);
+        } else if (preference == mMissedCallBreath) {
+            boolean value = (Boolean) newValue;
+            Settings.CMREMIX.putInt(resolver,
+                    Settings.CMREMIX.KEY_MISSED_CALL_BREATH, value ? 1 : 0);
+        } else if (preference == mVoicemailBreath) {
+            boolean value = (Boolean) newValue;
+            Settings.CMREMIX.putInt(resolver,
+                     Settings.CMREMIX.KEY_VOICEMAIL_BREATH, value ? 1 : 0);
             return true;
         }
         return false;
