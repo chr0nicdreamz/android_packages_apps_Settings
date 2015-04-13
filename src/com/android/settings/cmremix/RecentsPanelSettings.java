@@ -36,13 +36,15 @@ public class RecentsPanelSettings extends SettingsPreferenceFragment implements
 
     private static final String SHOW_CLEAR_ALL_RECENTS = "show_clear_all_recents";
     private static final String RECENTS_CLEAR_ALL_LOCATION = "recents_clear_all_location";
+    private static final String RECENT_RAM_BAR = "recents_ram_bar";
     
     private SwitchPreference mRecentsClearAll;
     private ListPreference mRecentsClearAllLocation;
+    private Preference mRecentRamBar;
 
     @Override
-    public void onCreate(Bundle icicle) {
-        super.onCreate(icicle);
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.recents_panel_settings);
 
         PreferenceScreen prefSet = getPreferenceScreen();
@@ -53,17 +55,15 @@ public class RecentsPanelSettings extends SettingsPreferenceFragment implements
             Settings.System.SHOW_CLEAR_ALL_RECENTS, 1, UserHandle.USER_CURRENT) == 1);
         mRecentsClearAll.setOnPreferenceChangeListener(this);
 
+        mRecentRamBar = findPreference(RECENT_RAM_BAR);
+        updateRamBarStatus();
+
         mRecentsClearAllLocation = (ListPreference) prefSet.findPreference(RECENTS_CLEAR_ALL_LOCATION);
         int location = Settings.System.getIntForUser(resolver,
                 Settings.System.RECENTS_CLEAR_ALL_LOCATION, 0, UserHandle.USER_CURRENT);
         mRecentsClearAllLocation.setValue(String.valueOf(location));
         mRecentsClearAllLocation.setOnPreferenceChangeListener(this);
         updateRecentsLocation(location);
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
     }
 
     public boolean onPreferenceChange(Preference preference, Object objValue) {
@@ -80,6 +80,27 @@ public class RecentsPanelSettings extends SettingsPreferenceFragment implements
             return true;
         }
         return false;
+    }
+
+    private void updateRamBarStatus() {
+        int ramBarMode = Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
+                Settings.System.RECENTS_RAM_BAR_MODE, 0);
+        if (ramBarMode != 0)
+            mRecentRamBar.setSummary(getResources().getString(R.string.ram_bar_color_enabled));
+        else
+            mRecentRamBar.setSummary(getResources().getString(R.string.ram_bar_color_disabled));
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        updateRamBarStatus();
+    }
+
+    @Override
+    public void onPause() {
+        super.onResume();
+        updateRamBarStatus();
     }
 
     private void updateRecentsLocation(int value) {

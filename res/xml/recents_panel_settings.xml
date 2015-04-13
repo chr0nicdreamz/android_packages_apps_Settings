@@ -19,6 +19,7 @@
     android:title="@string/recents_panel_title"
     xmlns:settings="http://schemas.android.com/apk/res/com.android.settings">    
 
+  <!-- Clear Recent Button -->
     <PreferenceCategory
         android:key="recent_panel"
         android:title="@string/recents_panel_settings" >
@@ -59,5 +60,15 @@
             android:id="@+id/omniswitch"
             android:title="@string/omniswitch_settings_title"
             android:fragment="com.android.settings.cmremix.OmniSwitch" />
+
+    <!-- RAM Bar -->
+    <PreferenceCategory
+            android:key="category_rambar"
+            android:title="@string/ram_bar_settings_category"/>
+
+    <PreferenceScreen
+            android:key="recents_ram_bar"
+            android:fragment="com.android.settings.cmremix.RamBar"
+            android:title="@string/ram_bar" />
 
 </PreferenceScreen>
