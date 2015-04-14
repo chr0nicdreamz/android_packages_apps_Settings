@@ -489,9 +489,6 @@
     <string name="toast_Random_animation">Random</string>
     <string name="toast_test_animation">Test toast animation</string>
 
-    <!-- Battery saver -->
-    <string name="battery_saver_title">Warning color</string>
-
     <!-- UI debug setting: show CPU info? [CHAR LIMIT=25] -->
     <string name="show_cpu_info">Show CPU info</string>
     <!-- UI debug setting: show cpu usage summary [CHAR LIMIT=50] -->
