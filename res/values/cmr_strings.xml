@@ -20,12 +20,6 @@
     <string name="cmremix_version">CMRemix version</string>
     <string name="cmremix_version_default">Unknown</string>
 
-    <!--Saber version-->
-    <string name="sm_android">Saber android version</string>
-    <string name="sm_android_default">Unknown</string>
-    <string name="sm_arm">Saber kernel version</string>
-    <string name="sm_arm_default">Unknown</string>
-
     <!-- CM-Remix Custom Settings -->
     <string name="cmremix_center_title">CMRemiX Center</string>
     <string name="cmremix_settings_title">CMRemix Settings</string>
