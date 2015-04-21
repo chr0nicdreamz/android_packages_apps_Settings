@@ -65,6 +65,10 @@
             android:title="@string/cm_lockscreen_shortcuts_title"
             android:summary="@string/cm_lockscreen_shortcuts_summary" />
 
+        <SwitchPreference
+            android:key="lockscreen_bottom_shortcuts"
+            android:title="@string/lockscreen_bottom_shortcuts_title"/>
+
     </PreferenceCategory>
 
 </PreferenceScreen>

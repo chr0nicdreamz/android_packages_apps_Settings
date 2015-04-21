@@ -35,8 +35,10 @@ public class LockscreenShortcut extends SettingsPreferenceFragment implements
 
     private static final String PREF_LOCKSCREEN_SHORTCUTS_LONGPRESS =
             "lockscreen_shortcuts_longpress";
+    private static final String LOCKSCREEN_BOTTOM_SHORTCUTS = "lockscreen_bottom_shortcuts";
 
     private SwitchPreference mLockscreenShortcutsLongpress;
+    private SwitchPreference mLockscreenBottomShortcuts;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -51,6 +53,18 @@ public class LockscreenShortcut extends SettingsPreferenceFragment implements
         mLockscreenShortcutsLongpress.setChecked(Settings.CMREMIX.getInt(getContentResolver(),
                 Settings.CMREMIX.LOCKSCREEN_SHORTCUTS_LONGPRESS, 1) == 1);
         mLockscreenShortcutsLongpress.setOnPreferenceChangeListener(this);
+
+        // Lockscreen bottom shortcuts
+        mLockscreenBottomShortcuts = (SwitchPreference) findPreference(LOCKSCREEN_BOTTOM_SHORTCUTS);
+        if (mLockscreenBottomShortcuts != null) {
+            boolean lockScreenBottomShortcutsEnabled = Settings.Secure.getInt(getContentResolver(),
+                    Settings.Secure.LOCKSCREEN_BOTTOM_SHORTCUTS, 1) == 1;
+            mLockscreenBottomShortcuts.setChecked(lockScreenBottomShortcutsEnabled);
+            mLockscreenBottomShortcuts.setSummary(lockScreenBottomShortcutsEnabled
+                    ? R.string.lockscreen_bottom_shortcuts_enabled :
+                      R.string.lockscreen_bottom_shortcuts_disabled);
+            mLockscreenBottomShortcuts.setOnPreferenceChangeListener(this);
+        }
 
         setHasOptionsMenu(false);
     }
@@ -74,6 +88,10 @@ public class LockscreenShortcut extends SettingsPreferenceFragment implements
         if (preference == mLockscreenShortcutsLongpress) {
             Settings.CMREMIX.putInt(getContentResolver(),
                     Settings.CMREMIX.LOCKSCREEN_SHORTCUTS_LONGPRESS,
+                    (Boolean) newValue ? 1 : 0);
+        } else if (preference == mLockscreenBottomShortcuts) {
+            Settings.Secure.putInt(getActivity().getApplicationContext().getContentResolver(),
+                    Settings.Secure.LOCKSCREEN_BOTTOM_SHORTCUTS,
                     (Boolean) newValue ? 1 : 0);
         }
         return true;
