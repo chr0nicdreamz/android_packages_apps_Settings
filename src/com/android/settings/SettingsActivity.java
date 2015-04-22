@@ -80,6 +80,7 @@ import com.android.settings.applications.ManageApplications;
 import com.android.settings.applications.ProcessStatsUi;
 import com.android.settings.blacklist.BlacklistSettings;
 import com.android.settings.bluetooth.BluetoothSettings;
+import com.android.settings.cyanogenmod.DisplayRotation;
 import com.android.settings.cmremix.CMRemixUiSettings;
 import com.android.settings.dashboard.DashboardCategory;
 import com.android.settings.dashboard.DashboardSummary;
@@ -92,7 +93,6 @@ import com.android.settings.fuelgauge.BatterySaverSettings;
 import com.android.settings.fuelgauge.PowerUsageSummary;
 import com.android.settings.livedisplay.LiveDisplay;
 import com.android.settings.lockscreen.LockScreenSettings;
-import com.android.settings.cyanogenmod.DisplayRotation;
 import com.android.settings.cyanogenmod.qs.QSTiles;
 import com.android.settings.notification.NotificationAppList;
 import com.android.settings.notification.NotificationManagerSettings;
@@ -330,9 +330,9 @@ public class SettingsActivity extends Activity
             LockScreenSettings.class.getName(),
             LiveDisplay.class.getName(),
             QSTiles.class.getName(),
-            DisplayRotation.class.getName(),
             ExpandedDesktopPreferenceFragment.class.getName(),
-            AmbientSettings.class.getName()
+            AmbientSettings.class.getName(),
+            DisplayRotation.class.getName()
     };
 
 
