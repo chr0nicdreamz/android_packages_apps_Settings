@@ -20,6 +20,8 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -39,6 +41,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.text.Spannable;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
@@ -70,6 +73,7 @@ public class StatusBarSettings extends SettingsPreferenceFragment
     private static final String SMS_BREATH = "sms_breath";
     private static final String MISSED_CALL_BREATH = "missed_call_breath";
     private static final String VOICEMAIL_BREATH = "voicemail_breath";
+    private static final String KEY_STATUS_BAR_TICKER = "status_bar_ticker_enabled";
 
     private static final int STATUS_BAR_BATTERY_STYLE_HIDDEN = 4;
     private static final int STATUS_BAR_BATTERY_STYLE_TEXT = 6;
@@ -87,12 +91,10 @@ public class StatusBarSettings extends SettingsPreferenceFragment
     private SwitchPreference mSMSBreath;
     private SwitchPreference mMissedCallBreath;
     private SwitchPreference mVoicemailBreath;
-
     private SwitchPreference mStatusBarGreeting;
     private SeekBarPreferenceCham mStatusBarGreetingTimeout;
-
     private String mCustomGreetingText = "";
-
+    private SwitchPreference mTicker;
 
     private ListPreference mStatusBarBattery;
     private ListPreference mStatusBarBatteryShowPercent;
@@ -105,6 +107,15 @@ public class StatusBarSettings extends SettingsPreferenceFragment
         PreferenceCategory mCategory = (PreferenceCategory) findPreference("status_bar");
         PreferenceScreen prefSet = getPreferenceScreen();
         ContentResolver resolver = getActivity().getContentResolver();
+
+        PackageManager pm = getPackageManager();
+        Resources systemUiResources;
+        try {
+            systemUiResources = pm.getResourcesForApplication("com.android.systemui");
+        } catch (Exception e) {
+            Log.e(TAG, "can't access systemui resources",e);
+            return;
+        }
 
         mStatusBarClock = (ListPreference) findPreference(STATUS_BAR_CLOCK_STYLE);
         mStatusBarAmPm = (ListPreference) findPreference(STATUS_BAR_AM_PM);
@@ -218,6 +229,13 @@ public class StatusBarSettings extends SettingsPreferenceFragment
             prefSet.removePreference(mMissedCallBreath);
             prefSet.removePreference(mVoicemailBreath);
         }
+
+        mTicker = (SwitchPreference) prefSet.findPreference(KEY_STATUS_BAR_TICKER);
+        final boolean tickerEnabled = systemUiResources.getBoolean(systemUiResources.getIdentifier(
+                    "com.android.systemui:bool/enable_ticker", null, null));
+        mTicker.setChecked(Settings.System.getInt(getContentResolver(),
+                Settings.System.STATUS_BAR_TICKER_ENABLED, tickerEnabled ? 1 : 0) == 1);
+        mTicker.setOnPreferenceChangeListener(this);
     }
 
     @Override
@@ -349,6 +367,10 @@ public class StatusBarSettings extends SettingsPreferenceFragment
             boolean value = (Boolean) newValue;
             Settings.CMREMIX.putInt(resolver,
                      Settings.CMREMIX.KEY_VOICEMAIL_BREATH, value ? 1 : 0);
+        } else if (preference == mTicker) {
+            Settings.System.putInt(getContentResolver(),
+                    Settings.System.STATUS_BAR_TICKER_ENABLED,
+                    (Boolean) newValue ? 1 : 0);
             return true;
         }
         return false;
