@@ -70,11 +70,6 @@ public class SoundSettings extends SettingsPreferenceFragment implements
         mAnnoyingNotifications.setValue(Integer.toString(notificationThreshold));
         mAnnoyingNotifications.setOnPreferenceChangeListener(this);
 
-        mVolumeKeysControlMedia = (SwitchPreference) findPreference(KEY_VOL_MEDIA);
-        mVolumeKeysControlMedia.setChecked(Settings.System.getInt(getContentResolver(),
-                Settings.System.VOLUME_KEYS_CONTROL_MEDIA_STREAM, 0) != 0);
-        mVolumeKeysControlMedia.setOnPreferenceChangeListener(this);
-
         mCameraSounds = (SwitchPreference) findPreference(KEY_CAMERA_SOUNDS);
         mCameraSounds.setChecked(SystemProperties.getBoolean(PROP_CAMERA_SOUND, true));
         mCameraSounds.setOnPreferenceChangeListener(this);
@@ -105,11 +100,6 @@ public class SoundSettings extends SettingsPreferenceFragment implements
             final int val = Integer.valueOf((String) objValue);
             Settings.System.putInt(getContentResolver(),
                     Settings.System.MUTE_ANNOYING_NOTIFICATIONS_THRESHOLD, val);
-        }
-        if (KEY_VOL_MEDIA.equals(key)) {
-            Settings.System.putInt(getContentResolver(),
-                    Settings.System.VOLUME_KEYS_CONTROL_MEDIA_STREAM,
-                    (Boolean) objValue ? 1 : 0);
         }
         if (KEY_CAMERA_SOUNDS.equals(key)) {
            if ((Boolean) objValue) {
