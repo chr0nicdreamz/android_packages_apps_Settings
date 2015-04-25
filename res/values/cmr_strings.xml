@@ -105,11 +105,6 @@
     <string name="shortcut_action_app">Custom app</string>
     <string name="shortcut_action_home">Home</string>
     <string name="shortcut_action_back">Back</string>
-    <string name="shortcut_action_kill">Kill app</string>
-    <string name="shortcut_action_lastapp">Last app</string>
-    <string name="shortcut_action_assist">Search</string>
-    <string name="shortcut_action_screenshot">Screenshot</string>
-    <string name="shortcut_action_torch">Torch</string>
     <string name="shortcut_action_menu">Menu</string>
     <string name="shortcut_action_ime">Open IME Switcher</string>
     <string name="shortcut_action_power_menu">Power menu</string>
@@ -752,13 +747,6 @@
     <string name="status_bar_date_string_edittext_title">Must be in DateFormat eg. MM/dd/yy</string>
     <string name="status_bar_date_string_edittext_summary">Enter string</string>
 
-    <!-- Overflow button -->
-    <string name="keys_overflow_title">Overflow button</string>
-    <string name="keys_overflow_toast">The action overflow button may not be visible or hidden until apps are restarted</string>
-    <string name="overflow_auto_detect">Auto detect</string>
-    <string name="overflow_show">Show</string>
-    <string name="overflow_hide">Hide</string>
-
     <!-- QuickSettings: Quick Pulldown -->
     <string name="block_on_secure_keyguard_title">Disable on lockscreen</string>
     <string name="block_on_secure_keyguard_summary">Disable quick settings on secure lockscreen</string>
@@ -1028,12 +1016,6 @@
     <!-- Force expand notifications -->
     <string name="notification_force_expand_title">Force expanded notification</string>
     <string name="notification_force_expand_summary">Force expanded notifications on all apps that support it</string>
-
-    <!-- Slim Shortcuts -->
-    <string name="slim_shortcut_picker">Slim Actions</string>
-    <string name="qs_tile_slimaction">SlimAction</string>
-    <string name="qs_slim_action_summary">Add and set the order of SlimActions for SlimAction tile</string>
-    <string name="qs_slim_action_title">SlimActions</string>
 
     <!-- Smart cover -->
     <string name="smart_cover_title">Smart cover</string>
