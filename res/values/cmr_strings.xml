@@ -72,7 +72,6 @@
     <string name="dialog_restart">Restart</string>
     <string name="dialog_cancel">Cancel</string>
     <string name="general_category">General</string>
-    <string name="performance_settings">Performance</string>
 
     <!-- SuperSU -->
     <string name="supersu_title">SuperSU</string>

@@ -135,17 +135,6 @@
                 android:targetClass="com.cmremix.center.CMRemixCenter" />
     </dashboard-tile>
 
-        <!-- Kernel Auditor App -->
-        <dashboard-tile
-                android:id="@+id/kernel_auditor"
-                android:icon="@drawable/ic_cmremix_performance_teal"
-                android:title="@string/performance_settings">
-                <intent
-                    android:action="android.intent.action.MAIN"
-                    android:targetPackage="com.grarak.kerneladiutor"
-                    android:targetClass="com.grarak.kerneladiutor.MainActivity" />
-        </dashboard-tile>
-
     </dashboard-category>
 
     <!-- DEVICE -->
