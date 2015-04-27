@@ -72,6 +72,7 @@
     <string name="dialog_restart">Restart</string>
     <string name="dialog_cancel">Cancel</string>
     <string name="general_category">General</string>
+    <string name="general_options_title">General</string>
 
     <!-- SuperSU -->
     <string name="supersu_title">SuperSU</string>
@@ -930,11 +931,12 @@
     <string name="volume_panel_time_out_15sec">15 seconds</string>
 
     <!-- Breathing Notifications -->
-    <string name="sms_breath">Breathing SMS</string>
+    <string name="breathing_notifications_title">Breathing Notifications</string>
+    <string name="sms_breath_title">Breathing SMS</string>
     <string name="sms_breath_summary">Will give your sms notifications a breathing effect in the statusbar</string>
-    <string name="title_missed_call_breath">Breathing Missed Call</string>
+    <string name="missed_call_breath_title">Breathing Missed Call</string>
     <string name="missed_call_breath_summary">Will give your missed call notifications a breathing effect in the statusbar</string>
-    <string name="title_voicemail_breath">Breathing Voicemail</string>
+    <string name="voicemail_breath_title">Breathing Voicemail</string>
     <string name="voicemail_breath_summary">Will give your voicemail notifications a breathing effect in the statusbar</string>
 
     <!-- Show carrier label and custom -->
