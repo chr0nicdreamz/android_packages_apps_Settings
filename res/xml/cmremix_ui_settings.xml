@@ -59,7 +59,8 @@
                android:key="lockscreen_cmremix"
                android:fragment="com.android.settings.cmremix.LockScreenSettings"
                android:title="@string/cmremix_lockscreen_title" 
-               android:icon="@drawable/ic_settings_security"/>
+               android:icon="@drawable/ic_settings_security"
+               />
 
         <!-- Buttons -->
         <PreferenceScreen
@@ -74,14 +75,21 @@
                 android:key="cmremix_tweaks"
                 android:title="@string/cmremix_tweaks_title"
                 android:fragment="com.android.settings.cmremix.CMRemixTweaks"
-                android:icon="@drawable/ic_cmremix_tweaks"
+                android:icon="@drawable/ic_cmremix_tweaks" 
                 />
-
 
         <!-- CMRemix Change Log -->
        <PreferenceScreen android:key="changelog"
                android:title="@string/changelog_title"
                android:icon="@drawable/ic_settings_about"
-               android:fragment="com.android.settings.cmremix.ChangeLog" />
+               android:fragment="com.android.settings.cmremix.ChangeLog" 
+               />
+
+        <PreferenceScreen
+              android:key="key_changelog"
+              android:title="@string/changelog_title"
+              android:summary="@string/changelog_summary"
+              android:fragment="com.android.settings.cmremix.slim.fragment.BuildChangelogFragment" >
+        </PreferenceScreen>
 
 </PreferenceScreen>

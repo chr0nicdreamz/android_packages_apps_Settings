@@ -37,6 +37,9 @@
     <string name="changelog_error">Unable to load changelog</string>
     <string name="changelog_unknown">Unknown</string>
     <string name="changelog_version">Version</string>
+    <string name="changelog_title">Build changelog</string>
+    <string name="changelog_summary">A full changelog of the current build</string>
+    <string name="no_changelog_summary">No changelog</string>
 
     <!-- About device screen, CPU and RAM info. -->
     <string name="cpu_info">CPU</string>
