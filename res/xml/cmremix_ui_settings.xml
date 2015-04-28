@@ -79,17 +79,17 @@
                 />
 
         <!-- CMRemix Change Log -->
-       <PreferenceScreen android:key="changelog"
+       <!--<PreferenceScreen android:key="changelog"
                android:title="@string/changelog_title"
                android:icon="@drawable/ic_settings_about"
                android:fragment="com.android.settings.cmremix.ChangeLog" 
-               />
+               />-->
 
         <PreferenceScreen
               android:key="key_changelog"
               android:title="@string/changelog_title"
               android:summary="@string/changelog_summary"
-              android:fragment="com.android.settings.cmremix.slim.fragment.BuildChangelogFragment" >
+              android:fragment="com.android.settings.cmremix.slim.fragments.BuildChangelogFragment" >
         </PreferenceScreen>
 
 </PreferenceScreen>
