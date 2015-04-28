@@ -46,13 +46,13 @@
     <string name="mem_info">Memory</string>
 
     <!-- GCC version info -->
-    <string name="sm_android">Gcc android</string>
+    <string name="sm_android">Gcc android version</string>
     <string name="sm_android_default">Unknown</string>
-    <string name="sm_kernel">Gcc kernel</string>
+    <string name="sm_kernel">Gcc kernel version</string>
     <string name="sm_kernel_default">Unknown</string>
 
     <!-- GCC build flags info -->
-    <string name="sm_flags">Build flags</string>
+    <string name="sm_flags">Optimizations</string>
     <string name="sm_flags_default">None</string>
 
     <!-- cmRemiX Extra Info -->
