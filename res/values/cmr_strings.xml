@@ -76,6 +76,7 @@
     <string name="dialog_cancel">Cancel</string>
     <string name="general_category">General</string>
     <string name="general_options_title">General</string>
+    <string name="reset_default_message">Reset default</string>
 
     <!-- SuperSU -->
     <string name="supersu_title">SuperSU</string>
@@ -147,6 +148,7 @@
     <string name="shortcut_action_help_main">To add a %1$s, select the Add icon. Once a %1$s is added, selecting the row will change the target%2$s\n\nTo remove a %1$s, swipe the row horizontally left or right. Re-order a %1$s in the list by vertically dragging the anchor on the left.\n\nTo clear or reset to defaults, select the reset option.</string>
     <string name="shortcut_action_help_delete_last_entry">Removing every %1$s in the list will disable the feature entirely.</string>
     <string name="shortcut_action_help_pie_second_layer_delete_last_entry">Removing every %1$s in the list will disable the second pie layer entirely.</string>
+    <string name="shortcut_action_theme_switch">Theme switcher</string>
 
 
     <string name="shortcuts_applications">Applications</string>
@@ -1229,5 +1231,14 @@
 
     <!-- KernelAdiutor -->
     <string name="kerneladiutor_title">KernelAdiutor</string>
+
+    <!-- TRDS 5.0 -->	
+    <string name="theme_settings_title">TRDS</string>
+    <string name="theme_auto_mode_title">Switch theme</string>
+    <string name="theme_auto_mode_off">Manual</string>
+    <string name="theme_auto_mode_lightsensor">On light condition change (experimental)</string>
+    <string name="theme_auto_mode_twilight">On daytime</string>
+    <string name="theme_auto_switch_mode_error">Automatic light condition change mode is enabled. Manual switching is not possible.</string>
+    <string name="theme_reset_message">Reset theme state to default?</string>
 
 </resources>

@@ -124,6 +124,14 @@
             android:icon="@drawable/ic_cmremix_ui_settings"
             />
 
+    <!-- TRDS -->
+    <dashboard-tile
+            android:id="@+id/theme_settings"
+            android:icon="@drawable/ic_settings_theme"
+            android:fragment="com.android.settings.cmremix.themes.ThemeSettings"
+            android:title="@string/theme_settings_title"
+             />
+
     <!-- cmRemiX Center -->
     <dashboard-tile
             android:id="@+id/cmremix_center"
