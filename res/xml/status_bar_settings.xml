@@ -170,30 +170,10 @@
         android:summary="@string/status_bar_ticker_summary"
         android:defaultValue="true" />
 
-    </PreferenceCategory>
-
-    <!-- Breathing Notifications -->
-    <PreferenceCategory
-            android:key="breathing_notifications_title"
-            android:title="@string/breathing_notifications_title">
-
-        <com.android.settings.cmremix.utils.CMRemixSwitchPreference
-            android:key="sms_breath"
-            android:title="@string/sms_breath_title"
-            android:summary="@string/sms_breath_summary"
-            android:persistent="false"/>
-
-        <com.android.settings.cmremix.utils.CMRemixSwitchPreference
-            android:key="missed_call_breath"
-            android:title="@string/missed_call_breath_title"
-            android:summary="@string/missed_call_breath_summary"
-            android:persistent="false"/>
-
-        <com.android.settings.cmremix.utils.CMRemixSwitchPreference
-            android:key="voicemail_breath"
-            android:title="@string/voicemail_breath_title"
-            android:summary="@string/voicemail_breath_summary"
-            android:persistent="false"/>
+    <PreferenceScreen
+        android:key="breathing_notifications"
+        android:fragment="com.android.settings.cmremix.BreathingNotifications"
+        android:title="@string/breathing_notifications_title" />
 
     </PreferenceCategory>
 

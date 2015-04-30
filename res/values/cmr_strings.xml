@@ -937,7 +937,7 @@
     <string name="volume_panel_time_out_15sec">15 seconds</string>
 
     <!-- Breathing Notifications -->
-    <string name="breathing_notifications_title">Breathing Notifications</string>
+    <string name="breathing_notifications_title">Breathing notifications</string>
     <string name="sms_breath_title">Breathing SMS</string>
     <string name="sms_breath_summary">Will give your sms notifications a breathing effect in the statusbar</string>
     <string name="missed_call_breath_title">Breathing Missed Call</string>
