@@ -91,7 +91,6 @@ public class DeviceInfoSettings extends SettingsPreferenceFragment implements In
     private static final String KEY_MOD_BUILD_DATE = "build_date";
     private static final String KEY_CMREMIX_VERSION = "cmremix_version";
     private static final String KEY_SM_AND = "sm_android";
-    private static final String KEY_SM_KERNEL = "sm_kernel";
     private static final String KEY_SM_FLAGS = "sm_flags";
 
     public static final String KEY_ADVANCED_MODE = "advanced_mode";
@@ -123,10 +122,8 @@ public class DeviceInfoSettings extends SettingsPreferenceFragment implements In
         setStringSummary(KEY_KERNEL_VERSION, getFormattedKernelVersion());
         findPreference(KEY_KERNEL_VERSION).setEnabled(true);
         findPreference(KEY_SM_AND).setEnabled(true);
-        findPreference(KEY_SM_KERNEL).setEnabled(true);
         findPreference(KEY_SM_FLAGS).setEnabled(true);
         setValueSummary(KEY_SM_AND, "ro.sm.android");
-        setValueSummary(KEY_SM_KERNEL, "ro.sm.kernel");
         setValueSummary(KEY_SM_FLAGS, "ro.sm.flags");
 
         if (!SELinux.isSELinuxEnabled()) {
