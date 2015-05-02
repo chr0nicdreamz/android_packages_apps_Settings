@@ -2267,6 +2267,7 @@
         <activity android:name=".applications.LockPatternActivity"
                   android:label="@string/protected_apps"
                   android:excludeFromRecents="true">
+
             <intent-filter>
                 <action android:name=".applications.LockPatternActivity" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -2423,6 +2424,12 @@
             <meta-data android:name="com.android.settings.FRAGMENT_CLASS"
                 android:value="com.android.settings.cmremix.RamBar" />
         </activity>
+
+        <service android:name=".cyanide.identicons.IdenticonCreationService"
+                 android:exported="false" />
+
+        <service android:name=".cyanide.identicons.IdenticonRemovalService"
+                 android:exported="false" />
 
         <!-- End of cmRemiX activities -->
 

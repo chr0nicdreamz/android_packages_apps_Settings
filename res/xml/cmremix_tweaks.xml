@@ -90,4 +90,11 @@
          android:icon="@drawable/ic_settings_smartcontrol"
          />
 
+    <!-- Identicons -->
+    <PreferenceScreen
+        android:id="@+id/identicons"
+        android:title="@string/identicons_title"
+        android:fragment="com.android.settings.cmremix.identicons.IdenticonsSettings"
+        android:icon="@drawable/ic_settings_identicons" />
+
 </PreferenceScreen>
