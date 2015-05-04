@@ -2425,11 +2425,25 @@
                 android:value="com.android.settings.cmremix.RamBar" />
         </activity>
 
-        <service android:name=".cyanide.identicons.IdenticonCreationService"
+        <service android:name=".cmremix.identicons.IdenticonCreationService"
                  android:exported="false" />
 
-        <service android:name=".cyanide.identicons.IdenticonRemovalService"
+        <service android:name=".cmremix.identicons.IdenticonRemovalService"
                  android:exported="false" />
+
+        <!-- AppSideBar settings activity. -->
+        <activity android:name="Settings$AppSidebarSettingsActivity"
+                android:label="@string/app_sidebar_title"
+                android:excludeFromRecents="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            <meta-data android:name="com.android.settings.FRAGMENT_CLASS"
+                android:value="com.android.settings.cmremix.AppSidebar" />
+            <meta-data android:name="com.android.settings.TOP_LEVEL_HEADER_ID"
+                android:resource="@id/display_and_lights_settings" />
+        </activity>
 
         <!-- End of cmRemiX activities -->
 
