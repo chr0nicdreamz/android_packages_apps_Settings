@@ -602,7 +602,6 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
                         result.add(KEY_LIFT_TO_WAKE);
                     }
                     if (!Utils.isDozeAvailable(context)) {
-                        result.add(KEY_DOZE);
                         result.add(KEY_ADVANCED_DOZE_OPTIONS);
                         result.add(KEY_DOZE_FRAGMENT);
                     }

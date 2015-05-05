@@ -80,7 +80,7 @@
                 android:fragment="com.android.settings.cmremix.slim.fragments.DozeSettingsFragment"
                 android:key="advanced_doze_options"
                 android:title="@string/doze_settings_title"
-                android:dependency="doze" />
+                android:dependency="doze_fragment" />
 
         <!-- Lift to wake -->
         <SwitchPreference
