@@ -213,6 +213,10 @@ public class QSTileHolder {
                 resourceName = "ic_qs_sidebar_off";
                 stringId = R.string.qs_tile_appsidebar;
                 break;
+            case QSConstants.TILE_AMBIENT_DISPLAY:
+                resourceName = "ic_qs_ambientdisplay_on";
+                stringId = R.string.qs_ambient_display;
+                break;
             default:
                 return null;
         }
