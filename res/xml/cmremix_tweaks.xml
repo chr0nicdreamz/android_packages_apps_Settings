@@ -63,7 +63,7 @@
         android:key="app_sidebar"
         android:fragment="com.android.settings.cmremix.AppSidebar"
         android:title="@string/app_sidebar_title"
-        android:icon="@drawable/ic_settings_appcirclebar"
+        android:icon="@drawable/ic_appsidebar"
         />
 
     <!-- Wakelock blocker -->
