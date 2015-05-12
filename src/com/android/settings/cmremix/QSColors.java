@@ -127,7 +127,7 @@ public class QSColors extends SettingsPreferenceFragment implements
         mClearAllIconColor.setNewPreviewColor(intColor);
         hexColor = String.format("#%08x", (0xffffffff & intColor));
         mClearAllIconColor.setSummary(hexColor);
-        mClearAllIconColor.setDefaultColors(WHITE, SWAG_TEAL);
+        //mClearAllIconColor.setDefaultColors(WHITE, SWAG_TEAL);
         mClearAllIconColor.setOnPreferenceChangeListener(this);
         mClearAllIconColor.setAlphaSliderEnabled(true);
 
