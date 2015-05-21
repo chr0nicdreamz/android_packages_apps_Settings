@@ -124,15 +124,15 @@
             android:icon="@drawable/ic_cmremix_ui_settings"
             />
 
-    <!-- cmRemiX Center -->
+    <!-- CMREmixOTA -->
     <dashboard-tile
-            android:id="@+id/cmremix_center"
-            android:title="@string/cmremix_center_title"
-            android:icon="@drawable/ic_settings_cmremixcenter">
+            android:id="@+id/cmremixota"
+            android:title="@string/cmremixota_title"
+            android:icon="@drawable/ic_settings_cmremixota">
         <intent
                 android:action="android.intent.action.MAIN"
-                android:targetPackage="com.cmremix.ota"
-                android:targetClass="com.cmremix.center.CMRemixCenter" />
+                android:targetPackage="com.cmremix.cmremixota"
+                android:targetClass="com.cmremix.cmremixota.MainActivity" />
     </dashboard-tile>
 
         <!-- Kernel Adiutor -->

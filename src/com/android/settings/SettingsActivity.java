@@ -238,7 +238,7 @@ public class SettingsActivity extends Activity
             R.id.sim_settings,
             R.id.wireless_settings,
             R.id.device_personalization,
-            R.id.cmremix_center,
+            R.id.cmremixota,
             R.id.cmremix_settings,
             R.id.device_section,
             R.id.storage_settings,
@@ -1291,19 +1291,19 @@ public class SettingsActivity extends Activity
                     if (!supported) {
                         removeTile = true;
                     }
-                } else if (id == R.id.cmremix_center) {
+                } else if (id == R.id.kernel_adiutor) {
                     boolean supported = false;
                     try {
-                        supported = (getPackageManager().getPackageInfo("com.cmremix.ota", 0).versionCode > 0);
+                        supported = (getPackageManager().getPackageInfo("com.grarak.kerneladiutor", 0).versionCode > 0);
                     } catch (PackageManager.NameNotFoundException e) {
                     }
                     if (!supported) {
                         removeTile = true;
                     }
-                } else if (id == R.id.kernel_adiutor) {
+                } else if (id == R.id.cmremixota) {
                     boolean supported = false;
                     try {
-                        supported = (getPackageManager().getPackageInfo("com.grarak.kerneladiutor", 0).versionCode > 0);
+                        supported = (getPackageManager().getPackageInfo("com.cmremix.cmremixota", 0).versionCode > 0);
                     } catch (PackageManager.NameNotFoundException e) {
                     }
                     if (!supported) {

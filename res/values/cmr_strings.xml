@@ -22,6 +22,7 @@
 
     <!-- CM-Remix Custom Settings -->
     <string name="cmremix_center_title">CMRemiX Center</string>
+    <string name="cmremixota_title">CMRemixOTA</string>
     <string name="cmremix_settings_title">CMRemix Settings</string>
     <string name="cmremix_tweaks_title">Tweaks</string>
     <string name="recents_panel_title">Recents panel</string>
