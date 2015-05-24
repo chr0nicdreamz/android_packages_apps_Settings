@@ -1357,4 +1357,7 @@
     <string name="title_pref_menu_display">Menu visibility</string>
     <string name="summary_pref_menu_display">How and when do you want the menu buttons to appear?</string>
 
+    <!-- Status bar expanded header: Custom background color -->
+    <string name="background_header_title">Header background color</string>
+
 </resources>
