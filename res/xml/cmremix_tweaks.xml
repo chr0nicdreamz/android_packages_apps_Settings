@@ -71,7 +71,7 @@
         android:key="wakelock_blocker"
         android:title="@string/wakelock_blocker_title"
         android:fragment="com.android.settings.cmremix.WakeLockBlocker"
-        android:icon="@drawable/ic_settings_wakelock_blocker"
+        android:icon="@drawable/ic_wakelock_blocker"
         />
 
     <!-- Ad Blocker -->
@@ -79,7 +79,7 @@
         android:key="hfm_settings"
         android:title="@string/hfm_pref_screen_title"
         android:fragment="com.android.settings.cmremix.hfm.HfmSettings" 
-        android:icon="@drawable/ic_settings_ad_blocker"
+        android:icon="@drawable/ic_adblocker"
         />
 
     <!-- Smart Control -->
