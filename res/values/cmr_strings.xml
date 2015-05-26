@@ -1363,4 +1363,8 @@
     <!-- Status bar expanded header: Custom background color -->
     <string name="background_header_title">Header background color</string>
 
+    <!-- 4G LTE switch -->
+    <string name="show_fourg_title">Show 4G instead of LTE</string>
+    <string name="show_fourg_summary">Replaces LTE statusbar indicator with 4G.\nChanging this option will trigger SystemUI restart!</string>
+
 </resources>

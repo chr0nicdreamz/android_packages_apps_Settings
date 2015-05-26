@@ -49,6 +49,7 @@ import android.text.TextUtils;
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
 import com.android.settings.Utils;
+import com.android.settings.util.Helpers;
 import com.android.settings.search.BaseSearchIndexProvider;
 import com.android.settings.search.Indexable;
 import com.android.settings.cmremix.utils.SeekBarPreferenceCham;
@@ -78,6 +79,7 @@ public class StatusBarSettings extends SettingsPreferenceFragment
     private static final String KEY_STATUS_BAR_GREETING = "status_bar_greeting";
     private static final String KEY_STATUS_BAR_GREETING_TIMEOUT = "status_bar_greeting_timeout";
     private static final String KEY_STATUS_BAR_TICKER = "status_bar_ticker_enabled";
+    private static final String SHOW_FOURG = "show_fourg";
 
     private static final int STATUS_BAR_BATTERY_STYLE_HIDDEN = 4;
     private static final int STATUS_BAR_BATTERY_STYLE_TEXT = 6;
@@ -102,6 +104,7 @@ public class StatusBarSettings extends SettingsPreferenceFragment
     private SeekBarPreferenceCham mStatusBarGreetingTimeout;
     private String mCustomGreetingText = "";
     private SwitchPreference mTicker;
+    private SwitchPreference mShowFourG;
 
     private ListPreference mStatusBarBattery;
     private ListPreference mStatusBarBatteryShowPercent;
@@ -245,6 +248,15 @@ public class StatusBarSettings extends SettingsPreferenceFragment
                 .getContentResolver(), Settings.System.STATUSBAR_CLOCK_FONT_STYLE,
                 4)));
         mFontStyle.setSummary(mFontStyle.getEntry());
+
+        //  4G LTE switch
+        mShowFourG = (SwitchPreference) prefSet.findPreference(SHOW_FOURG);
+        if (Utils.isWifiOnly(getActivity())) {
+            prefSet.removePreference(mShowFourG);
+        } else {
+            mShowFourG.setChecked((Settings.CMREMIX.getInt(getActivity().getContentResolver(),
+                Settings.CMREMIX.SHOW_FOURG, 0) == 1));
+        }
 
         setHasOptionsMenu(true);
         mCheckPreferences = true;
@@ -391,6 +403,12 @@ public class StatusBarSettings extends SettingsPreferenceFragment
             Settings.System.putInt(getActivity().getContentResolver(),
                     Settings.System.STATUSBAR_CLOCK_FONT_STYLE, val);
             mFontStyle.setSummary(mFontStyle.getEntries()[index]);
+            return true;
+        } else if  (preference == mShowFourG) {
+            boolean enabled = ((SwitchPreference)preference).isChecked();
+            Settings.CMREMIX.putInt(getActivity().getContentResolver(),
+                    Settings.CMREMIX.SHOW_FOURG, enabled ? 1:0);
+            Helpers.restartSystemUI();
             return true;
         }
         return false;
