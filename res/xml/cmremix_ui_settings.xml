@@ -43,7 +43,7 @@
                 android:id="@+id/sound_settings"
                 android:title="@string/category_sounds"
                 android:fragment="com.android.settings.SoundSettings"
-                android:icon="@drawable/ic_settings_notifications"
+                android:icon="@drawable/ic_settings_sounds"
                 />
 
         <!-- Display & lights -->
@@ -59,7 +59,7 @@
                android:key="lockscreen_cmremix"
                android:fragment="com.android.settings.cmremix.LockScreenSettings"
                android:title="@string/cmremix_lockscreen_title" 
-               android:icon="@drawable/ic_settings_security"
+               android:icon="@drawable/ic_settings_lockscreen"
                />
 
         <!-- Buttons -->
