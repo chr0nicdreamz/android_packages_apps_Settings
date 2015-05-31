@@ -47,20 +47,25 @@
 
         <!-- Search in Recents -->
         <com.android.settings.cyanogenmod.SystemSettingSwitchPreference
-                android:key="recents_show_search_bar"
-                android:title="@string/recents_show_searchbar"
-                settings:keywords="@string/keywords_recents_show_searchbar"
-                android:defaultValue="true"
-                settings:advanced="true" />
+            android:key="recents_show_search_bar"
+            android:title="@string/recents_show_searchbar"
+            settings:keywords="@string/keywords_recents_show_searchbar"
+            android:defaultValue="true"
+            settings:advanced="true" />
+
+       <PreferenceScreen
+           android:key="recent_panel"
+           android:fragment="com.android.settings.cmremix.slim.RecentPanel"
+           android:title="@string/recent_panel_category" />
+
+       <!-- OmniSwitch -->
+       <PreferenceScreen
+           android:key="omniswitch"
+           android:id="@+id/omniswitch"
+           android:title="@string/omniswitch_settings_title"
+           android:fragment="com.android.settings.cmremix.OmniSwitch" />
 
     </PreferenceCategory>
-
-    <!-- OmniSwitch -->
-        <PreferenceScreen
-            android:key="omniswitch"
-            android:id="@+id/omniswitch"
-            android:title="@string/omniswitch_settings_title"
-            android:fragment="com.android.settings.cmremix.OmniSwitch" />
 
     <!-- RAM Bar -->
     <PreferenceCategory
