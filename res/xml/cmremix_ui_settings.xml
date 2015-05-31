@@ -59,7 +59,7 @@
                android:key="lockscreen_cmremix"
                android:fragment="com.android.settings.cmremix.LockScreenSettings"
                android:title="@string/cmremix_lockscreen_title" 
-               android:icon="@drawable/ic_settings_lockscreen"
+               android:icon="@drawable/ic_settings_cmremix_lockscreen"
                />
 
         <!-- Buttons -->
