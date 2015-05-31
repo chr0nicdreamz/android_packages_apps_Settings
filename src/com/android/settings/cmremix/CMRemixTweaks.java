@@ -34,6 +34,7 @@ public class CMRemixTweaks extends SettingsPreferenceFragment implements
         OnPreferenceChangeListener {
 
     private static final String TAG = "Tweaks";
+    private static final String KEY_HEADS_UP_SETTINGS = "heads_up_enabled";
 
     private Preference mHeadsUp;
 
@@ -43,7 +44,7 @@ public class CMRemixTweaks extends SettingsPreferenceFragment implements
 
         addPreferencesFromResource(R.xml.cmremix_tweaks);
 
-        mHeadsUp = findPreference(Settings.System.HEADS_UP_NOTIFICATION);
+        mHeadsUp = findPreference(KEY_HEADS_UP_SETTINGS);
 
     }
 
@@ -51,7 +52,7 @@ public class CMRemixTweaks extends SettingsPreferenceFragment implements
     public void onResume() {
         super.onResume();
         boolean headsUpEnabled = Settings.System.getInt(
-                getContentResolver(), Settings.System.HEADS_UP_NOTIFICATION,1) != 0;
+                getContentResolver(), Settings.System.HEADS_UP_USER_ENABLED, Settings.System.HEADS_UP_USER_ON) != 0;
         mHeadsUp.setSummary(headsUpEnabled
                 ? R.string.summary_heads_up_enabled : R.string.summary_heads_up_disabled);
     }
