@@ -66,6 +66,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.TextView;
+
 import com.android.settings.R;
 import com.android.settings.SettingsActivity;
 import com.android.settings.SubSettings;
@@ -76,6 +77,7 @@ import com.android.settings.profiles.actions.item.AirplaneModeItem;
 import com.android.settings.profiles.actions.item.AppGroupItem;
 import com.android.settings.profiles.actions.item.BrightnessItem;
 import com.android.settings.profiles.actions.item.ConnectionOverrideItem;
+import com.android.settings.profiles.actions.item.DisabledItem;
 import com.android.settings.profiles.actions.item.DozeModeItem;
 import com.android.settings.profiles.actions.item.Header;
 import com.android.settings.profiles.actions.item.Item;
@@ -222,6 +224,9 @@ public class SetupActionsFragment extends SettingsPreferenceFragment
                 Context.DEVICE_POLICY_SERVICE);
         if (!dpm.requireSecureKeyguard()) {
             mItems.add(new LockModeItem(mProfile));
+        } else {
+            mItems.add(new DisabledItem(R.string.profile_lockmode_title,
+                    R.string.profile_lockmode_policy_disabled_summary));
         }
         mItems.add(new BrightnessItem(mProfile.getBrightness()));
 
