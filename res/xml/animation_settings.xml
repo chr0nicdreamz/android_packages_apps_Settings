@@ -43,4 +43,10 @@
         android:fragment="com.android.settings.cmremix.animations.ToastAnimationInterfaceSettings"
         android:title="@string/toast_animation_title" />
 
+    <PreferenceScreen
+        android:key="overscroll_effects"
+        android:title="@string/ui_overscroll_title"
+        android:summary="@string/overscroll_weight_summary"
+        android:fragment="com.android.settings.cmremix.animations.OverscrollEffects" />
+
 </PreferenceScreen>
