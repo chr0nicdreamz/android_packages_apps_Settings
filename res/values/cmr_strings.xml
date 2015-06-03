@@ -1088,6 +1088,7 @@
     <string name="ram_bar_reset">Reset</string>
     <string name="ram_bar_reset_message">Reset RAM bar style to default?</string>
     <string name="ram_bar_settings_category">Ram Bar Settings</string>
+    <string name="ram_bar_mode_settings_summary">Changing this options will trigger SystemUI restart!</string>
 
     <!-- Alarms and no interrupt zen mode -->
     <string name="zen_mode_none_category">No interruptions</string>
