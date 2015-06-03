@@ -33,7 +33,6 @@ import com.android.settings.SettingsPreferenceFragment;
 import com.android.settings.cyanogenmod.qs.QSTiles;
 import com.android.settings.search.BaseSearchIndexProvider;
 import com.android.settings.search.Indexable;
-import com.android.settings.util.Helpers;
 
 import com.android.internal.widget.LockPatternUtils;
 
@@ -163,7 +162,6 @@ public class NotificationDrawerSettings extends SettingsPreferenceFragment imple
             boolean enabled = ((SwitchPreference)preference).isChecked();
             Settings.CMREMIX.putInt(getActivity().getContentResolver(),
                     Settings.CMREMIX.ENABLE_TASK_MANAGER, enabled ? 1:0);
-            Helpers.restartSystemUI();
         }
         return super.onPreferenceTreeClick(preferenceScreen, preference);
     }

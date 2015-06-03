@@ -1380,7 +1380,7 @@
 
     <!-- Task Manager -->
     <string name="enable_task_manager_title">Task Manager</string>
-    <string name="enable_task_manager_summary">Enable/Disable action for the task manager button in the expanded statusbar area.\nChanging this option will trigger SystemUI restart!</string>
+    <string name="enable_task_manager_summary">Enable/Disable action for the task manager button in the expanded statusbar area.</string>
 
     <!-- Status bar power menu -->
     <string name="status_bar_power_menu_title">Power menu in expanded status bar</string>
