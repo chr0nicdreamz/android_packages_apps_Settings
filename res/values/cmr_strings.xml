@@ -1335,6 +1335,7 @@
     <string name="apply">Apply</string>
 
     <!-- Animation Controls -->
+    <string name="system_anim_title">System</string>
     <string name="animation_settings_reset_message">Reset all animation settings to default?</string>
     <string name="animation_settings_title">Animation Controls</string>
     <string name="animation_exit_only_title">Enter only animation</string>
@@ -1370,7 +1371,6 @@
     <string name="animation_random">Random</string>
 
     <!-- ListView animation -->
-    <string name="bars_and_menus_category_system_title">System</string>
     <string name="listview_title">ListView</string>
     <string name="listview_animation_title">ListView Animation</string>
     <string name="listview_off">Off</string>
@@ -1427,7 +1427,7 @@
     <string name="group_applications">Applications</string>
 
     <!-- Toast Animations -->
-    <string name="toast_animation_title">Toast Animation</string>
+    <string name="toast_animation_title">Toast</string>
     <string name="toast_choose_animation">Choose Animation</string>
     <string name="toast_none_animation">None</string>
     <string name="toast_default_animation">Default</string>
