@@ -19,31 +19,6 @@
         xmlns:settings="http://schemas.android.com/apk/res/com.android.settings">
 
     <PreferenceScreen
-        android:key="interface_animation_system"
-        android:fragment="com.android.settings.cmremix.animations.SystemAnimationInterfaceSettings"
-        android:title="@string/bars_and_menus_category_system_title" />
-
-    <PreferenceScreen
-        android:key="interface_animation_listview"
-        android:fragment="com.android.settings.cmremix.animations.ListViewAnimationInterfaceSettings"
-        android:title="@string/listview_title" />
-
-    <PreferenceScreen
-        android:key="interface_animation_scroll"
-        android:fragment="com.android.settings.cmremix.animations.ScrollAnimationInterfaceSettings"
-        android:title="@string/scrolling_title" />
-
-    <PreferenceScreen
-        android:key="interface_animation_keyboard"
-        android:fragment="com.android.settings.cmremix.animations.KeyboardAnimationInterfaceSettings"
-        android:title="@string/ime_animation_title" />
-
-    <PreferenceScreen
-        android:key="interface_animation_toast"
-        android:fragment="com.android.settings.cmremix.animations.ToastAnimationInterfaceSettings"
-        android:title="@string/toast_animation_title" />
-
-    <PreferenceScreen
         android:key="overscroll_effects"
         android:title="@string/ui_overscroll_title"
         android:summary="@string/overscroll_weight_summary"
