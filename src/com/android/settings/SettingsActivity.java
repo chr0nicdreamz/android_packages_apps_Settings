@@ -83,6 +83,7 @@ import com.android.settings.blacklist.BlacklistSettings;
 import com.android.settings.bluetooth.BluetoothSettings;
 import com.android.settings.cyanogenmod.DisplayRotation;
 import com.android.settings.cmremix.CMRemixUiSettings;
+import com.android.settings.cmremix.NavBarSettings;
 import com.android.settings.dashboard.DashboardCategory;
 import com.android.settings.dashboard.DashboardSummary;
 import com.android.settings.dashboard.DashboardTile;
@@ -333,7 +334,8 @@ public class SettingsActivity extends Activity
             QSTiles.class.getName(),
             ExpandedDesktopPreferenceFragment.class.getName(),
             AppSidebar.class.getName(),
-            DisplayRotation.class.getName()
+            DisplayRotation.class.getName(),
+			NavBarSettings.class.getName()
     };
 
 
@@ -1310,6 +1312,16 @@ public class SettingsActivity extends Activity
                     boolean supported = false;
                     try {
                         supported = (getPackageManager().getPackageInfo("com.cmremix.cmremixota", 0).versionCode > 0);
+                    } catch (PackageManager.NameNotFoundException e) {
+                    }
+                    if (!supported) {
+                        removeTile = true;
+                    }
+                } else if (id == R.id.audiofx_settings) {
+                    // Embedding into Settings is supported
+                    boolean supported = false;
+                    try {
+                        supported = (getPackageManager().getPackageInfo("org.cyanogenmod.audiofx", 0).versionCode >= 1);
                     } catch (PackageManager.NameNotFoundException e) {
                     }
                     if (!supported) {

@@ -19,6 +19,18 @@
     android:title="@string/sound_title"
     xmlns:settings="http://schemas.android.com/apk/res/com.android.settings">
 
+       <!-- AudioFX -->
+    <PreferenceScreen
+        android:id="@+id/audiofx_settings"
+        android:title="@string/audiofx_settings_title"
+        android:summary="@string/audiofx_summary"
+        android:icon="@drawable/ic_cmremix_equalizer" >
+          <intent
+             android:action="android.intent.action.MAIN"
+             android:targetClass="org.cyanogenmod.audiofx.ActivityMusic"
+             android:targetPackage="org.cyanogenmod.audiofx" />
+    </PreferenceScreen>
+
     <SwitchPreference
         android:key="camera_sounds"
         android:title="@string/camera_sounds_title"

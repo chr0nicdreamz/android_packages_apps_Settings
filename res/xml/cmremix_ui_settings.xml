@@ -70,6 +70,14 @@
                 android:icon="@drawable/ic_settings_buttons"
                 />
 
+       <!-- Navigation Options -->
+       <PreferenceScreen
+              android:key="navigation_options"
+              android:fragment="com.android.settings.cmremix.NavigationSettings"
+              android:title="@string/navigation_options"
+              android:icon="@drawable/ic_settings_navigation_bar"
+              />
+
         <!-- CMRemix Tweaks -->
         <PreferenceScreen
                 android:key="cmremix_tweaks"
