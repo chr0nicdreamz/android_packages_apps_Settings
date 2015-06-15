@@ -80,6 +80,7 @@ import com.android.settings.applications.InstalledAppDetails;
 import com.android.settings.applications.ManageApplications;
 import com.android.settings.applications.ProcessStatsUi;
 import com.android.settings.blacklist.BlacklistSettings;
+import com.android.settings.ButtonSettings;
 import com.android.settings.bluetooth.BluetoothSettings;
 import com.android.settings.cyanogenmod.DisplayRotation;
 import com.android.settings.cmremix.CMRemixUiSettings;
@@ -335,7 +336,8 @@ public class SettingsActivity extends Activity
             ExpandedDesktopPreferenceFragment.class.getName(),
             AppSidebar.class.getName(),
             DisplayRotation.class.getName(),
-			NavBarSettings.class.getName()
+			NavBarSettings.class.getName(),
+            ButtonSettings.class.getName()
     };
 
 
