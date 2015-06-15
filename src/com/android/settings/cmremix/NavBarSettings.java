@@ -59,7 +59,7 @@ public class NavBarSettings extends SettingsPreferenceFragment
     private static final String CATEGORY_NAVBAR = "navigation_bar";
     private static final String CATEGORY_NAV_BAR_ENABLE = "navigation_bar_enable";
     private static final String KEY_NAVIGATION_BAR_LEFT = "navigation_bar_left";
-	private static final String NAVIGATION_BAR_TINT = "navigation_bar_tint";
+    private static final String NAVIGATION_BAR_TINT = "navigation_bar_tint";
 
     private boolean mCheckPreferences;
 	private ColorPickerPreference mNavbarButtonTint; 
@@ -75,11 +75,11 @@ public class NavBarSettings extends SettingsPreferenceFragment
 
         // Navigation bar left
         mNavigationBarLeftPref = (SwitchPreference) findPreference(KEY_NAVIGATION_BAR_LEFT);
-		
+
         // Navigation bar button color
         mNavbarButtonTint = (ColorPickerPreference) findPreference(NAVIGATION_BAR_TINT);
         mNavbarButtonTint.setOnPreferenceChangeListener(this);
-        int intColor = Settings.Secure.getInt(getActivity().getContentResolver(),
+        int intColor = Settings.System.getInt(getActivity().getContentResolver(),
                 Settings.System.NAVIGATION_BAR_TINT, 0xffffffff);
         String hexColor = String.format("#%08x", (0xffffffff & intColor));
         mNavbarButtonTint.setSummary(hexColor);
