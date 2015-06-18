@@ -1024,8 +1024,9 @@
     <string name="clock_font_normal">Normal</string>
     <string name="status_bar_show_clock_second_title">Clock seconds</string>
 
-    <!-- KernelAdiutor -->
-    <string name="kerneladiutor_title">KernelAdiutor</string>
+    <!-- Kernel Adiutor -->
+    <string name="kerneladiutor_title">Kernel Adiutor</string>
+    <string name="advanced_options">Advanced options</string>
 
     <!-- TRDS 5.0 -->	
     <string name="theme_settings_title">TRDS</string>
