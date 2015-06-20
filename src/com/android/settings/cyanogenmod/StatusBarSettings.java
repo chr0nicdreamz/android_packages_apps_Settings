@@ -74,7 +74,6 @@ public class StatusBarSettings extends SettingsPreferenceFragment
     private static final String PREF_FONT_STYLE = "font_style";
     private static final String STATUS_BAR_BATTERY_STYLE = "status_bar_battery_style";
     private static final String STATUS_BAR_SHOW_BATTERY_PERCENT = "status_bar_show_battery_percent";
-    private static final String KEY_STATUS_BAR_NETWORK_ARROWS= "status_bar_show_network_activity";
     private static final String KEY_STATUS_BAR_GREETING = "status_bar_greeting";
     private static final String KEY_STATUS_BAR_GREETING_TIMEOUT = "status_bar_greeting_timeout";
     private static final String KEY_STATUS_BAR_TICKER = "status_bar_ticker_enabled";
@@ -97,7 +96,6 @@ public class StatusBarSettings extends SettingsPreferenceFragment
     private ListPreference mStatusBarDateFormat;
     private ColorPickerPreference mColorPicker;
     private ListPreference mFontStyle;
-    private SwitchPreference mNetworkArrows;
     private SwitchPreference mStatusBarGreeting;
     private SeekBarPreferenceCham mStatusBarGreetingTimeout;
     private String mCustomGreetingText = "";
@@ -118,8 +116,6 @@ public class StatusBarSettings extends SettingsPreferenceFragment
         mCheckPreferences = false;
         addPreferencesFromResource(R.xml.status_bar_settings);
 
-        PreferenceCategory mCategory = (PreferenceCategory) findPreference("status_bar");
-        PreferenceScreen prefSet = getPreferenceScreen();
         ContentResolver resolver = getActivity().getContentResolver();
 
         PackageManager pm = getPackageManager();
@@ -136,15 +132,6 @@ public class StatusBarSettings extends SettingsPreferenceFragment
         mStatusBarDate = (ListPreference) findPreference(STATUS_BAR_DATE);
         mStatusBarDateStyle = (ListPreference) findPreference(STATUS_BAR_DATE_STYLE);
         mStatusBarDateFormat = (ListPreference) findPreference(STATUS_BAR_DATE_FORMAT);
-
-        // Network arrows
-        mNetworkArrows = (SwitchPreference) prefSet.findPreference(KEY_STATUS_BAR_NETWORK_ARROWS);
-        mNetworkArrows.setChecked(Settings.CMREMIX.getInt(getActivity().getContentResolver(),
-            Settings.CMREMIX.STATUS_BAR_SHOW_NETWORK_ACTIVITY, 1) == 1);
-        mNetworkArrows.setOnPreferenceChangeListener(this);
-        int networkArrows = Settings.CMREMIX.getInt(getContentResolver(),
-                Settings.CMREMIX.STATUS_BAR_SHOW_NETWORK_ACTIVITY, 1);
-        updateNetworkArrowsSummary(networkArrows);
 
         // Greeting
         mStatusBarGreeting = (SwitchPreference) prefSet.findPreference(KEY_STATUS_BAR_GREETING);
@@ -359,14 +346,6 @@ public class StatusBarSettings extends SettingsPreferenceFragment
             mStatusBarBatteryShowPercent.setSummary(
                     mStatusBarBatteryShowPercent.getEntries()[index]);
             return true;
-        } else if (preference == mNetworkArrows) {
-            Settings.CMREMIX.putInt(getContentResolver(),
-                    Settings.CMREMIX.STATUS_BAR_SHOW_NETWORK_ACTIVITY,
-                    (Boolean) newValue ? 1 : 0);
-            int networkArrows = Settings.CMREMIX.getInt(getContentResolver(),
-                    Settings.CMREMIX.STATUS_BAR_SHOW_NETWORK_ACTIVITY, 1);
-            updateNetworkArrowsSummary(networkArrows);
-            return true;
         } else if (preference == mStatusBarGreetingTimeout) {
             int timeout = (Integer) newValue;
             Settings.CMREMIX.putInt(getActivity().getContentResolver(),
@@ -463,13 +442,6 @@ public class StatusBarSettings extends SettingsPreferenceFragment
         } else {
             mStatusBarBatteryShowPercent.setEnabled(true);
         }
-    }
-
-    private void updateNetworkArrowsSummary(int value) {
-        String summary = value != 0
-                ? getResources().getString(R.string.enabled)
-                : getResources().getString(R.string.disabled);
-        mNetworkArrows.setSummary(summary);
     }
 
     private void enableStatusBarClockDependents() {
