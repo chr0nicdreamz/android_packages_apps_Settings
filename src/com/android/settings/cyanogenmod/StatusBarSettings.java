@@ -46,6 +46,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.text.Spannable;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
@@ -59,8 +60,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import net.margaritov.preference.colorpicker.ColorPickerPreference;
-
 public class StatusBarSettings extends SettingsPreferenceFragment
         implements OnPreferenceChangeListener, Indexable {
 
@@ -71,7 +70,6 @@ public class StatusBarSettings extends SettingsPreferenceFragment
     private static final String STATUS_BAR_DATE = "status_bar_date";
     private static final String STATUS_BAR_DATE_STYLE = "status_bar_date_style";
     private static final String STATUS_BAR_DATE_FORMAT = "status_bar_date_format";
-    private static final String PREF_COLOR_PICKER = "clock_color";
     private static final String KEY_STATUS_BAR_GREETING = "status_bar_greeting";
     private static final String KEY_STATUS_BAR_GREETING_TIMEOUT = "status_bar_greeting_timeout";
     private static final String KEY_STATUS_BAR_TICKER = "status_bar_ticker_enabled";
@@ -83,31 +81,19 @@ public class StatusBarSettings extends SettingsPreferenceFragment
     public static final int CLOCK_DATE_STYLE_UPPERCASE = 2;
     private static final int CUSTOM_CLOCK_DATE_FORMAT_INDEX = 23;
 
-    private static final int MENU_RESET = Menu.FIRST;
-
-    private static final int DLG_RESET = 0;
-
     private ListPreference mStatusBarClock;
     private ListPreference mStatusBarAmPm;
     private ListPreference mStatusBarDate;
     private ListPreference mStatusBarDateStyle;
     private ListPreference mStatusBarDateFormat;
-    private ColorPickerPreference mColorPicker;
     private SwitchPreference mStatusBarGreeting;
     private SeekBarPreferenceCham mStatusBarGreetingTimeout;
     private String mCustomGreetingText = "";
     private SwitchPreference mTicker;
 
-    private boolean mCheckPreferences;
-
     @Override
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
-	createCustomView();
-    }
-
-    private PreferenceScreen createCustomView() {
-        mCheckPreferences = false;
         addPreferencesFromResource(R.xml.status_bar_settings);
         PreferenceScreen prefSet = getPreferenceScreen();
 
@@ -119,7 +105,7 @@ public class StatusBarSettings extends SettingsPreferenceFragment
             systemUiResources = pm.getResourcesForApplication("com.android.systemui");
         } catch (Exception e) {
             Log.e(TAG, "can't access systemui resources",e);
-            return null;
+            return;
         }
 
         mStatusBarClock = (ListPreference) findPreference(STATUS_BAR_CLOCK_STYLE);
@@ -189,24 +175,6 @@ public class StatusBarSettings extends SettingsPreferenceFragment
         mTicker.setChecked(Settings.System.getInt(getContentResolver(),
                 Settings.System.STATUS_BAR_TICKER_ENABLED, tickerEnabled ? 1 : 0) == 1);
         mTicker.setOnPreferenceChangeListener(this);
-
-        mColorPicker = (ColorPickerPreference) findPreference(PREF_COLOR_PICKER);
-        mColorPicker.setOnPreferenceChangeListener(this);
-        int intColor = Settings.System.getInt(getActivity().getContentResolver(),
-                    Settings.System.STATUSBAR_CLOCK_COLOR, -2);
-        if (intColor == -2) {
-            intColor = systemUiResources.getColor(systemUiResources.getIdentifier(
-                    "com.android.systemui:color/status_bar_clock_color", null, null));
-            mColorPicker.setSummary(getResources().getString(R.string.default_string));
-        } else {
-            String hexColor = String.format("#%08x", (0xffffffff & intColor));
-            mColorPicker.setSummary(hexColor);
-        }
-        mColorPicker.setNewPreviewColor(intColor);
-
-        setHasOptionsMenu(true);
-        mCheckPreferences = true;
-        return prefSet;
     }
 
     @Override
@@ -223,9 +191,6 @@ public class StatusBarSettings extends SettingsPreferenceFragment
 
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
-        if (!mCheckPreferences) {
-            return false;
-        }
         AlertDialog dialog;
         ContentResolver resolver = getActivity().getContentResolver();
         if (preference == mStatusBarClock) {
@@ -309,14 +274,6 @@ public class StatusBarSettings extends SettingsPreferenceFragment
             Settings.System.putInt(getContentResolver(),
                     Settings.System.STATUS_BAR_TICKER_ENABLED,
                     (Boolean) newValue ? 1 : 0);
-            return true;
-        } else if (preference == mColorPicker) {
-            String hex = ColorPickerPreference.convertToARGB(Integer.valueOf(String
-                    .valueOf(newValue)));
-            preference.setSummary(hex);
-            int intHex = ColorPickerPreference.convertToColorInt(hex);
-            Settings.System.putInt(getActivity().getContentResolver(),
-                    Settings.System.STATUSBAR_CLOCK_COLOR, intHex);
             return true;
         }
         return false;
@@ -406,48 +363,6 @@ public class StatusBarSettings extends SettingsPreferenceFragment
             }
         }
         mStatusBarDateFormat.setEntries(parsedDateEntries);
-    }
-
-    public static class MyAlertDialogFragment extends DialogFragment {
-
-        public static MyAlertDialogFragment newInstance(int id) {
-            MyAlertDialogFragment frag = new MyAlertDialogFragment();
-            Bundle args = new Bundle();
-            args.putInt("id", id);
-            frag.setArguments(args);
-            return frag;
-        }
-
-        StatusBarSettings getOwner() {
-            return (StatusBarSettings) getTargetFragment();
-        }
-
-        @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
-            int id = getArguments().getInt("id");
-            switch (id) {
-                case DLG_RESET:
-                    return new AlertDialog.Builder(getActivity())
-                    .setTitle(R.string.reset)
-                    .setMessage(R.string.status_bar_clock_style_reset_message)
-                    .setNegativeButton(R.string.cancel, null)
-                    .setPositiveButton(R.string.dlg_ok,
-                        new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            Settings.System.putInt(getActivity().getContentResolver(),
-                                Settings.System.STATUSBAR_CLOCK_COLOR, -2);
-                            getOwner().createCustomView();
-                        }
-                    })
-                    .create();
-            }
-            throw new IllegalArgumentException("unknown id " + id);
-        }
-
-        @Override
-        public void onCancel(DialogInterface dialog) {
-
-        }
     }
 
     public static final Indexable.SearchIndexProvider SEARCH_INDEX_DATA_PROVIDER =
