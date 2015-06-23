@@ -29,6 +29,12 @@
             android:defaultValue="false" />
 
         <SwitchPreference
+            android:key="notif_system_icons_show_ticker"
+            android:title="@string/notif_system_icons_show_ticker_title"
+            android:summary="@string/notif_system_icons_show_ticker_summary"
+            android:defaultValue="false" />
+
+        <SwitchPreference
             android:key="notif_system_icons_show_count"
             android:title="@string/notif_system_icons_show_count_title"
             android:summary="@string/notif_system_icons_show_count_summary"
