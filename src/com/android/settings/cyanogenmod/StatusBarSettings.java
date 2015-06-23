@@ -27,6 +27,7 @@ import android.content.res.Resources;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
@@ -67,7 +68,6 @@ public class StatusBarSettings extends SettingsPreferenceFragment
 
     private static final String KEY_STATUS_BAR_GREETING = "status_bar_greeting";
     private static final String KEY_STATUS_BAR_GREETING_TIMEOUT = "status_bar_greeting_timeout";
-    private static final String KEY_STATUS_BAR_TICKER = "status_bar_ticker_enabled";
 
     private static final int STATUS_BAR_BATTERY_STYLE_HIDDEN = 4;
     private static final int STATUS_BAR_BATTERY_STYLE_TEXT = 6;
@@ -77,7 +77,7 @@ public class StatusBarSettings extends SettingsPreferenceFragment
     private SwitchPreference mStatusBarGreeting;
     private SeekBarPreferenceCham mStatusBarGreetingTimeout;
     private String mCustomGreetingText = "";
-    private SwitchPreference mTicker;
+
 
     @Override
     public void onCreate(Bundle icicle) {
@@ -113,13 +113,6 @@ public class StatusBarSettings extends SettingsPreferenceFragment
         if (TelephonyManager.getDefault().getPhoneCount() <= 1) {
             removePreference(Settings.System.STATUS_BAR_MSIM_SHOW_EMPTY_ICONS);
         }
-
-        mTicker = (SwitchPreference) prefSet.findPreference(KEY_STATUS_BAR_TICKER);
-        final boolean tickerEnabled = systemUiResources.getBoolean(systemUiResources.getIdentifier(
-                    "com.android.systemui:bool/enable_ticker", null, null));
-        mTicker.setChecked(Settings.System.getInt(getContentResolver(),
-                Settings.System.STATUS_BAR_TICKER_ENABLED, tickerEnabled ? 1 : 0) == 1);
-        mTicker.setOnPreferenceChangeListener(this);
     }
 
     @Override
@@ -134,11 +127,6 @@ public class StatusBarSettings extends SettingsPreferenceFragment
             int timeout = (Integer) newValue;
             Settings.CMREMIX.putInt(getActivity().getContentResolver(),
                     Settings.CMREMIX.STATUS_BAR_GREETING_TIMEOUT, timeout * 1);
-            return true;
-        } else if (preference == mTicker) {
-            Settings.System.putInt(getContentResolver(),
-                    Settings.System.STATUS_BAR_TICKER_ENABLED,
-                    (Boolean) newValue ? 1 : 0);
             return true;
         }
         return false;

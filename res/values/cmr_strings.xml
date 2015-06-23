@@ -1007,10 +1007,6 @@
     <string name="lockscreen_bottom_shortcuts_enabled">Lockscreen phone and camera shortcuts are enabled</string>
     <string name="lockscreen_bottom_shortcuts_disabled">Lockscreen phone and camera shortcuts are disabled</string>
 
-    <!-- Status bar ticker -->
-    <string name="status_bar_ticker_title">Notification Ticker</string>
-    <string name="status_bar_ticker_summary">Notification text animation in the statusbar</string>
-
     <!-- Kernel Adiutor -->
     <string name="kerneladiutor_title">Kernel Adiutor</string>
     <string name="advanced_options">Advanced options</string>
