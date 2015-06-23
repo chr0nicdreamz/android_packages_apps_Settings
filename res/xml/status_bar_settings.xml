@@ -31,14 +31,26 @@
     </PreferenceCategory>
 
     <PreferenceCategory
-        android:key="general_category"
-        android:title="@string/general_options_title" >
+        android:key="battery_category"
+        android:title="@string/status_bar_battery_category" >
 
     <PreferenceScreen
         android:key="status_bar_battery_status_settings"
         android:title="@string/status_bar_battery_status_settings_title"
         android:summary="@string/status_bar_battery_status_settings_summary"
-        android:fragment="com.android.settings.cmremix.StatusBarBatteryStatusSettings" /> 
+        android:fragment="com.android.settings.cmremix.StatusBarBatteryStatusSettings" />
+
+    <PreferenceScreen
+        android:fragment="com.android.settings.cmremix.BatteryStyle"
+        android:key="battery_style_pref"
+        android:defaultValue="0"
+        android:title="@string/battery_bar_settings" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="general_category"
+        android:title="@string/general_options_title" >
 
     <SwitchPreference
         android:key="status_bar_greeting"
