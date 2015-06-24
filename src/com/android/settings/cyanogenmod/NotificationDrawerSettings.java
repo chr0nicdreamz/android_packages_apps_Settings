@@ -100,8 +100,8 @@ public class NotificationDrawerSettings extends SettingsPreferenceFragment imple
 
         // Task manager
         mEnableTaskManager = (SwitchPreference) prefSet.findPreference(PREF_ENABLE_TASK_MANAGER);
-        mEnableTaskManager.setChecked((Settings.CMREMIX.getInt(getActivity().getContentResolver(),
-                Settings.CMREMIX.ENABLE_TASK_MANAGER, 0) == 1));
+        mEnableTaskManager.setChecked((Settings.System.getInt(getActivity().getContentResolver(),
+                Settings.System.ENABLE_TASK_MANAGER, 0) == 1));
 
         // status bar power menu
         mStatusBarPowerMenu = (ListPreference) findPreference(STATUS_BAR_POWER_MENU);
@@ -160,8 +160,8 @@ public class NotificationDrawerSettings extends SettingsPreferenceFragment imple
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
        if  (preference == mEnableTaskManager) {
             boolean enabled = ((SwitchPreference)preference).isChecked();
-            Settings.CMREMIX.putInt(getActivity().getContentResolver(),
-                    Settings.CMREMIX.ENABLE_TASK_MANAGER, enabled ? 1:0);
+            Settings.System.putInt(getActivity().getContentResolver(),
+                    Settings.System.ENABLE_TASK_MANAGER, enabled ? 1:0);
         }
         return super.onPreferenceTreeClick(preferenceScreen, preference);
     }
