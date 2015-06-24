@@ -1500,6 +1500,7 @@
     <string name="select_custom_app_title">Select custom application</string>
 
     <!-- Status bar notifications and system icons -->
+    <string name="status_bar_advance_category">Advance Settings</string>
     <string name="notif_system_icons_colorize_notif_icons_title">Colorize notification icons</string>
     <!-- <string name="notif_system_icons_colorize_notif_icons_title_phone">Colorize notif. icons</string> -->
     <string name="notif_system_icons_colorize_notif_icons_summary">Enable to colorize the notification icons color</string>
