@@ -135,4 +135,17 @@
 
         </PreferenceCategory>
 
+
+        <PreferenceCategory
+            android:key="category_doze_options"
+            android:title="@string/display_category_doze_options_title" >
+
+        <PreferenceScreen
+                android:fragment="com.android.settings.cmremix.slim.fragments.DozeSettingsFragment"
+                android:key="advanced_doze_options"
+                android:title="@string/doze_settings_title"
+                android:dependency="doze" />
+
+         </PreferenceCategory>
+
 </PreferenceScreen>

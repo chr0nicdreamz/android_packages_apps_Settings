@@ -25,6 +25,12 @@
         android:summary="@string/lcd_density_summary"
         android:persistent="false" />
 
+    <!-- Smart cover -->
+    <PreferenceScreen
+        android:key="smart_cover"
+        android:title="@string/smart_cover_title"
+        android:fragment="com.android.settings.cmremix.SmartCoverSettings" />
+
     <com.android.settings.cmremix.utils.CMRemixSwitchPreference
         android:key="disable_torch_on_screen_off"
         android:title="@string/disable_torch_screen_off_title"

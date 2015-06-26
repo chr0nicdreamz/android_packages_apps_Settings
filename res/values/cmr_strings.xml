@@ -1036,7 +1036,7 @@
     <string name="advanced_reboot_oneclick_summary">Instantly trigger reboot action</string>
 
     <!-- Doze options -->
-    <string name="display_category_doze_options_title">Ambient display (doze) options</string>
+    <string name="display_category_doze_options_title">Ambient display (doze) Advanced options</string>
     <string name="doze_settings_title">Advanced doze options</string>
     <string name="doze_timeout_title">Doze pulse timeout</string>
     <string name="doze_timeout_summary">Time that the screen stays on for notification pulse</string>
