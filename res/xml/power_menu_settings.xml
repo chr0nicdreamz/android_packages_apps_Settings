@@ -56,6 +56,11 @@
         android:defaultValue="true" />
 
     <SwitchPreference
+        android:key="torch"
+        android:title="@string/power_menu_torch_title"
+        android:defaultValue="false" />
+
+    <SwitchPreference
         android:key="users"
         android:title="@string/power_menu_users_title"
         android:defaultValue="false" />

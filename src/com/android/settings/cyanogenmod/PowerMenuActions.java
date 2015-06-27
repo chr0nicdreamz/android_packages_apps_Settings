@@ -35,6 +35,7 @@ import android.provider.Settings;
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
 import com.android.internal.util.cm.PowerMenuConstants;
+import com.android.internal.util.cm.QSUtils;
 
 import static com.android.internal.util.cm.PowerMenuConstants.*;
 import com.android.settings.widget.NumberPickerPreference;
@@ -54,6 +55,7 @@ public class PowerMenuActions extends SettingsPreferenceFragment
     private SwitchPreference mScreenrecordPref;
     private SwitchPreference mProfilePref;
     private SwitchPreference mAirplanePref;
+    private SwitchPreference mTorchPref;
     private SwitchPreference mUsersPref;
     private SwitchPreference mSettingsPref;
     private SwitchPreference mLockdownPref;
@@ -104,6 +106,8 @@ public class PowerMenuActions extends SettingsPreferenceFragment
                 mProfilePref = (SwitchPreference) findPreference(GLOBAL_ACTION_KEY_PROFILE);
             } else if (action.equals(GLOBAL_ACTION_KEY_AIRPLANE)) {
                 mAirplanePref = (SwitchPreference) findPreference(GLOBAL_ACTION_KEY_AIRPLANE);
+            } else if (action.equals(GLOBAL_ACTION_KEY_TORCH)) {
+                mTorchPref = (SwitchPreference) findPreference(GLOBAL_ACTION_KEY_TORCH);
             } else if (action.equals(GLOBAL_ACTION_KEY_USERS)) {
                 mUsersPref = (SwitchPreference) findPreference(GLOBAL_ACTION_KEY_USERS);
             } else if (action.equals(GLOBAL_ACTION_KEY_SETTINGS)) {
@@ -149,6 +153,14 @@ public class PowerMenuActions extends SettingsPreferenceFragment
 
         if (mAirplanePref != null) {
             mAirplanePref.setChecked(settingsArrayContains(GLOBAL_ACTION_KEY_AIRPLANE));
+        }
+
+        if (mTorchPref != null) {
+            if (!QSUtils.deviceSupportsFlashLight(getActivity())) {
+                getPreferenceScreen().removePreference(findPreference(GLOBAL_ACTION_KEY_TORCH));
+            } else {
+                mTorchPref.setChecked(settingsArrayContains(GLOBAL_ACTION_KEY_TORCH));
+            }
         }
 
         if (mUsersPref != null) {
@@ -207,6 +219,10 @@ public class PowerMenuActions extends SettingsPreferenceFragment
         } else if (preference == mAirplanePref) {
             value = mAirplanePref.isChecked();
             updateUserConfig(value, GLOBAL_ACTION_KEY_AIRPLANE);
+
+        } else if (preference == mTorchPref) {
+            value = mTorchPref.isChecked();
+            updateUserConfig(value, GLOBAL_ACTION_KEY_TORCH);
 
         } else if (preference == mUsersPref) {
             value = mUsersPref.isChecked();
