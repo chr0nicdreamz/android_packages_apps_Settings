@@ -108,16 +108,14 @@
             android:icon="@drawable/ic_cmremix_ui_settings"
             />
 
-    <!-- CMREmixOTA -->
-    <dashboard-tile
-            android:id="@+id/cmremixota"
-            android:title="@string/cmremixota_title"
-            android:icon="@drawable/ic_settings_cmremixota">
-        <intent
-                android:action="android.intent.action.MAIN"
-                android:targetPackage="com.cmremix.cmremixota"
-                android:targetClass="com.cmremix.cmremixota.MainActivity" />
-    </dashboard-tile>
+        <!-- CMRemixCenter -->
+        <dashboard-tile
+                android:id="@+id/cmremixcenter_settings"
+                android:icon="@drawable/ic_settings_cmremix_center"
+                android:fragment="com.android.settings.cmremix.CMRemixCenterSettings"
+                android:title="@string/cmremixcenter_settings_title"
+                />
+
         <!-- Performance -->
         <dashboard-tile
                 android:id="@+id/performance_settings"
