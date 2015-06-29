@@ -108,14 +108,6 @@
             android:icon="@drawable/ic_cmremix_ui_settings"
             />
 
-        <!-- CMRemixCenter -->
-        <dashboard-tile
-                android:id="@+id/cmremixcenter_settings"
-                android:icon="@drawable/ic_settings_cmremix_center"
-                android:fragment="com.android.settings.cmremix.CMRemixCenterSettings"
-                android:title="@string/cmremixcenter_settings_title"
-                />
-
         <!-- Performance -->
         <dashboard-tile
                 android:id="@+id/performance_settings"

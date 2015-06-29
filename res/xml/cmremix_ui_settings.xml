@@ -86,19 +86,13 @@
                 android:icon="@drawable/ic_cmremix_tweaks" 
                 />
 
-        <!-- CMRemix Change Log -->
-       <PreferenceScreen android:key="changelog"
-               android:title="@string/changelog_title"
-               android:icon="@drawable/ic_settings_changelogs"
-               android:fragment="com.android.settings.cmremix.ChangeLog" > 
-       </PreferenceScreen>
+        <!-- CMRemixCenter -->
+        <PreferenceScreen
+                android:id="@+id/cmremixcenter_settings"
+                android:icon="@drawable/ic_settings_cmremix_center"
+                android:fragment="com.android.settings.cmremix.CMRemixCenterSettings"
+                android:title="@string/cmremixcenter_settings_title"
+                />
 
-        <!--<PreferenceScreen
-              android:key="key_changelog"
-              android:title="@string/changelog_title"
-              android:summary="@string/changelog_summary"
-              android:icon="@drawable/ic_settings_changelogs"
-              android:fragment="com.android.settings.cmremix.slim.fragments.BuildChangelogFragment" >
-        </PreferenceScreen>-->
 
 </PreferenceScreen>

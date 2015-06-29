@@ -40,4 +40,19 @@
                 android:targetClass="com.cmremix.updater.UpdatesSettings" />
         </PreferenceScreen>
 
+        <!-- CMRemix Change Log -->
+       <PreferenceScreen android:key="changelog"
+               android:title="@string/changelog_title"
+               android:icon="@drawable/ic_settings_changelogs"
+               android:fragment="com.android.settings.cmremix.ChangeLog" > 
+       </PreferenceScreen>
+
+        <!--<PreferenceScreen
+              android:key="key_changelog"
+              android:title="@string/changelog_title"
+              android:summary="@string/changelog_summary"
+              android:icon="@drawable/ic_settings_changelogs"
+              android:fragment="com.android.settings.cmremix.slim.fragments.BuildChangelogFragment" >
+        </PreferenceScreen>-->
+
 </PreferenceScreen>
