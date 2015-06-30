@@ -152,14 +152,14 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
         }
 
         mLcdDensityPreference = (ListPreference) findPreference(KEY_LCD_DENSITY);
-        int defaultDensity = DisplayMetrics.DENSITY_DEVICE;
+        int defaultDensity = DisplayMetrics.DENSITY_DEVICE_DEFAULT;
         String[] densityEntries = new String[9];
         for (int idx = 0; idx < 8; ++idx) {
             int pct = (75 + idx*5);
             densityEntries[idx] = Integer.toString(defaultDensity * pct / 100);
         }
         densityEntries[8] = getString(R.string.custom_density);
-        int currentDensity = DisplayMetrics.DENSITY_CURRENT;
+        int currentDensity = DisplayMetrics.DENSITY_PREFERRED;
         mLcdDensityPreference.setEntries(densityEntries);
         mLcdDensityPreference.setEntryValues(densityEntries);
         mLcdDensityPreference.setValue(String.valueOf(currentDensity));
