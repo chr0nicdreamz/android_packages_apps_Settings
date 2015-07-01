@@ -819,6 +819,8 @@
     <string name="qs_tile_appsidebar">App SideBar</string>
     <string name="qs_hwkeys_tile">Hardware Keys</string>
     <string name="qs_systemui_restart_tile">Restart SystemUI</string>
+    <string name="qs_tile_slim_floats">Slim Floats</string>
+
 
     <!-- Show bluetooth icon when disconnected -->
     <string name="status_bar_bluetooth_icon">Show Bluetooth icon</string>
