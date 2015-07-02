@@ -67,6 +67,12 @@
         android:dependency="status_bar_greeting"
         android:persistent="false" />
 
+    <PreferenceScreen
+        android:key="carrier_options"
+        android:fragment="com.android.settings.cmremix.CarrierLabel"
+        android:layout="@layout/preference_carrierlabel"
+        android:title="@string/carrier_options" />
+
     <!--Vector Network traffic indicator -->
     <PreferenceScreen
        android:key="network_traffic_state"
