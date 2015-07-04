@@ -1004,8 +1004,7 @@
     <string name="lockscreen_bottom_shortcuts_disabled">Lockscreen phone and camera shortcuts are disabled</string>
 
     <!-- Kernel Adiutor -->
-    <string name="kerneladiutor_title">Kernel Adiutor</string>
-    <string name="advanced_options">Advanced options</string>
+    <string name="performance_settings">Performance</string>
 
     <!-- TRDS 5.0 -->	
     <string name="theme_settings_title">TRDS</string>
