@@ -1638,4 +1638,8 @@
 	<string name="slim_action_floating_window_title">Launch slim actions in floating window</string>	
 	<string name="slim_action_floating_window_summary">Makes features like lockscreen shortcuts and navigation bar execute apps in floating window mode</string>
 
+	<!-- Wi-Fi SSID display option -->
+    <string name="status_bar_show_wifi_ssid">Show Wi-Fi SSID</string>
+    <string name="status_bar_show_wifi_ssid_summary">Show the Wi-Fi SSID of a connected network in the status bar</string>
+
 </resources>
