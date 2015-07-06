@@ -118,6 +118,10 @@ public class CarrierLabel extends SettingsPreferenceFragment implements OnPrefer
         } else if (preference == mStatusBarCarrier) {
             boolean value = (Boolean) newValue;
             Settings.CMREMIX.putInt(resolver, Settings.CMREMIX.STATUS_BAR_CARRIER, value ? 1 : 0);
+            //send intent to have network controller update network name
+            Intent i = new Intent();
+            i.setAction(Intent.ACTION_CUSTOM_CARRIER_LABEL_CHANGED);
+            getActivity().sendBroadcast(i);
             return true;
          }
          return false;
