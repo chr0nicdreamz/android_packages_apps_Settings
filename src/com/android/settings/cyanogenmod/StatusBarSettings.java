@@ -66,8 +66,11 @@ public class StatusBarSettings extends SettingsPreferenceFragment
 
     private static final String TAG = "StatusBar";
 
+    private static final String GENERAL_CATEGORY = "general_category";
+
     private static final String KEY_STATUS_BAR_GREETING = "status_bar_greeting";
     private static final String KEY_STATUS_BAR_GREETING_TIMEOUT = "status_bar_greeting_timeout";
+    private static final String BREATHING_NOTIFICATIONS = "breathing_notifications";
 
     private static final int STATUS_BAR_BATTERY_STYLE_HIDDEN = 4;
     private static final int STATUS_BAR_BATTERY_STYLE_TEXT = 6;
@@ -77,13 +80,19 @@ public class StatusBarSettings extends SettingsPreferenceFragment
     private SwitchPreference mStatusBarGreeting;
     private SeekBarPreferenceCham mStatusBarGreetingTimeout;
     private String mCustomGreetingText = "";
-
+    private PreferenceScreen mBreathingNotifications;
 
     @Override
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
         addPreferencesFromResource(R.xml.status_bar_settings);
         PreferenceScreen prefSet = getPreferenceScreen();
+        Context context = getActivity();
+        ConnectivityManager cm = (ConnectivityManager)
+                context.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        final PreferenceCategory generalCategory =
+                (PreferenceCategory) prefSet.findPreference(GENERAL_CATEGORY);
 
         ContentResolver resolver = getActivity().getContentResolver();
 
@@ -109,9 +118,15 @@ public class StatusBarSettings extends SettingsPreferenceFragment
                 Settings.CMREMIX.STATUS_BAR_GREETING_TIMEOUT, 400);
         mStatusBarGreetingTimeout.setValue(statusBarGreetingTimeout / 1);
         mStatusBarGreetingTimeout.setOnPreferenceChangeListener(this);
+        mBreathingNotifications = (PreferenceScreen) findPreference(BREATHING_NOTIFICATIONS);
+
 
         if (TelephonyManager.getDefault().getPhoneCount() <= 1) {
             removePreference(Settings.System.STATUS_BAR_MSIM_SHOW_EMPTY_ICONS);
+        }
+
+        if (!cm.isNetworkSupported(ConnectivityManager.TYPE_MOBILE)) {
+            generalCategory.removePreference(mBreathingNotifications);
         }
     }
 
