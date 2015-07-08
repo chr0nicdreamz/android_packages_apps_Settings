@@ -55,13 +55,6 @@
             android:summary="@string/recent_panel_show_topmost_summary"
             android:persistent="false" />
 
-    <com.android.settings.cmremix.utils.CMRemixSwitchPreference
-           android:dependency="use_slim_recents"
-           android:key="slim_action_use_floating_window"
-           android:title="@string/slim_action_floating_window_title"
-           android:summary="@string/slim_action_floating_window_summary"
-           android:defaultValue="false" />
-
         <SlimSeekBarPreference
             android:key="recent_panel_scale"
             android:title="@string/recent_panel_scale_title" />

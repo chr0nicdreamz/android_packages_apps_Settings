@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2015 CMRemix Roms
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:title="@string/category_floating_window"
+    xmlns:settings="http://schemas.android.com/apk/res/com.android.settings">
+
+    <!-- Appcirclebar floating mode switch -->
+        <com.android.settings.cmremix.utils.CMRemixSwitchPreference
+        android:key="appcirclebar_floating"
+        android:title="@string/appcirclebar_floating_window_title"
+        android:summary="@string/appcirclebar_floating_window_summary"
+        android:defaultValue="false" />
+
+    <!-- Appsidebar floating mode switch -->
+        <com.android.settings.cmremix.utils.CMRemixSwitchPreference
+        android:key="appsidebar_floating"
+        android:title="@string/appsidebar_floating_window_title"
+        android:summary="@string/appsidebar_floating_window_summary"
+        android:defaultValue="false" />
+
+    <com.android.settings.cmremix.utils.CMRemixSwitchPreference
+        android:key="gesture_anywhere_floating"
+        android:title="@string/gesture_anywhere_floating"
+        android:summary="@string/gesture_anywhere_floating_summary"
+        android:defaultValue="false" />
+
+    <!-- HeadsUp floating mode switch -->
+    <com.android.settings.cmremix.utils.CMRemixSwitchPreference
+        android:key="heads_up_floating"
+        android:title="@string/heads_up_floating_window_title"
+        android:summary="@string/heads_up_floating_window_summary"
+        android:defaultValue="false" />
+
+    <!-- Sliim Action floating mode switch -->
+    <com.android.settings.cmremix.utils.CMRemixSwitchPreference
+        android:key="slim_action_floats"
+        android:title="@string/slim_action_floating_window_title"
+        android:summary="@string/slim_action_floating_window_summary"
+        android:defaultValue="false" />
+
+ </PreferenceScreen>

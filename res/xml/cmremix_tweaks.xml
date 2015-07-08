@@ -42,6 +42,14 @@
          android:icon="@drawable/ic_recents"
          />
 
+    <!-- Floating Window Options -->
+    <PreferenceScreen
+        android:key="floating_windows"
+        android:fragment="com.android.settings.cmremix.FloatingWindow"
+        android:title="@string/category_floating_window"
+        android:icon="@drawable/ic_floating"
+        settings:advanced="true" />
+
     <!-- Heads up notifications -->
     <Preference
          android:key="heads_up_enabled"
