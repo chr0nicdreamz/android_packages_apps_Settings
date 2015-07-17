@@ -84,7 +84,6 @@ import com.android.settings.ButtonSettings;
 import com.android.settings.bluetooth.BluetoothSettings;
 import com.android.settings.cyanogenmod.DisplayRotation;
 import com.android.settings.cmremix.CMRemixUiSettings;
-import com.android.settings.cmremix.NavBarSettings;
 import com.android.settings.dashboard.DashboardCategory;
 import com.android.settings.dashboard.DashboardSummary;
 import com.android.settings.dashboard.DashboardTile;
@@ -336,7 +335,6 @@ public class SettingsActivity extends Activity
             ExpandedDesktopPreferenceFragment.class.getName(),
             AppSidebar.class.getName(),
             DisplayRotation.class.getName(),
-			NavBarSettings.class.getName(),
             ButtonSettings.class.getName()
     };
 
