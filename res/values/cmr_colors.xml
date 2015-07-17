@@ -23,7 +23,4 @@
     <!-- Gesture Anywhere -->
     <color name="ga_gesture_color">#FF07998B</color>
 
-    <color name="setting_separator">#ff484848</color>
-    <color name="extension_list_item_color">#ff999999</color>
-
 </resources>

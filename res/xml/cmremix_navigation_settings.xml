@@ -26,15 +26,6 @@
         android:icon="@drawable/ic_nav_ring" 
         />
 
-    <!-- Custom Navbar -->
-    <PreferenceScreen
-        android:key="navbar"
-        android:title="@string/cmremix_navbar_title"
-        android:fragment="com.android.settings.cmremix.NavBarSettings"
-        android:icon="@drawable/ic_navbar_layout"
-        settings:advanced="true" 
-        />
-
     <PreferenceScreen
         android:key="pie_settings"
         android:fragment="com.android.settings.cmremix.slim.PieControl"
