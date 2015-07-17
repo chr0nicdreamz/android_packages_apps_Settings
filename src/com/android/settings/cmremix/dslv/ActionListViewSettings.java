@@ -36,8 +36,11 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.VectorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
+import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -54,6 +57,7 @@ import android.widget.TextView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.android.internal.util.cmremix.ActionChecker;
 import com.android.internal.util.cmremix.ActionConfig;
 import com.android.internal.util.cmremix.ActionConstants;
 import com.android.internal.util.cmremix.ActionHelper;
@@ -65,7 +69,7 @@ import com.android.settings.SettingsPreferenceFragment;
 import com.android.settings.R;
 import com.android.settings.cmremix.dslv.DragSortListView;
 import com.android.settings.cmremix.dslv.DragSortController;
-import com.android.settings.cmremix.utils.ShortcutPickerHelper;
+import com.android.settings.cmremix.util.ShortcutPickerHelper;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -93,6 +97,7 @@ public class ActionListViewSettings extends ListFragment implements
     private static final int LOCKSCREEN_SHORTCUT   = 4;
     private static final int POWER_MENU_SHORTCUT   = 5;
     private static final int SHAKE_EVENTS_DISABLED = 6;
+    private static final int QUICKTILE             = 7;
 
     private static final int DEFAULT_MAX_ACTION_NUMBER = 5;
 
@@ -150,7 +155,12 @@ public class ActionListViewSettings extends ListFragment implements
             public void remove(int which) {
                 ActionConfig item = mActionConfigsAdapter.getItem(which);
                 mActionConfigsAdapter.remove(item);
-                if (mDisableDeleteLastEntry && 
+                if (!ActionChecker.containsAction(mActivity, item, ActionConstants.ACTION_BACK)
+                        || !ActionChecker.containsAction(
+                        mActivity, item, ActionConstants.ACTION_HOME)) {
+                    mActionConfigsAdapter.insert(item, which);
+                    showDialogInner(DLG_DELETION_NOT_ALLOWED, 0, false, false);
+                } else if (mDisableDeleteLastEntry && 
                     (mActionConfigs == null || mActionConfigs.size() == 0)) {
                     mActionConfigsAdapter.add(item);
                     showDialogInner(DLG_DELETION_NOT_ALLOWED, 0, false, false);
@@ -206,7 +216,10 @@ public class ActionListViewSettings extends ListFragment implements
 
         mPicker = new ShortcutPickerHelper(mActivity, this);
 
-        mImageTmp = new File(mActivity.getCacheDir()
+        File folder = new File(Environment.getExternalStorageDirectory() + File.separator +
+                ".slim" + File.separator + "icons");
+
+        mImageTmp = new File(folder.toString()
                 + File.separator + "shortcut.tmp");
 
         DragSortListView listView = (DragSortListView) getListView();
@@ -326,18 +339,23 @@ public class ActionListViewSettings extends ListFragment implements
         }
         if (bmp != null && !mPendingLongpress) {
             // Icon is present, save it for future use and add the file path to the action.
-            String fileName = mActivity.getFilesDir()
-                    + File.separator + "shortcut_" + System.currentTimeMillis() + ".png";
-            try {
-                FileOutputStream out = new FileOutputStream(fileName);
-                bmp.compress(Bitmap.CompressFormat.PNG, 100, out);
-                out.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            } finally {
-                action = action + "?hasExtraIcon=" + fileName;
-                File image = new File(fileName);
-                image.setReadable(true, false);
+            if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+                File folder = new File(Environment.getExternalStorageDirectory() + File.separator +
+                        ".slim" + File.separator + "icons");
+                folder.mkdirs();
+                String fileName = folder.toString()
+                        + File.separator + "shortcut_" + System.currentTimeMillis() + ".png";
+                try {
+                    FileOutputStream out = new FileOutputStream(fileName);
+                    bmp.compress(Bitmap.CompressFormat.PNG, 100, out);
+                    out.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                } finally {
+                    action = action + "?hasExtraIcon=" + fileName;
+                    File image = new File(fileName);
+                    image.setReadable(true, false);
+                }
             }
         }
         if (mPendingNewAction) {
@@ -365,13 +383,18 @@ public class ActionListViewSettings extends ListFragment implements
                             Toast.LENGTH_LONG).show();
                     return;
                 }
-                File image = new File(mActivity.getFilesDir() + File.separator
-                        + "shortcut_" + System.currentTimeMillis() + ".png");
-                String path = image.getAbsolutePath();
-                mImageTmp.renameTo(image);
-                image.setReadable(true, false);
-                updateAction(null, null, path, mPendingIndex, false);
-                mPendingIndex = -1;
+                if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+                    File folder = new File(Environment.getExternalStorageDirectory() +
+                            File.separator + ".slim" + File.separator + "icons");
+                    folder.mkdirs();
+                    File image = new File(folder.toString() + File.separator
+                            + "shortcut_" + System.currentTimeMillis() + ".png");
+                    String path = image.getAbsolutePath();
+                    mImageTmp.renameTo(image);
+                    image.setReadable(true, false);
+                    updateAction(null, null, path, mPendingIndex, false);
+                    mPendingIndex = -1;
+                }
             }
         } else {
             if (mImageTmp.exists()) {
@@ -520,12 +543,15 @@ public class ActionListViewSettings extends ListFragment implements
 
     private ArrayList<ActionConfig> getConfig() {
         switch (mActionMode) {
+            case QUICKTILE:
+                return ActionHelper.getQuickTileConfigWithDescription(
+                    mActivity, mActionValuesKey, mActionEntriesKey);
             case LOCKSCREEN_SHORTCUT:
                 return ActionHelper.getLockscreenShortcutConfig(mActivity);
-/* Disabled for now till all features are back. Enable it step per step!!!!!!
             case NAV_BAR:
                 return ActionHelper.getNavBarConfigWithDescription(
                     mActivity, mActionValuesKey, mActionEntriesKey);
+/* Disabled for now till all features are back. Enable it step per step!!!!!!
             case NAV_RING:
                 return ActionHelper.getNavRingConfigWithDescription(
                     mActivity, mActionValuesKey, mActionEntriesKey);*/
@@ -547,13 +573,16 @@ public class ActionListViewSettings extends ListFragment implements
 
     private void setConfig(ArrayList<ActionConfig> actionConfigs, boolean reset) {
         switch (mActionMode) {
+            case QUICKTILE:
+                ActionHelper.setQuickTileConfig(mActivity, actionConfigs, reset);
+                break;
             case LOCKSCREEN_SHORTCUT:
                 ActionHelper.setLockscreenShortcutConfig(mActivity, actionConfigs, reset);
                 break;
-/* Disabled for now till all features are back. Enable it step per step!!!!!!
             case NAV_BAR:
                 ActionHelper.setNavBarConfig(mActivity, actionConfigs, reset);
                 break;
+/* Disabled for now till all features are back. Enable it step per step!!!!!!
             case NAV_RING:
                 ActionHelper.setNavRingConfig(mActivity, actionConfigs, reset);
                 break;*/
@@ -626,15 +655,13 @@ public class ActionListViewSettings extends ListFragment implements
                         mActivity, ActionHelper.getActionIconImage(mActivity,
                         getItem(position).getClickAction(),
                         iconUri), 48);
-            }
-
 
             if ((iconUri.equals(ActionConstants.ICON_EMPTY) &&
                     getItem(position).getClickAction().startsWith("**")) || (iconUri != null
                     && iconUri.startsWith(ActionConstants.SYSTEM_ICON_IDENTIFIER))) {
-                if (d != null) {
-                    d = ImageHelper.getColoredDrawable(d,
-                            getResources().getColor(R.color.dslv_icon_dark));
+                if (d != null) d.setTint(getResources().getColor(R.color.dslv_icon_dark));
+
+                    }
                 }
             }
             holder.iconView.setImageDrawable(d);
@@ -766,9 +793,15 @@ public class ActionListViewSettings extends ListFragment implements
                     })
                     .create();
                 case DLG_DELETION_NOT_ALLOWED:
+                    int message;
+                    if (getOwner().mActionConfigs.size() > 1) {
+                        message = R.string.shortcut_action_required_warning_message;
+                    } else {
+                        message = R.string.shortcut_action_warning_message;
+                    }
                     return new AlertDialog.Builder(getActivity())
                     .setTitle(R.string.shortcut_action_warning)
-                    .setMessage(R.string.shortcut_action_warning_message)
+                    .setMessage(message)
                     .setNegativeButton(R.string.dlg_ok,
                         new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
@@ -796,7 +829,11 @@ public class ActionListViewSettings extends ListFragment implements
                         List<String> finalValuesList = new ArrayList<String>();
 
                         for (int i = 0; i < getOwner().mActionDialogValues.length; i++) {
-                            if (!getOwner().mActionDialogValues[i]
+                            if (getOwner().mActionDialogEntries[i] != null &&
+                                getOwner().mActionDialogValues[i] != null &&
+                                !getOwner().mActionDialogEntries[i].equals("") &&
+                                !getOwner().mActionDialogValues[i].equals("") &&
+                                !getOwner().mActionDialogValues[i]
                                     .equals(ActionConstants.ACTION_NULL)) {
                                 finalEntriesList.add(getOwner().mActionDialogEntries[i]);
                                 finalValuesList.add(getOwner().mActionDialogValues[i]);

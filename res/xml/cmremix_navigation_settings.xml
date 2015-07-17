@@ -18,6 +18,14 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:title="@string/navigation_settings_title"
     xmlns:settings="http://schemas.android.com/apk/res/com.android.settings">
+
+    <!-- Custom Navbar -->
+    <PreferenceScreen
+        android:key="navbar"
+        android:title="@string/bliss_navbar_title"
+        android:fragment="com.android.settings.cmremix.slim.NavbarSettings"
+        android:icon="@drawable/ic_navbar_layout"
+        settings:advanced="true" />
     
     <PreferenceScreen
         android:key="navigation_bar_ring"
