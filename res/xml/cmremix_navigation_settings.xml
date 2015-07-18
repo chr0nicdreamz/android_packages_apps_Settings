@@ -22,7 +22,7 @@
     <!-- Custom Navbar -->
     <PreferenceScreen
         android:key="navbar"
-        android:title="@string/bliss_navbar_title"
+        android:title="@string/cmremix_navbar_title"
         android:fragment="com.android.settings.cmremix.slim.NavbarSettings"
         android:icon="@drawable/ic_navbar_layout"
         settings:advanced="true" />
