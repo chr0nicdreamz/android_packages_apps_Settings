@@ -16,25 +16,96 @@
 
 package com.android.settings.cmremix;
 
+import android.app.admin.DevicePolicyManager;
+import android.app.ActivityManager;
+import android.os.Bundle;
+import android.os.UserHandle;
+import android.content.Context;
+import android.content.ContentResolver;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.res.Resources;
+import android.provider.SearchIndexableResource;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
+import android.os.UserHandle;
+import android.preference.ListPreference;
 import android.preference.Preference;
+import android.preference.Preference.OnPreferenceChangeListener;
+import android.preference.PreferenceCategory;
+import android.preference.PreferenceGroup;
 import android.preference.PreferenceScreen;
+import android.preference.SwitchPreference;
+import android.provider.Settings;
+
+import com.android.settings.R;
+import com.android.settings.SettingsPreferenceFragment;
 
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
 import com.android.settings.util.Helpers;
+import com.android.settings.Utils;
+
+import com.android.settings.search.BaseSearchIndexProvider;
+import com.android.settings.search.Indexable;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public class LockScreenSettings extends SettingsPreferenceFragment
-        implements OnSharedPreferenceChangeListener {
+        implements OnSharedPreferenceChangeListener,
+        Preference.OnPreferenceChangeListener, Indexable {
 
     private static final String TAG = "LockScreenSettings";
+    private static final String KEY_SHOW_VISUALIZER = "lockscreen_visualizer";
+
+    private static final String VISUALIZER_CATEGORY = "visualizer";
+
+    private static final String CARRIERLABEL_ON_LOCKSCREEN="lock_screen_hide_carrier";
+
+    private PreferenceScreen mLockScreen;
+    private SwitchPreference mCarrierLabelOnLockScreen;
+
+    private Context mContext;
 
     @Override
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
-        addPreferencesFromResource(R.xml.cmremix_lockscreen);
+        addPreferencesFromResource(R.xml.cmremix_lockscreen_settings);
+
+        PreferenceScreen prefSet = getPreferenceScreen();
+        ContentResolver resolver = getActivity().getContentResolver();
+        PackageManager pm = getPackageManager();
+        Resources res = getResources();
+        mContext = getActivity();
+
+        mLockScreen = (PreferenceScreen) findPreference("lock_screen");
+        PreferenceCategory visualizerCategory = (PreferenceCategory)
+                getPreferenceScreen().findPreference(VISUALIZER_CATEGORY);
+
+        // remove lockscreen visualizer option on low end gfx devices
+        if (!ActivityManager.isHighEndGfx() && visualizerCategory != null) {
+            SwitchPreference displayVisualizer = (SwitchPreference)
+                    visualizerCategory.findPreference(KEY_SHOW_VISUALIZER);
+            if (displayVisualizer != null) {
+                visualizerCategory.removePreference(displayVisualizer);
+            }
+        }
+
+        //CarrierLabel on LockScreen
+        mCarrierLabelOnLockScreen = (SwitchPreference) findPreference(CARRIERLABEL_ON_LOCKSCREEN);
+        if (!Utils.isWifiOnly(getActivity())) {
+            mCarrierLabelOnLockScreen.setOnPreferenceChangeListener(this);
+
+            boolean hideCarrierLabelOnLS = Settings.System.getInt(
+                    getActivity().getContentResolver(),
+                    Settings.System.LOCK_SCREEN_HIDE_CARRIER, 0) == 1;
+            mCarrierLabelOnLockScreen.setChecked(hideCarrierLabelOnLS);
+        } else {
+            prefSet.removePreference(mCarrierLabelOnLockScreen);
+        }
     }
 
     @Override
@@ -50,4 +121,45 @@ public class LockScreenSettings extends SettingsPreferenceFragment
     @Override
     public void onSharedPreferenceChanged(SharedPreferences preferences, String key) {
     }
+
+    @Override
+    public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
+        return super.onPreferenceTreeClick(preferenceScreen, preference);
+    }
+
+    @Override
+    public boolean onPreferenceChange(Preference preference, Object objValue) {
+        ContentResolver resolver = getActivity().getContentResolver();
+        final String key = preference.getKey();
+        if (preference == mCarrierLabelOnLockScreen) {
+            Settings.System.putInt(getActivity().getContentResolver(),
+                    Settings.System.LOCK_SCREEN_HIDE_CARRIER,
+                    (Boolean) objValue ? 1 : 0);
+            Helpers.restartSystemUI();
+            return true;
+        }
+        return false;
+    }
+
+    public static final Indexable.SearchIndexProvider SEARCH_INDEX_DATA_PROVIDER =
+            new BaseSearchIndexProvider() {
+                @Override
+                public List<SearchIndexableResource> getXmlResourcesToIndex(Context context,
+                                                                            boolean enabled) {
+                    ArrayList<SearchIndexableResource> result =
+                            new ArrayList<SearchIndexableResource>();
+
+                    SearchIndexableResource sir = new SearchIndexableResource(context);
+                    sir.xmlResId = R.xml.cmremix_lockscreen_settings;
+                    result.add(sir);
+
+                    return result;
+                }
+
+                @Override
+                public List<String> getNonIndexableKeys(Context context) {
+                    ArrayList<String> result = new ArrayList<String>();
+                    return result;
+                }
+            };		
 }
