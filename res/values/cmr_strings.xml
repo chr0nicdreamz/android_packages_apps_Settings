@@ -163,6 +163,7 @@
     <string name="shortcut_action_back">Back</string>
     <string name="shortcut_action_kill">Kill app</string>
     <string name="shortcut_action_lastapp">Last app</string>
+    <string name="shortcut_action_assist">Search</string>
     <string name="shortcut_action_menu_big">Menu Big</string>
     <string name="shortcut_action_notifications">Notifications</string>
     <string name="shortcut_action_qs">Quicksettings panel</string>
