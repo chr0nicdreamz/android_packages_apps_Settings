@@ -514,7 +514,7 @@ public class ExpandedDesktopPreferenceFragment extends SettingsPreferenceFragmen
         private final boolean hasNavBarByDefault = getResources().getBoolean(
                 com.android.internal.R.bool.config_showNavigationBar);
         private final boolean isNavigationBarOn = Settings.System.getInt(getContentResolver(),
-                Settings.System.NAVBAR_FORCE_ENABLE, hasNavBarByDefault ? 1 : 0) == 1;
+                Settings.System.NAVIGATION_BAR_SHOW, hasNavBarByDefault ? 1 : 0) == 1;
 
         private boolean hasNavigationBar = true;
 

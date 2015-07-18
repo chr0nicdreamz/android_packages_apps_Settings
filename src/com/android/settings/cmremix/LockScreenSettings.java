@@ -73,7 +73,7 @@ public class LockScreenSettings extends SettingsPreferenceFragment
     @Override
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
-        addPreferencesFromResource(R.xml.cmremix_lockscreen_settings);
+        addPreferencesFromResource(R.xml.cmremix_lockscreen);
 
         PreferenceScreen prefSet = getPreferenceScreen();
         ContentResolver resolver = getActivity().getContentResolver();
@@ -150,7 +150,7 @@ public class LockScreenSettings extends SettingsPreferenceFragment
                             new ArrayList<SearchIndexableResource>();
 
                     SearchIndexableResource sir = new SearchIndexableResource(context);
-                    sir.xmlResId = R.xml.cmremix_lockscreen_settings;
+                    sir.xmlResId = R.xml.cmremix_lockscreen;
                     result.add(sir);
 
                     return result;

@@ -69,7 +69,7 @@ import com.android.settings.SettingsPreferenceFragment;
 import com.android.settings.R;
 import com.android.settings.cmremix.dslv.DragSortListView;
 import com.android.settings.cmremix.dslv.DragSortController;
-import com.android.settings.cmremix.util.ShortcutPickerHelper;
+import com.android.settings.cmremix.utils.ShortcutPickerHelper;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -545,9 +545,9 @@ public class ActionListViewSettings extends ListFragment implements
 
     private ArrayList<ActionConfig> getConfig() {
         switch (mActionMode) {
-            case QUICKTILE:
+/*            case QUICKTILE:
                 return ActionHelper.getQuickTileConfigWithDescription(
-                    mActivity, mActionValuesKey, mActionEntriesKey);
+                    mActivity, mActionValuesKey, mActionEntriesKey);*/
             case LOCKSCREEN_SHORTCUT:
                 return ActionHelper.getLockscreenShortcutConfig(mActivity);
             case NAV_BAR:
@@ -575,9 +575,9 @@ public class ActionListViewSettings extends ListFragment implements
 
     private void setConfig(ArrayList<ActionConfig> actionConfigs, boolean reset) {
         switch (mActionMode) {
-            case QUICKTILE:
+/*            case QUICKTILE:
                 ActionHelper.setQuickTileConfig(mActivity, actionConfigs, reset);
-                break;
+                break;*/
             case LOCKSCREEN_SHORTCUT:
                 ActionHelper.setLockscreenShortcutConfig(mActivity, actionConfigs, reset);
                 break;
