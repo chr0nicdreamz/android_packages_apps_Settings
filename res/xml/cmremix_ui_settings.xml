@@ -19,6 +19,11 @@
     android:title="@string/cmremix_settings_title"
     xmlns:settings="http://schemas.android.com/apk/res/com.android.settings">
 
+    <PreferenceScreen android:key="cmremixbanner"
+                android:enabled="false"
+                android:layout="@layout/cmremixbanner_row"
+                android:selectable="false" />
+
     <!-- Status bar -->
         <PreferenceScreen
                 android:id="@+id/status_bar_settings"
@@ -93,6 +98,5 @@
                 android:fragment="com.android.settings.cmremix.CMRemixCenterSettings"
                 android:title="@string/cmremixcenter_settings_title"
                 />
-
 
 </PreferenceScreen>
