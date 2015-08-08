@@ -15,10 +15,10 @@
  */
 package com.android.settings.cmremix;
 
-import android.os.Bundle;
-import android.os.UserHandle;
 import android.content.ContentResolver;
 import android.content.res.Resources;
+import android.os.Bundle;
+import android.os.UserHandle;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
@@ -26,8 +26,9 @@ import android.preference.PreferenceScreen;
 import android.preference.SwitchPreference;
 import android.provider.Settings;
 
-import com.android.settings.SettingsPreferenceFragment;
 import com.android.settings.R;
+import com.android.settings.SettingsPreferenceFragment;
+import net.margaritov.preference.colorpicker.ColorPickerPreference;
 
 public class RecentsPanelSettings extends SettingsPreferenceFragment implements
         Preference.OnPreferenceChangeListener {
@@ -37,10 +38,20 @@ public class RecentsPanelSettings extends SettingsPreferenceFragment implements
     private static final String SHOW_CLEAR_ALL_RECENTS = "show_clear_all_recents";
     private static final String RECENTS_CLEAR_ALL_LOCATION = "recents_clear_all_location";
     private static final String RECENT_RAM_BAR = "recents_ram_bar";
-    
+	private static final String PREF_CLEAR_ALL_BG_COLOR =
+            "android_recents_clear_all_bg_color";
+    private static final String PREF_CLEAR_ALL_ICON_COLOR =
+            "android_recents_clear_all_icon_color";
+
+    private static final int RED = 0xffDC4C3C;
+    private static final int WHITE = 0xffffffff;
+    private static final int HOLO_BLUE_LIGHT = 0xff33b5e5;
+
     private SwitchPreference mRecentsClearAll;
     private ListPreference mRecentsClearAllLocation;
     private Preference mRecentRamBar;
+    private ColorPickerPreference mClearAllIconColor;
+    private ColorPickerPreference mClearAllBgColor;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -49,6 +60,9 @@ public class RecentsPanelSettings extends SettingsPreferenceFragment implements
 
         PreferenceScreen prefSet = getPreferenceScreen();
         ContentResolver resolver = getActivity().getContentResolver();
+        int intvalue;
+        int intColor;
+        String hexColor;
 
         mRecentsClearAll = (SwitchPreference) prefSet.findPreference(SHOW_CLEAR_ALL_RECENTS);
         mRecentsClearAll.setChecked(Settings.System.getIntForUser(resolver,
@@ -64,19 +78,61 @@ public class RecentsPanelSettings extends SettingsPreferenceFragment implements
         mRecentsClearAllLocation.setValue(String.valueOf(location));
         mRecentsClearAllLocation.setOnPreferenceChangeListener(this);
         updateRecentsLocation(location);
+
+        mClearAllBgColor =
+        (ColorPickerPreference) findPreference(PREF_CLEAR_ALL_BG_COLOR);
+        intColor = Settings.System.getInt(resolver,
+            Settings.System.RECENT_APPS_CLEAR_ALL_BG_COLOR, RED); 
+        mClearAllBgColor.setNewPreviewColor(intColor);
+        hexColor = String.format("#%08x", (0xffffffff & intColor));
+        mClearAllBgColor.setSummary(hexColor);
+        mClearAllBgColor.setDefaultColors(RED, RED);
+        mClearAllBgColor.setOnPreferenceChangeListener(this);
+
+        mClearAllIconColor =
+		      (ColorPickerPreference) findPreference(PREF_CLEAR_ALL_ICON_COLOR);
+        intColor = Settings.System.getInt(resolver,
+           Settings.System.RECENT_APPS_CLEAR_ALL_ICON_COLOR, WHITE); 
+        mClearAllIconColor.setNewPreviewColor(intColor);
+        hexColor = String.format("#%08x", (0xffffffff & intColor));
+        mClearAllIconColor.setSummary(hexColor);
+        mClearAllIconColor.setDefaultColors(WHITE, WHITE);
+        mClearAllIconColor.setOnPreferenceChangeListener(this);
+
     }
 
-    public boolean onPreferenceChange(Preference preference, Object objValue) {
+    public boolean onPreferenceChange(Preference preference, Object newValue) {
+        boolean value;
+        int intvalue;
+        int index;
+        String hex;
+        int intHex;
         if (preference == mRecentsClearAll) {
-            boolean show = (Boolean) objValue;
+            value = (Boolean) newValue;
             Settings.System.putIntForUser(getActivity().getContentResolver(),
-                    Settings.System.SHOW_CLEAR_ALL_RECENTS, show ? 1 : 0, UserHandle.USER_CURRENT);
+                    Settings.System.SHOW_CLEAR_ALL_RECENTS, value ? 1 : 0, UserHandle.USER_CURRENT);
             return true;
         } else if (preference == mRecentsClearAllLocation) {
-            int location = Integer.valueOf((String) objValue);
+            int location = Integer.valueOf((String) newValue);
             Settings.System.putIntForUser(getActivity().getContentResolver(),
                     Settings.System.RECENTS_CLEAR_ALL_LOCATION, location, UserHandle.USER_CURRENT);
             updateRecentsLocation(location);
+            return true;
+        } else if (preference == mClearAllBgColor) {
+            hex = ColorPickerPreference.convertToARGB(
+                    Integer.valueOf(String.valueOf(newValue)));
+            intHex = ColorPickerPreference.convertToColorInt(hex);
+            Settings.System.putInt(getActivity().getContentResolver(),
+                    Settings.System.RECENT_APPS_CLEAR_ALL_BG_COLOR, intHex);
+            preference.setSummary(hex);
+            return true;
+        } else if (preference == mClearAllIconColor) {
+            hex = ColorPickerPreference.convertToARGB(
+                    Integer.valueOf(String.valueOf(newValue)));
+            intHex = ColorPickerPreference.convertToColorInt(hex);
+            Settings.System.putInt(getActivity().getContentResolver(),
+                    Settings.System.RECENT_APPS_CLEAR_ALL_ICON_COLOR, intHex);
+            preference.setSummary(hex);
             return true;
         }
         return false;
