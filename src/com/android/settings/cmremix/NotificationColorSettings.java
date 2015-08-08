@@ -195,7 +195,7 @@ public class NotificationColorSettings extends SettingsPreferenceFragment implem
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         menu.add(0, MENU_RESET, 0, R.string.reset)
-                .setIcon(R.drawable.ic_menu_reset) // use the KitKat backup icon
+                .setIcon(R.drawable.ic_settings_reset) // use Slim Roms icon
                 .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
     }
 
@@ -318,7 +318,7 @@ public class NotificationColorSettings extends SettingsPreferenceFragment implem
                     .setTitle(R.string.reset)
                     .setMessage(R.string.dlg_reset_values_message)
                     .setNegativeButton(R.string.cancel, null)
-                    .setNeutralButton(R.string.dlg_reset_android,
+                    .setNeutralButton(R.string.dlg_reset_light,
                         new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             Settings.System.putInt(getOwner().mResolver,
@@ -346,7 +346,7 @@ public class NotificationColorSettings extends SettingsPreferenceFragment implem
                             getOwner().refreshSettings();
                         }
                     })
-                    .setPositiveButton(R.string.dlg_reset_bliss,
+                    .setPositiveButton(R.string.dlg_reset_dark,
                         new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             Settings.System.putInt(getOwner().mResolver,
@@ -357,7 +357,7 @@ public class NotificationColorSettings extends SettingsPreferenceFragment implem
                                     Settings.System.NOTIFICATION_APP_ICON_COLOR_MODE, 1);
                             Settings.System.putInt(getOwner().mResolver,
                                     Settings.System.NOTIFICATION_BG_COLOR,
-                                    WHITE);
+                                    BLACK);
                             Settings.System.putInt(getOwner().mResolver,
                                     Settings.System.NOTIFICATION_GUTS_BG_COLOR,
                                     SYSTEMUI_SECONDARY);
@@ -366,13 +366,13 @@ public class NotificationColorSettings extends SettingsPreferenceFragment implem
                                     TRANSLUCENT_HOLO_BLUE_LIGHT);
                             Settings.System.putInt(getOwner().mResolver,
                                     Settings.System.NOTIFICATION_TEXT_COLOR,
-                                    HOLO_BLUE_LIGHT);
+                                    WHITE);
                             Settings.System.putInt(getOwner().mResolver,
                                     Settings.System.NOTIFICATION_ICON_COLOR,
-                                    HOLO_BLUE_LIGHT);
+                                    WHITE);
                             Settings.System.putInt(getOwner().mResolver,
                                     Settings.System.NOTIFICATION_DRAWER_CLEAR_ALL_ICON_COLOR,
-                                    HOLO_BLUE_LIGHT);
+                                    WHITE);
                             getOwner().refreshSettings();
                         }
                     })
