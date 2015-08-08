@@ -49,8 +49,6 @@ public class QSColors extends SettingsPreferenceFragment implements
             "qs_transparent_shade";
     private static final String PREF_QS_COLOR_SWITCH =
             "qs_color_switch";
-    private static final String PREF_CLEAR_ALL_ICON_COLOR =
-            "notification_drawer_clear_all_icon_color";
     private static final String PREF_BG_COLOR = 
             "expanded_header_background_color";
 
@@ -66,7 +64,6 @@ public class QSColors extends SettingsPreferenceFragment implements
     private ColorPickerPreference mQSBackgroundColor;
     private ColorPickerPreference mQSIconColor;
     private ColorPickerPreference mQSTextColor;
-    private ColorPickerPreference mClearAllIconColor;
     private ColorPickerPreference mBackgroundColor;
     private SwitchPreference mQSShadeTransparency;
     private SwitchPreference mQSSSwitch;
@@ -124,17 +121,6 @@ public class QSColors extends SettingsPreferenceFragment implements
         mQSShadeTransparency.setChecked((Settings.System.getInt(mResolver,
                 Settings.System.QS_TRANSPARENT_SHADE, 0) == 1));
         mQSShadeTransparency.setOnPreferenceChangeListener(this);
-		
-        mClearAllIconColor =
-                (ColorPickerPreference) findPreference(PREF_CLEAR_ALL_ICON_COLOR);
-        intColor = Settings.System.getInt(mResolver,
-                Settings.System.NOTIFICATION_DRAWER_CLEAR_ALL_ICON_COLOR, WHITE); 
-        mClearAllIconColor.setNewPreviewColor(intColor);
-        hexColor = String.format("#%08x", (0xffffffff & intColor));
-        mClearAllIconColor.setSummary(hexColor);
-        //mClearAllIconColor.setDefaultColors(WHITE, SWAG_TEAL);
-        mClearAllIconColor.setOnPreferenceChangeListener(this);
-        mClearAllIconColor.setAlphaSliderEnabled(true);
 
         mBackgroundColor =
                 (ColorPickerPreference) findPreference(PREF_BG_COLOR);
@@ -213,14 +199,6 @@ public class QSColors extends SettingsPreferenceFragment implements
                     Settings.System.QS_COLOR_SWITCH, value ? 1 : 0);
             refreshSettings();
             return true;
-        } else if (preference == mClearAllIconColor) {
-            hex = ColorPickerPreference.convertToARGB(
-                Integer.valueOf(String.valueOf(newValue)));
-            intHex = ColorPickerPreference.convertToColorInt(hex);
-            Settings.System.putInt(mResolver,
-                Settings.System.NOTIFICATION_DRAWER_CLEAR_ALL_ICON_COLOR, intHex);
-            preference.setSummary(hex);
-            return true;
         } else if (preference == mBackgroundColor) {
             hex = ColorPickerPreference.convertToARGB(
                 Integer.valueOf(String.valueOf(newValue)));
@@ -274,8 +252,6 @@ public class QSColors extends SettingsPreferenceFragment implements
                                     Settings.System.QS_TEXT_COLOR, WHITE);
                             Settings.System.putInt(getOwner().mResolver,
                                     Settings.System.QS_TRANSPARENT_SHADE, 0);
-                            Settings.System.putInt(getOwner().mResolver,
-                                    Settings.System.NOTIFICATION_DRAWER_CLEAR_ALL_ICON_COLOR, WHITE);
                              Settings.System.putInt(getOwner().mResolver,
                                     Settings.System.STATUS_BAR_EXPANDED_HEADER_BG_COLOR,
                                     DEFAULT_BG_COLOR);
@@ -296,9 +272,6 @@ public class QSColors extends SettingsPreferenceFragment implements
                                     SWAG_TEAL);
                             Settings.System.putInt(getOwner().mResolver,
                                     Settings.System.QS_TRANSPARENT_SHADE, 0);
-                            Settings.System.putInt(getOwner().mResolver,
-                                    Settings.System.NOTIFICATION_DRAWER_CLEAR_ALL_ICON_COLOR,
-                                    SWAG_TEAL);
                             Settings.System.putInt(getOwner().mResolver,
                                     Settings.System.STATUS_BAR_EXPANDED_HEADER_BG_COLOR,
                                     0xee263238);
