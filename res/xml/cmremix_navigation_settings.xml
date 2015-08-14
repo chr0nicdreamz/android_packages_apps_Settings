@@ -27,12 +27,13 @@
         android:icon="@drawable/ic_navbar_layout"
         settings:advanced="true" />
     
-    <PreferenceScreen
-        android:key="navigation_bar_ring"
-        android:fragment="com.android.settings.cyanogenmod.NavRing"
-        android:title="@string/navigation_ring_title"
+    <!-- Three-fingers-swipe to screenshot -->
+    <com.android.settings.cyanogenmod.SystemSettingSwitchPreference
+        android:key="three_finger_gesture"
+        android:title="@string/three_finger_gesture"
+        android:summary="@string/three_finger_gesture_summary"
         android:icon="@drawable/ic_nav_ring" 
-        />
+        android:defaultValue="false" />
 
     <PreferenceScreen
         android:key="pie_settings"
