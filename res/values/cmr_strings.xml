@@ -732,9 +732,6 @@
     <string name="qs_tiles_vibrate_title">Vibrate on touch</string>
     <string name="qs_tiles_vibrate_summary">Vibrate when touching tiles</string>
 
-    <!-- QuickSettings 4 columns -->
-    <string name="qs_four_columns_title">Show four tiles per row</string>
-
     <!-- QuickSettings colors -->
     <string name="background_title">Background</string>
     <string name="icon_title">Icon</string>
