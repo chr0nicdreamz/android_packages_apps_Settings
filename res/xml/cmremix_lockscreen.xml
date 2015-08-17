@@ -25,17 +25,6 @@
          android:title="@string/lock_screen_hide_carrier_title"
          android:summary="@string/lock_screen_hide_carrier_summary" />
 
-        <PreferenceScreen
-            android:key="lockscreen_wallpaper"
-            android:title="@string/lockscreen_wallpaper_title"
-            android:summary="@string/lockscreen_wallpaper_summary">
-            <intent
-                android:targetPackage="com.slim.wallpaperpicker"
-                android:targetClass="com.slim.wallpaperpicker.WallpaperPickerActivity">
-                    <extra android:name="keyguardMode" android:value="true" />
-            </intent>
-        </PreferenceScreen>
-
     <!-- Weather -->
     <PreferenceCategory
         android:key="status_bar_show_weather_category"
