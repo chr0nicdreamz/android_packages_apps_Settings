@@ -2528,12 +2528,6 @@
                        android:resource="@id/security_settings" />
         </activity-alias>
 
-        <receiver android:name="com.android.settings.cmremix.utils.OnBoot">
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED"/>
-            </intent-filter>
-        </receiver>
-
         <!-- End of cmRemiX activities -->
 
         <provider

@@ -68,17 +68,10 @@ import com.android.settings.search.Index;
 import com.android.settings.search.Indexable;
 import com.android.settings.search.SearchIndexableRaw;
 
-import java.io.InputStreamReader;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.BufferedReader;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import static android.provider.Settings.System.SCREEN_OFF_TIMEOUT;
-
-import com.android.settings.cmremix.utils.CMDProcessor;
 
 /**
  * Gesture lock pattern settings.
@@ -103,8 +96,6 @@ public class SecuritySettings extends SettingsPreferenceFragment
     private static final String KEY_CREDENTIALS_MANAGER = "credentials_management";
     private static final String PACKAGE_MIME_TYPE = "application/vnd.android.package-archive";
     private static final String KEY_SCREEN_PINNING = "screen_pinning_settings";
-
-    private static final String SELINUX = "selinux";
 
     // Cyanogen device lock
     public static final String ACCOUNT_TYPE_CYANOGEN = "com.cyanogen";
@@ -141,8 +132,6 @@ public class SecuritySettings extends SettingsPreferenceFragment
 
     private ListPreference mSmsSecurityCheck;
 
-    private SwitchPreference mSelinux;
-
     private boolean mIsPrimary;
 
 
@@ -154,7 +143,6 @@ public class SecuritySettings extends SettingsPreferenceFragment
 
         mLockPatternUtils = new LockPatternUtils(getActivity());
         mDPM = (DevicePolicyManager)getSystemService(Context.DEVICE_POLICY_SERVICE);
-
     }
 
     /**
@@ -248,17 +236,6 @@ public class SecuritySettings extends SettingsPreferenceFragment
                 Settings.System.LOCK_TO_APP_ENABLED, 0) != 0) {
             root.findPreference(KEY_SCREEN_PINNING).setSummary(
                     getResources().getString(R.string.switch_on_text));
-        }
-
-        mSelinux = (SwitchPreference) findPreference(SELINUX);
-        mSelinux.setOnPreferenceChangeListener(this);
-
-        if (CMDProcessor.runSuCommand("getenforce").getStdout().contains("Enforcing")) {
-            mSelinux.setChecked(true);
-            mSelinux.setSummary(R.string.selinux_enforcing_title);
-        } else {
-            mSelinux.setChecked(false);
-            mSelinux.setSummary(R.string.selinux_permissive_title);
         }
 
         // SMS rate limit security check
@@ -589,14 +566,6 @@ public class SecuritySettings extends SettingsPreferenceFragment
                                     }
                                 });
                 builder.create().show();
-            }
-        } else if (preference == mSelinux) {
-            if (value.toString().equals("true")) {
-                CMDProcessor.runSuCommand("setenforce 1");
-                mSelinux.setSummary(R.string.selinux_enforcing_title);
-            } else if (value.toString().equals("false")) {
-                CMDProcessor.runSuCommand("setenforce 0");
-                mSelinux.setSummary(R.string.selinux_permissive_title);
             }
         }
         return result;
