@@ -1747,4 +1747,7 @@
    <string name="status_bar_custom_header_title">Custom header image</string>
    <string name="status_bar_custom_header_summary">Enable notification panel header image</string>
 
+    <!-- Whether the keyguard will directly pass to gesture entry -->
+    <string name="lock_directly_show_gesture">Directly show gesture </string>
+
 </resources>
