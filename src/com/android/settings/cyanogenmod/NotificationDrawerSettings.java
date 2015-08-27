@@ -36,6 +36,7 @@ import com.android.settings.search.BaseSearchIndexProvider;
 import com.android.settings.search.Indexable;
 
 import com.android.internal.widget.LockPatternUtils;
+import com.android.settings.cmremix.utils.CMRemixPreferenceSwitch;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,6 +49,7 @@ public class NotificationDrawerSettings extends SettingsPreferenceFragment imple
     private static final String BLOCK_ON_SECURE_KEYGUARD = "block_on_secure_keyguard";
     private static final String PREF_ENABLE_TASK_MANAGER = "enable_task_manager";
     private static final String STATUS_BAR_POWER_MENU = "status_bar_power_menu";
+    private static final String KEY_FLASH_NOTIFICATIONS = "flash_notifications_switch";
 
     private ListPreference mQuickPulldown;
     private ListPreference mSmartPulldown;
@@ -56,6 +58,7 @@ public class NotificationDrawerSettings extends SettingsPreferenceFragment imple
     private SwitchPreference mEnableTaskManager;
     private Preference mQSTiles;
     private ListPreference mNumColumns;
+    private CMRemixPreferenceSwitch mFlashPreference;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -122,6 +125,8 @@ public class NotificationDrawerSettings extends SettingsPreferenceFragment imple
         mNumColumns.setOnPreferenceChangeListener(this);
         DraggableGridView.setColumnCount(numColumns);
 
+        mFlashPreference = (CMRemixPreferenceSwitch) findPreference(KEY_FLASH_NOTIFICATIONS);
+        mFlashPreference.setSettingToWatch(Settings.System.FLASH_NOTIFICATIONS, 1);
     }
 
     @Override
