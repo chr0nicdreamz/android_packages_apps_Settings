@@ -211,6 +211,11 @@
             android:key="toast_test_animation"
             android:title="@string/toast_test_animation" />
 
+        <com.android.settings.cyanogenmod.SystemSettingSwitchPreference
+            android:key="toast_icon"
+            android:title="@string/toast_icon_title"
+            android:defaultValue="true" />
+
     </PreferenceCategory>
 
 </PreferenceScreen>

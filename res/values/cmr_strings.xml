@@ -522,6 +522,9 @@
     <!-- Display and Animations -->
     <string name="disp_anim_settings_title">Display and animations</string>
 
+    <!-- Toast Icons -->
+    <string name="toast_icon_title">Toast icon</string>
+
     <!-- ListView animation -->
     <string name="interface_settings_animation_title">Animation options</string>
     <string name="listview_animation_title">ListView animation</string>
