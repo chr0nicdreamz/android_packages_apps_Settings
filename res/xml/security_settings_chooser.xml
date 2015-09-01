@@ -45,11 +45,6 @@
             android:key="power_button_instantly_locks"
             android:title="@string/lockpattern_settings_enable_power_button_instantly_locks"/>
 
-        <com.android.settings.cyanogenmod.SecureSettingSwitchPreference
-            android:key="long_press_lock_icon_to_sleep"
-            android:title="@string/longpress_lock_icon_to_sleep_title"
-            android:summary="@string/longpress_lock_icon_to_sleep_summary" />
-
         <com.android.settings.cmremix.utils.CMRemixSwitchPreference
             android:key="double_tap_sleep_anywhere"
             android:title="@string/double_tap_sleep_anywhere_title"
