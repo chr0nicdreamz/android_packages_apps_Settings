@@ -241,8 +241,7 @@ public class SetupActionsFragment extends SettingsPreferenceFragment
         mItems.add(new AirplaneModeItem(mProfile.getAirplaneMode()));
         DevicePolicyManager dpm = (DevicePolicyManager) getSystemService(
                 Context.DEVICE_POLICY_SERVICE);
-        if (!dpm.requireSecureKeyguard() && Settings.Secure.getInt(mContext.getContentResolver(),
-                Settings.Secure.ENABLE_DEVICE_POLICY_OVERRIDE, 1) == 0) {
+        if (!dpm.requireSecureKeyguard()) {
             mItems.add(new LockModeItem(mProfile));
         } else {
             mItems.add(new DisabledItem(R.string.profile_lockmode_title,

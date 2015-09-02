@@ -15,7 +15,6 @@
 -->
 
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-                  xmlns:settings="http://schemas.android.com/apk/res/com.android.settings"
                   android:title="@string/security_settings_title">
 
     <PreferenceCategory android:title="@string/security_passwords_title"
@@ -46,12 +45,6 @@
     <PreferenceCategory android:key="device_admin_category"
                         android:title="@string/device_admin_title"
                         android:persistent="false">
-
-        <com.android.settings.cyanogenmod.SecureSettingSwitchPreference
-                    android:key="enable_device_policy_override"
-                    android:title="@string/device_policy_override_title"
-                    android:summary="@string/device_policy_override_summary"
-                    android:defaultValue="true" />
 
         <SwitchPreference android:key="lock_to_cyanogen_account"
                           android:title="@string/lock_to_cyanogen_title"
