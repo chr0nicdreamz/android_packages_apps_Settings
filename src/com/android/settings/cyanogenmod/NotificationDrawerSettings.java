@@ -48,21 +48,20 @@ public class NotificationDrawerSettings extends SettingsPreferenceFragment imple
     private static final String BLOCK_ON_SECURE_KEYGUARD = "block_on_secure_keyguard";
     private static final String PREF_ENABLE_TASK_MANAGER = "enable_task_manager";
     private static final String STATUS_BAR_POWER_MENU = "status_bar_power_menu";
+    private static final String PREF_QS_TYPE = "qs_type";
 
     private ListPreference mQuickPulldown;
     private ListPreference mSmartPulldown;
     private ListPreference mStatusBarPowerMenu;
     private SwitchPreference mBlockOnSecureKeyguard;
     private SwitchPreference mEnableTaskManager;
-    private Preference mQSTiles;
+    private ListPreference mQSType;
     private ListPreference mNumColumns;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.notification_drawer_settings);
-
-        mQSTiles = findPreference("qs_order");
 
         PreferenceScreen prefSet = getPreferenceScreen();
         ContentResolver resolver = getActivity().getContentResolver();
@@ -76,6 +75,13 @@ public class NotificationDrawerSettings extends SettingsPreferenceFragment imple
         ContentResolver resolver = getActivity().getContentResolver();
         mQuickPulldown = (ListPreference) prefSet.findPreference(QUICK_PULLDOWN);
         mSmartPulldown = (ListPreference) findPreference(PREF_SMART_PULLDOWN);
+
+        mQSType = (ListPreference) findPreference(PREF_QS_TYPE);
+        int type = Settings.System.getInt(resolver,
+               Settings.System.QS_TYPE, 0);
+        mQSType.setValue(String.valueOf(type));
+        mQSType.setSummary(mQSType.getEntry());
+        mQSType.setOnPreferenceChangeListener(this);
 
         mQuickPulldown.setOnPreferenceChangeListener(this);
         int quickPulldownValue = Settings.System.getIntForUser(resolver,
@@ -125,18 +131,17 @@ public class NotificationDrawerSettings extends SettingsPreferenceFragment imple
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-
-        int qsTileCount = QSTiles.determineTileCount(getActivity());
-        mQSTiles.setSummary(getResources().getQuantityString(R.plurals.qs_tiles_summary,
-                    qsTileCount, qsTileCount));
-    }
-
-    @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
         ContentResolver resolver = getContentResolver();
-        if (preference == mQuickPulldown) {
+        int intValue;
+        if (preference == mQSType) {
+            intValue = Integer.valueOf((String) newValue);
+            int index = mQSType.findIndexOfValue((String) newValue);
+            Settings.System.putInt(resolver,
+                Settings.System.QS_TYPE, intValue);
+            preference.setSummary(mQSType.getEntries()[index]);
+            return true;
+        } else if (preference == mQuickPulldown) {
             int quickPulldownValue = Integer.valueOf((String) newValue);
             Settings.System.putIntForUser(resolver, Settings.System.QS_QUICK_PULLDOWN,
                     quickPulldownValue, UserHandle.USER_CURRENT);

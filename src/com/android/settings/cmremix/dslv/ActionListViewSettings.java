@@ -34,10 +34,12 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.VectorDrawable;
+import android.graphics.PorterDuff.Mode;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.provider.Settings;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -62,8 +64,10 @@ import com.android.internal.util.cmremix.ActionConfig;
 import com.android.internal.util.cmremix.ActionConstants;
 import com.android.internal.util.cmremix.ActionHelper;
 import com.android.internal.util.cmremix.ImageHelper;
-import com.android.internal.util.cmremix.DeviceUtils;
-import com.android.internal.util.cmremix.DeviceUtils.FilteredDeviceFeaturesArray;
+import com.android.internal.util.cmremix.ActionUtils;
+import com.android.internal.util.cmremix.ActionUtils.FilteredDeviceFeaturesArray;
+import com.android.internal.util.cmremix.QSBarHelper;
+import com.android.internal.util.cmremix.QSColorHelper;
 
 import com.android.settings.SettingsPreferenceFragment;
 import com.android.settings.R;
@@ -98,7 +102,8 @@ public class ActionListViewSettings extends ListFragment implements
     private static final int POWER_MENU_SHORTCUT   = 5;
     private static final int SHAKE_EVENTS_DISABLED = 6;
     private static final int QUICKTILE             = 7;
-    private static final int RECENT_APP_SIDEBAR    = 8;
+    private static final int QUICK_SETTINGS_BAR    = 8;
+    private static final int RECENT_APP_SIDEBAR    = 9;
 
     private static final int DEFAULT_MAX_ACTION_NUMBER = 5;
     private static final int DEFAULT_NUMBER_OF_ACTIONS = 3;
@@ -211,7 +216,7 @@ public class ActionListViewSettings extends ListFragment implements
         mDisableMessage = (TextView) view.findViewById(R.id.disable_message);
 
         FilteredDeviceFeaturesArray finalActionDialogArray = new FilteredDeviceFeaturesArray();
-        finalActionDialogArray = DeviceUtils.filterUnsupportedDeviceFeatures(mActivity,
+        finalActionDialogArray = ActionUtils.filterUnsupportedDeviceFeatures(mActivity,
             res.getStringArray(res.getIdentifier(
                     mActionValuesKey, "array", "com.android.settings")),
             res.getStringArray(res.getIdentifier(
@@ -222,7 +227,7 @@ public class ActionListViewSettings extends ListFragment implements
         mPicker = new ShortcutPickerHelper(mActivity, this);
 
         File folder = new File(Environment.getExternalStorageDirectory() + File.separator +
-                ".slim" + File.separator + "icons");
+                ".cmremix" + File.separator + "icons");
 
         folder.mkdirs();
 
@@ -373,7 +378,7 @@ public class ActionListViewSettings extends ListFragment implements
             // Icon is present, save it for future use and add the file path to the action.
             if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
                 File folder = new File(Environment.getExternalStorageDirectory() + File.separator +
-                        ".slim" + File.separator + "icons");
+                        ".cmremix" + File.separator + "icons");
                 folder.mkdirs();
                 String fileName = folder.toString()
                         + File.separator + "shortcut_" + System.currentTimeMillis() + ".png";
@@ -417,7 +422,7 @@ public class ActionListViewSettings extends ListFragment implements
                 }
                 if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
                     File folder = new File(Environment.getExternalStorageDirectory() +
-                            File.separator + ".slim" + File.separator + "icons");
+                            File.separator + ".cmremix" + File.separator + "icons");
                     folder.mkdirs();
                     File image = new File(folder.toString() + File.separator
                             + "shortcut_" + System.currentTimeMillis() + ".png");
@@ -631,6 +636,7 @@ public class ActionListViewSettings extends ListFragment implements
     }
 
     private class ViewHolder {
+        public TextView clickActionDescriptionView;
         public TextView longpressActionDescriptionView;
         public ImageView iconView;
     }
@@ -648,9 +654,13 @@ public class ActionListViewSettings extends ListFragment implements
             if (v != convertView && v != null) {
                 ViewHolder holder = new ViewHolder();
 
+                TextView clickActionDescription =
+                    (TextView) v.findViewById(R.id.click_action_description);
                 TextView longpressActionDecription =
                     (TextView) v.findViewById(R.id.longpress_action_description);
                 ImageView icon = (ImageView) v.findViewById(R.id.icon);
+
+                holder.clickActionDescriptionView = clickActionDescription;
 
                 if (mDisableLongpress) {
                     longpressActionDecription.setVisibility(View.GONE);
@@ -673,24 +683,18 @@ public class ActionListViewSettings extends ListFragment implements
 
             Drawable d = null;
             String iconUri = getItem(position).getIcon();
+            holder.iconView.setColorFilter(null);
             if (iconUri == null) {
                 iconUri = ActionConstants.ICON_EMPTY;
             }
-            if (mActionMode == POWER_MENU_SHORTCUT) {
-                /* Disabled for now till slims power menu is back!!!!!!!!!!!!!!
-                d = ImageHelper.resize(
-                        mActivity, PolicyHelper.getPowerMenuIconImage(mActivity,
-                        getItem(position).getClickAction(),
-                        iconUri, false), 48);
-                */
-            } else {
+            if (mActionMode == NAV_BAR) {
                 ActionHelper.useSystemUI = true;
-                d = ImageHelper.resize(mActivity, ActionHelper.getActionIconImage(
-                        mActivity, getItem(position).getClickAction(),
+                d = ImageHelper.resize(
+                        mActivity, ActionHelper.getActionIconImage(mActivity,
+                        getItem(position).getClickAction(),
                         iconUri), 48);
                 ActionHelper.useSystemUI = false;
-            }
-
+                }
             if (d != null) {
                 if ((iconUri.equals(ActionConstants.ICON_EMPTY) &&
                         getItem(position).getClickAction().startsWith("**")) ||
@@ -698,8 +702,75 @@ public class ActionListViewSettings extends ListFragment implements
                     d = ImageHelper.getColoredDrawable(d, getResources()
                             .getColor(R.color.dslv_icon_dark));
                 }
-            }
             holder.iconView.setImageBitmap(ImageHelper.drawableToBitmap(d));
+            } else if (mActionMode == PIE) {
+                ActionHelper.useSystemUI = true;
+                d = ImageHelper.resize(
+                        mActivity, ActionHelper.getActionIconImage(mActivity,
+                        getItem(position).getClickAction(),
+                        iconUri), 48);
+                ActionHelper.useSystemUI = false;
+                }
+            if (d != null) {
+                if ((iconUri.equals(ActionConstants.ICON_EMPTY) &&
+                        getItem(position).getClickAction().startsWith("**")) ||
+                    iconUri.startsWith(ActionConstants.SYSTEM_ICON_IDENTIFIER)) {
+                    d = ImageHelper.getColoredDrawable(d, getResources()
+                            .getColor(R.color.dslv_icon_dark));
+                }
+            holder.iconView.setImageBitmap(ImageHelper.drawableToBitmap(d));
+            } else if (mActionMode == PIE_SECOND) {
+                ActionHelper.useSystemUI = true;
+                d = ImageHelper.resize(
+                        mActivity, ActionHelper.getActionIconImage(mActivity,
+                        getItem(position).getClickAction(),
+                        iconUri), 48);
+                ActionHelper.useSystemUI = false;
+                }
+            if (d != null) {
+                if ((iconUri.equals(ActionConstants.ICON_EMPTY) &&
+                        getItem(position).getClickAction().startsWith("**")) ||
+                    iconUri.startsWith(ActionConstants.SYSTEM_ICON_IDENTIFIER)) {
+                    d = ImageHelper.getColoredDrawable(d, getResources()
+                            .getColor(R.color.dslv_icon_dark));
+                }
+            holder.iconView.setImageBitmap(ImageHelper.drawableToBitmap(d));
+            } else if (mActionMode == LOCKSCREEN_SHORTCUT) {
+                d = ImageHelper.resize(
+                        mActivity, ActionHelper.getActionIconImage(mActivity,
+                        getItem(position).getClickAction(), iconUri), 36);
+                    holder.iconView.setImageBitmap(ImageHelper.drawableToBitmap(d));
+            } else if (mActionMode == QUICKTILE) {
+                ActionHelper.useSystemUI = true;
+                d = ImageHelper.resize(
+                        mActivity, ActionHelper.getActionIconImage(mActivity,
+                        getItem(position).getClickAction(),
+                        iconUri), 48);
+                ActionHelper.useSystemUI = false;
+                }
+            if (d != null) {
+                if ((iconUri.equals(ActionConstants.ICON_EMPTY) &&
+                        getItem(position).getClickAction().startsWith("**")) ||
+                    iconUri.startsWith(ActionConstants.SYSTEM_ICON_IDENTIFIER)) {
+                    d = ImageHelper.getColoredDrawable(d, getResources()
+                            .getColor(R.color.dslv_icon_dark));
+                }
+            holder.iconView.setImageBitmap(ImageHelper.drawableToBitmap(d));
+            } else if (mActionMode == RECENT_APP_SIDEBAR) {
+                d = ImageHelper.resize(
+                        mActivity, ActionHelper.getActionIconImage(mActivity,
+                        getItem(position).getClickAction(), iconUri), 36);
+                    holder.iconView.setImageBitmap(ImageHelper.drawableToBitmap(d));
+            } else if (mActionMode == QUICK_SETTINGS_BAR) {
+                d = ImageHelper.resize(
+                        mActivity, QSBarHelper.getQSBarIconImage(mActivity,
+                        getItem(position).getClickAction()), 24);
+                final int iconColor = QSColorHelper.getIconColor(mActivity);
+                holder.iconView.setImageBitmap(ImageHelper.drawableToBitmap(d));
+                holder.iconView.setColorFilter(iconColor, Mode.MULTIPLY);
+            } else {
+                holder.iconView.setImageDrawable(d);
+            }
 
             if (!mDisableIconPicker && holder.iconView.getDrawable() != null) {
                 holder.iconView.setOnClickListener(new OnClickListener() {

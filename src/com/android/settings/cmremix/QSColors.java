@@ -51,11 +51,13 @@ public class QSColors extends SettingsPreferenceFragment implements
             "qs_color_switch";
     private static final String PREF_BG_COLOR = 
             "expanded_header_background_color";
+    private static final String PREF_QS_RIPPLE_COLOR =
+             "qs_ripple_color";
 
     private static final int DEFAULT_BACKGROUND_COLOR = 0xff263238;
     private static final int WHITE = 0xffffffff;
     private static final int SWAG_TEAL = 0xfff700ff;
-
+    private static final int CMREMIX_BLUE = 0xff1976D2;
     private static final int DEFAULT_BG_COLOR = 0xff384248;
 
     private static final int MENU_RESET = Menu.FIRST;
@@ -67,6 +69,7 @@ public class QSColors extends SettingsPreferenceFragment implements
     private ColorPickerPreference mBackgroundColor;
     private SwitchPreference mQSShadeTransparency;
     private SwitchPreference mQSSSwitch;
+    private ColorPickerPreference mQSRippleColor;
 
     private ContentResolver mResolver;
 
@@ -139,6 +142,16 @@ public class QSColors extends SettingsPreferenceFragment implements
                 Settings.System.QS_COLOR_SWITCH, 0) == 1));
         mQSSSwitch.setOnPreferenceChangeListener(this);
 
+        mQSRippleColor =
+                (ColorPickerPreference) findPreference(PREF_QS_RIPPLE_COLOR);
+        intColor = Settings.System.getInt(mResolver,
+                Settings.System.QS_RIPPLE_COLOR, WHITE); 
+        mQSRippleColor.setNewPreviewColor(intColor);
+        hexColor = String.format("#%08x", (0xffffffff & intColor));
+        mQSRippleColor.setSummary(hexColor);
+        mQSRippleColor.setDefaultColors(WHITE, CMREMIX_BLUE);
+        mQSRippleColor.setOnPreferenceChangeListener(this);
+
         setHasOptionsMenu(true);
     }
 
@@ -207,6 +220,14 @@ public class QSColors extends SettingsPreferenceFragment implements
                 Settings.System.STATUS_BAR_EXPANDED_HEADER_BG_COLOR, intHex);
             preference.setSummary(hex);
             return true;
+        } else if (preference == mQSRippleColor) {
+            hex = ColorPickerPreference.convertToARGB(
+                Integer.valueOf(String.valueOf(newValue)));
+            intHex = ColorPickerPreference.convertToColorInt(hex);
+            Settings.System.putInt(mResolver,
+               Settings.System.QS_RIPPLE_COLOR, intHex);
+            preference.setSummary(hex);
+            return true;
         }
         return false;
     }
@@ -255,6 +276,9 @@ public class QSColors extends SettingsPreferenceFragment implements
                              Settings.System.putInt(getOwner().mResolver,
                                     Settings.System.STATUS_BAR_EXPANDED_HEADER_BG_COLOR,
                                     DEFAULT_BG_COLOR);
+                            Settings.System.putInt(getOwner().mResolver,
+                                    Settings.System.QS_RIPPLE_COLOR,
+                                    WHITE);
                             getOwner().refreshSettings();
                         }
                     })
@@ -275,6 +299,9 @@ public class QSColors extends SettingsPreferenceFragment implements
                             Settings.System.putInt(getOwner().mResolver,
                                     Settings.System.STATUS_BAR_EXPANDED_HEADER_BG_COLOR,
                                     0xee263238);
+                            Settings.System.putInt(getOwner().mResolver,
+                                    Settings.System.QS_RIPPLE_COLOR,
+                                    WHITE);
                             getOwner().refreshSettings();
                         }
                     })

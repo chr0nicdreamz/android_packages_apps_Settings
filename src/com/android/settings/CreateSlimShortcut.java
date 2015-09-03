@@ -23,8 +23,8 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import com.android.internal.util.cmremix.ActionHelper;
-import com.android.internal.util.cmremix.DeviceUtils;
-import com.android.internal.util.cmremix.DeviceUtils.FilteredDeviceFeaturesArray;
+import com.android.internal.util.cmremix.ActionUtils;
+import com.android.internal.util.cmremix.ActionUtils.FilteredDeviceFeaturesArray;
 import com.android.internal.util.cmremix.ImageHelper;
 import com.android.settings.cmremix.slim.SlimActionShortcut;
 
@@ -43,7 +43,7 @@ public class CreateSlimShortcut extends Activity {
         FilteredDeviceFeaturesArray
                 finalActionDialogArray = new FilteredDeviceFeaturesArray();
         finalActionDialogArray =
-            DeviceUtils.filterUnsupportedDeviceFeatures(this,
+            ActionUtils.filterUnsupportedDeviceFeatures(this,
             getResources().getStringArray(getResources().getIdentifier(
             "shortcut_action_launcher_values", "array", "com.android.settings")),
             getResources().getStringArray(getResources().getIdentifier(

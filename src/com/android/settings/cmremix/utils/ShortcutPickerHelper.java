@@ -38,7 +38,7 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
 
-import com.android.settings.bliss.util.ShortcutPickerHelper.AppExpandableAdapter.GroupInfo;
+import com.android.settings.cmremix.utils.ShortcutPickerHelper.AppExpandableAdapter.GroupInfo;
 import com.android.settings.R;
 
 import com.android.internal.util.cmremix.AppHelper;
@@ -187,7 +187,7 @@ public class ShortcutPickerHelper {
                     return true;
                 }
             });
-            Builder builder = new Builder(mParent, com.android.internal.R.style.Theme_Material_BlissDark_Dialog_Alert);
+            Builder builder = new Builder(mParent, com.android.internal.R.style.Theme_Material_CMRemixDark_Dialog_Alert);
             builder.setView(appListView);
             mAlertDialog = builder.create();
             mAlertDialog.setTitle(mParent.getString(R.string.shortcut_picker_select_activity_title));

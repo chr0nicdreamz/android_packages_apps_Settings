@@ -36,6 +36,7 @@ import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
 import com.android.internal.util.cm.PowerMenuConstants;
 import com.android.internal.util.cm.QSUtils;
+import com.android.internal.util.cmremix.DeviceUtils;
 
 import static com.android.internal.util.cm.PowerMenuConstants.*;
 import com.android.settings.widget.NumberPickerPreference;
@@ -149,7 +150,7 @@ public class PowerMenuActions extends SettingsPreferenceFragment
         }
 
         if (mTorchPref != null) {
-            if (!QSUtils.deviceSupportsFlashLight(getActivity())) {
+            if (!DeviceUtils.deviceSupportsFlashLight(getActivity())) {
                 getPreferenceScreen().removePreference(findPreference(GLOBAL_ACTION_KEY_TORCH));
             } else {
                 mTorchPref.setChecked(settingsArrayContains(GLOBAL_ACTION_KEY_TORCH));

@@ -40,6 +40,7 @@ import android.telephony.TelephonyManager;
 import android.util.Log;
 
 import com.android.internal.util.cm.QSUtils;
+import com.android.internal.util.cmremix.DeviceUtils;
 import com.android.internal.widget.LockPatternUtils;
 import com.android.settings.ChooseLockSettingsHelper;
 import com.android.settings.ManageFingerprints;
@@ -261,7 +262,7 @@ public class LockScreenSettings extends SettingsPreferenceFragment
         }
 
         // Remove Long Press Lock Icon for Torch option for non-flash devices
-        if(!QSUtils.deviceSupportsFlashLight(getActivity()) && generalCategory != null) {
+        if(!DeviceUtils.deviceSupportsFlashLight(getActivity()) && generalCategory != null) {
             mLongPressForTorch = (SwitchPreference) generalCategory
                     .findPreference(KEY_LONGPRESS_LOCK_FOR_TORCH);
             if (mLongPressForTorch != null) {

@@ -67,6 +67,7 @@ import android.widget.Toast;
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
 import com.android.internal.util.cm.QSUtils;
+import com.android.internal.util.cmremix.DeviceUtils;
 import com.android.settings.cmremix.utils.AbstractAsyncSuCMDProcessor;
 import com.android.settings.cmremix.utils.CMDProcessor;
 import com.android.settings.Utils;
@@ -146,7 +147,7 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
         mTorchOffDelay.setSummary(mTorchOffDelay.getEntry());
         mTorchOffDelay.setOnPreferenceChangeListener(this);
 
-        if (!QSUtils.deviceSupportsFlashLight(activity)) {
+        if (!DeviceUtils.deviceSupportsFlashLight(activity)) {
             prefSet.removePreference(mTorchOff);
             prefSet.removePreference(mTorchOffDelay);
         }
