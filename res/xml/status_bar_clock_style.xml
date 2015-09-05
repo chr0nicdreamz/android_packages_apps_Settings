@@ -37,7 +37,7 @@
             android:title="@string/clock_font_style_title"
             android:dependency="status_bar_show_clock" />
 
-        <com.android.settings.cmremix.utils.SeekBarPreferenceCham
+        <com.android.settings.cmremix.utils.SeekBarPreference
             android:key="font_size"
             android:title="@string/clock_font_size_title"
             android:defaultValue="14"

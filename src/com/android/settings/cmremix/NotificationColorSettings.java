@@ -58,10 +58,8 @@ public class NotificationColorSettings extends SettingsPreferenceFragment implem
             "notification_text_color";
     private static final String PREF_ICON_COLOR =
             "notification_icon_color";
-    private static final String PREF_CLEAR_ALL_ICON_COLOR =
-            "notification_drawer_clear_all_icon_color";
 
-    private static final int BLISS_BLUE_GREY = 0xff1b1f23;
+    private static final int CMREMIX_BLUE_GREY = 0xff1b1f23;
     private static final int SYSTEMUI_SECONDARY = 0xff384248;
     private static final int WHITE = 0xffffffff;
     private static final int BLACK = 0xff000000;
@@ -80,7 +78,6 @@ public class NotificationColorSettings extends SettingsPreferenceFragment implem
     private ColorPickerPreference mAppIconBgColor;
     private ColorPickerPreference mTextColor;
     private ColorPickerPreference mIconColor;
-    private ColorPickerPreference mClearAllIconColor;
 
     private ContentResolver mResolver;
 
@@ -130,7 +127,7 @@ public class NotificationColorSettings extends SettingsPreferenceFragment implem
         mBgColor.setNewPreviewColor(intColor);
         hexColor = String.format("#%08x", (0xffffffff & intColor));
         mBgColor.setSummary(hexColor);
-        mBgColor.setDefaultColors(BLISS_BLUE_GREY, BLISS_BLUE_GREY);
+        mBgColor.setDefaultColors(CMREMIX_BLUE_GREY, CMREMIX_BLUE_GREY);
         mBgColor.setOnPreferenceChangeListener(this);
 
         mBgGutsColor =
@@ -178,16 +175,6 @@ public class NotificationColorSettings extends SettingsPreferenceFragment implem
         mIconColor.setSummary(hexColor);
         mIconColor.setDefaultColors(WHITE, HOLO_BLUE_LIGHT);
         mIconColor.setOnPreferenceChangeListener(this);
-
-        mClearAllIconColor =
-                (ColorPickerPreference) findPreference(PREF_CLEAR_ALL_ICON_COLOR);
-        intColor = Settings.System.getInt(mResolver,
-                Settings.System.NOTIFICATION_DRAWER_CLEAR_ALL_ICON_COLOR, WHITE); 
-        mClearAllIconColor.setNewPreviewColor(intColor);
-        hexColor = String.format("#%08x", (0xffffffff & intColor));
-        mClearAllIconColor.setSummary(hexColor);
-        mClearAllIconColor.setDefaultColors(WHITE, HOLO_BLUE_LIGHT);
-        mClearAllIconColor.setOnPreferenceChangeListener(this);
 
         setHasOptionsMenu(true);
     }
@@ -277,14 +264,6 @@ public class NotificationColorSettings extends SettingsPreferenceFragment implem
                 Settings.System.NOTIFICATION_ICON_COLOR, intHex);
             preference.setSummary(hex);
             return true;
-        } else if (preference == mClearAllIconColor) {
-            hex = ColorPickerPreference.convertToARGB(
-                Integer.valueOf(String.valueOf(newValue)));
-            intHex = ColorPickerPreference.convertToColorInt(hex);
-            Settings.System.putInt(mResolver,
-                Settings.System.NOTIFICATION_DRAWER_CLEAR_ALL_ICON_COLOR, intHex);
-            preference.setSummary(hex);
-            return true;
         }
         return false;
     }
@@ -340,9 +319,6 @@ public class NotificationColorSettings extends SettingsPreferenceFragment implem
                                     Settings.System.NOTIFICATION_TEXT_COLOR, BLACK);
                             Settings.System.putInt(getOwner().mResolver,
                                     Settings.System.NOTIFICATION_ICON_COLOR, BLACK);
-                            Settings.System.putInt(getOwner().mResolver,
-                                    Settings.System.NOTIFICATION_DRAWER_CLEAR_ALL_ICON_COLOR,
-                                    WHITE);
                             getOwner().refreshSettings();
                         }
                     })
@@ -369,9 +345,6 @@ public class NotificationColorSettings extends SettingsPreferenceFragment implem
                                     WHITE);
                             Settings.System.putInt(getOwner().mResolver,
                                     Settings.System.NOTIFICATION_ICON_COLOR,
-                                    WHITE);
-                            Settings.System.putInt(getOwner().mResolver,
-                                    Settings.System.NOTIFICATION_DRAWER_CLEAR_ALL_ICON_COLOR,
                                     WHITE);
                             getOwner().refreshSettings();
                         }

@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Copyright (C) 2015 DarkKat
+
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
      You may obtain a copy of the License at
+
           http://www.apache.org/licenses/LICENSE-2.0
+
      Unless required by applicable law or agreed to in writing, software
      distributed under the License is distributed on an "AS IS" BASIS,
      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -16,8 +19,30 @@
     android:title="@string/qs_colors_title">
 
     <PreferenceCategory
+        android:title="@string/contextual_title" >
+
+        <com.android.settings.cyanogenmod.SystemSettingSwitchPreference
+            android:key="status_bar_custom_header"
+            android:title="@string/status_bar_custom_header_title"
+            android:summary="@string/status_bar_custom_header_summary"
+            android:defaultValue="false"/>
+    </PreferenceCategory>
+
+    <SwitchPreference
+	    android:key="expanded_header_show_weather"
+	    android:title="@string/expanded_header_show_weather_title"
+	    android:summary="@string/expanded_header_show_weather_summary"
+	    android:defaultValue="true" />
+
+    <SwitchPreference
+	    android:key="expanded_header_show_weather_location"
+	    android:title="@string/expanded_header_show_weather_location_title"
+	    android:summary="@string/expanded_header_show_weather_location_summary"
+	    android:defaultValue="true" />
+
+    <PreferenceCategory
         android:key="qs_cat_colors"
-        android:title="@string/colors_title">
+        android:title="@string/qs_color_options">
 
         <SwitchPreference
             android:key="qs_color_switch"
@@ -56,9 +81,31 @@
             android:dependency="qs_color_switch" />
 
         <net.margaritov.preference.colorpicker.ColorPickerPreference
-            android:key="expanded_header_background_color"
-            android:title="@string/background_header_title"
-            android:defaultValue="0xff384248" />
+           android:key="notification_drawer_clear_all_icon_color"
+           android:title="@string/notification_drawer_clear_all_icon_color_title"
+           android:defaultValue="0xffffffff" />
 
     </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="expanded_header_category_color"
+        android:title="@string/header_colors_title">
+
+         <net.margaritov.preference.colorpicker.ColorPickerPreference
+            android:key="expanded_header_background_color"
+            android:title="@string/background_title"
+            android:defaultValue="0xff384248"
+            android:dependency="qs_color_switch" />
+
+         <net.margaritov.preference.colorpicker.ColorPickerPreference
+            android:key="expanded_header_text_color"
+            android:title="@string/text_title"
+            android:defaultValue="0xffffffff" />
+
+         <net.margaritov.preference.colorpicker.ColorPickerPreference
+            android:key="expanded_header_icon_color"
+            android:title="@string/icons_title"
+            android:defaultValue="0xffffffff" />
+
+	</PreferenceCategory>
 </PreferenceScreen>

@@ -1,6 +1,5 @@
 /*
  * Copyright (C) 2015 DarkKat
- * Copyright (C) 2015 AICP
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,25 +38,23 @@ import net.margaritov.preference.colorpicker.ColorPickerPreference;
 public class QSColors extends SettingsPreferenceFragment implements
         Preference.OnPreferenceChangeListener {
 
-    private static final String PREF_QS_BACKGROUND_COLOR =
-            "qs_background_color";
-    private static final String PREF_QS_ICON_COLOR =
-            "qs_icon_color";
-    private static final String PREF_QS_TEXT_COLOR =
-            "qs_text_color";
-    private static final String PREF_QS_TRANSPARENT_SHADE =
-            "qs_transparent_shade";
-    private static final String PREF_QS_COLOR_SWITCH =
-            "qs_color_switch";
-    private static final String PREF_BG_COLOR = 
-            "expanded_header_background_color";
-    private static final String PREF_QS_RIPPLE_COLOR =
-             "qs_ripple_color";
+    private static final String PREF_QS_BACKGROUND_COLOR = "qs_background_color";
+    private static final String PREF_QS_ICON_COLOR = "qs_icon_color";
+    private static final String PREF_QS_TEXT_COLOR = "qs_text_color";
+    private static final String PREF_QS_TRANSPARENT_SHADE = "qs_transparent_shade";
+    private static final String PREF_QS_COLOR_SWITCH = "qs_color_switch";
+    private static final String PREF_SHOW_WEATHER = "expanded_header_show_weather";
+    private static final String PREF_SHOW_LOCATION = "expanded_header_show_weather_location";
+    private static final String PREF_BG_COLOR = "expanded_header_background_color";
+    private static final String PREF_TEXT_COLOR = "expanded_header_text_color";
+    private static final String PREF_ICON_COLOR = "expanded_header_icon_color";
+    private static final String PREF_CLEAR_ALL_ICON_COLOR = "notification_drawer_clear_all_icon_color";
+    private static final String PREF_QS_RIPPLE_COLOR = "qs_ripple_color";
 
     private static final int DEFAULT_BACKGROUND_COLOR = 0xff263238;
     private static final int WHITE = 0xffffffff;
-    private static final int SWAG_TEAL = 0xfff700ff;
     private static final int CMREMIX_BLUE = 0xff1976D2;
+    private static final int DEFAULT_COLOR = 0xffffffff;
     private static final int DEFAULT_BG_COLOR = 0xff384248;
 
     private static final int MENU_RESET = Menu.FIRST;
@@ -66,9 +63,14 @@ public class QSColors extends SettingsPreferenceFragment implements
     private ColorPickerPreference mQSBackgroundColor;
     private ColorPickerPreference mQSIconColor;
     private ColorPickerPreference mQSTextColor;
-    private ColorPickerPreference mBackgroundColor;
     private SwitchPreference mQSShadeTransparency;
     private SwitchPreference mQSSSwitch;
+    private SwitchPreference mShowWeather;
+    private SwitchPreference mShowLocation;
+    private ColorPickerPreference mBackgroundColor;
+    private ColorPickerPreference mTextColor;
+    private ColorPickerPreference mIconColor;
+    private ColorPickerPreference mClearAllIconColor;
     private ColorPickerPreference mQSRippleColor;
 
     private ContentResolver mResolver;
@@ -88,6 +90,9 @@ public class QSColors extends SettingsPreferenceFragment implements
         addPreferencesFromResource(R.xml.qs_color_settings);
         mResolver = getActivity().getContentResolver();
 
+        boolean showWeather = Settings.System.getInt(mResolver,
+                Settings.System.STATUS_BAR_EXPANDED_HEADER_SHOW_WEATHER, 0) == 1;
+
         int intColor;
         String hexColor;
 
@@ -105,7 +110,7 @@ public class QSColors extends SettingsPreferenceFragment implements
         mQSIconColor =
                 (ColorPickerPreference) findPreference(PREF_QS_ICON_COLOR);
         intColor = Settings.System.getInt(mResolver,
-                Settings.System.QS_ICON_COLOR, WHITE);
+                Settings.System.QS_ICON_COLOR, WHITE); 
         mQSIconColor.setNewPreviewColor(intColor);
         hexColor = String.format("#%08x", (0xffffffff & intColor));
         mQSIconColor.setSummary(hexColor);
@@ -114,7 +119,7 @@ public class QSColors extends SettingsPreferenceFragment implements
         mQSTextColor =
                 (ColorPickerPreference) findPreference(PREF_QS_TEXT_COLOR);
         intColor = Settings.System.getInt(mResolver,
-                Settings.System.QS_TEXT_COLOR, WHITE);
+                Settings.System.QS_TEXT_COLOR, WHITE); 
         mQSTextColor.setNewPreviewColor(intColor);
         hexColor = String.format("#%08x", (0xffffffff & intColor));
         mQSTextColor.setSummary(hexColor);
@@ -125,22 +130,63 @@ public class QSColors extends SettingsPreferenceFragment implements
                 Settings.System.QS_TRANSPARENT_SHADE, 0) == 1));
         mQSShadeTransparency.setOnPreferenceChangeListener(this);
 
-        mBackgroundColor =
-                (ColorPickerPreference) findPreference(PREF_BG_COLOR);
-        intColor = Settings.System.getInt(mResolver,
-                Settings.System.STATUS_BAR_EXPANDED_HEADER_BG_COLOR,
-                DEFAULT_BG_COLOR); 
-        mBackgroundColor.setNewPreviewColor(intColor);
-        hexColor = String.format("#%08x", (0xffffffff & intColor));
-        mBackgroundColor.setSummary(hexColor);
-        //mBackgroundColor.setDefaultColors(DEFAULT_BG_COLOR, DEFAULT_BG_COLOR);
-        mBackgroundColor.setOnPreferenceChangeListener(this);
-		mBackgroundColor.setAlphaSliderEnabled(true);
-
         mQSSSwitch = (SwitchPreference) findPreference(PREF_QS_COLOR_SWITCH);
         mQSSSwitch.setChecked((Settings.System.getInt(mResolver,
                 Settings.System.QS_COLOR_SWITCH, 0) == 1));
         mQSSSwitch.setOnPreferenceChangeListener(this);
+
+        mShowWeather = (SwitchPreference) findPreference(PREF_SHOW_WEATHER);
+        mShowWeather.setChecked(showWeather);
+        mShowWeather.setOnPreferenceChangeListener(this);
+
+        if (showWeather) {
+            mShowLocation = (SwitchPreference) findPreference(PREF_SHOW_LOCATION);
+            mShowLocation.setChecked(Settings.System.getInt(mResolver,
+                    Settings.System.STATUS_BAR_EXPANDED_HEADER_SHOW_WEATHER_LOCATION, 1) == 1);
+            mShowLocation.setOnPreferenceChangeListener(this);
+        } else {
+            removePreference(PREF_SHOW_LOCATION);
+        }
+
+        mBackgroundColor =
+                (ColorPickerPreference) findPreference(PREF_BG_COLOR);
+        intColor = Settings.System.getInt(mResolver,
+                Settings.System.STATUS_BAR_EXPANDED_HEADER_BG_COLOR,
+                DEFAULT_BG_COLOR);
+        mBackgroundColor.setNewPreviewColor(intColor);
+        hexColor = String.format("#%08x", (0xffffffff & intColor));
+        mBackgroundColor.setSummary(hexColor);
+        mBackgroundColor.setDefaultColors(DEFAULT_BG_COLOR, DEFAULT_BG_COLOR);
+        mBackgroundColor.setOnPreferenceChangeListener(this);
+		mBackgroundColor.setAlphaSliderEnabled(true);
+
+        mTextColor = (ColorPickerPreference) findPreference(PREF_TEXT_COLOR);
+        intColor = Settings.System.getInt(mResolver,
+                Settings.System.STATUS_BAR_EXPANDED_HEADER_TEXT_COLOR,
+                DEFAULT_COLOR);
+        mTextColor.setNewPreviewColor(intColor);
+        hexColor = String.format("#%08x", (0xffffffff & intColor));
+        mTextColor.setSummary(hexColor);
+        mTextColor.setOnPreferenceChangeListener(this);
+
+        mIconColor = (ColorPickerPreference) findPreference(PREF_ICON_COLOR);
+        intColor = Settings.System.getInt(mResolver,
+                Settings.System.STATUS_BAR_EXPANDED_HEADER_ICON_COLOR,
+                DEFAULT_COLOR);
+        mIconColor.setNewPreviewColor(intColor);
+        hexColor = String.format("#%08x", (0xffffffff & intColor));
+        mIconColor.setSummary(hexColor);
+        mIconColor.setOnPreferenceChangeListener(this);
+
+        mClearAllIconColor =
+                (ColorPickerPreference) findPreference(PREF_CLEAR_ALL_ICON_COLOR);
+        intColor = Settings.System.getInt(mResolver,
+                Settings.System.NOTIFICATION_DRAWER_CLEAR_ALL_ICON_COLOR, WHITE);
+        mClearAllIconColor.setNewPreviewColor(intColor);
+        hexColor = String.format("#%08x", (0xffffffff & intColor));
+        mClearAllIconColor.setSummary(hexColor);
+        mClearAllIconColor.setDefaultColors(WHITE, CMREMIX_BLUE);
+        mClearAllIconColor.setOnPreferenceChangeListener(this);
 
         mQSRippleColor =
                 (ColorPickerPreference) findPreference(PREF_QS_RIPPLE_COLOR);
@@ -212,12 +258,49 @@ public class QSColors extends SettingsPreferenceFragment implements
                     Settings.System.QS_COLOR_SWITCH, value ? 1 : 0);
             refreshSettings();
             return true;
+        } else if (preference == mShowWeather) {
+            boolean value = (Boolean) newValue;
+            Settings.System.putInt(mResolver,
+                Settings.System.STATUS_BAR_EXPANDED_HEADER_SHOW_WEATHER,
+                value ? 1 : 0);
+            refreshSettings();
+            return true;
+        } else if (preference == mShowLocation) {
+            boolean value = (Boolean) newValue;
+            Settings.System.putInt(mResolver,
+                Settings.System.STATUS_BAR_EXPANDED_HEADER_SHOW_WEATHER_LOCATION,
+                value ? 1 : 0);
+            return true;
         } else if (preference == mBackgroundColor) {
             hex = ColorPickerPreference.convertToARGB(
                 Integer.valueOf(String.valueOf(newValue)));
             intHex = ColorPickerPreference.convertToColorInt(hex);
             Settings.System.putInt(mResolver,
                 Settings.System.STATUS_BAR_EXPANDED_HEADER_BG_COLOR, intHex);
+            preference.setSummary(hex);
+            return true;
+        } else if (preference == mTextColor) {
+            hex = ColorPickerPreference.convertToARGB(
+                Integer.valueOf(String.valueOf(newValue)));
+            intHex = ColorPickerPreference.convertToColorInt(hex);
+            Settings.System.putInt(mResolver,
+                Settings.System.STATUS_BAR_EXPANDED_HEADER_TEXT_COLOR, intHex);
+            preference.setSummary(hex);
+            return true;
+        } else if (preference == mIconColor) {
+            hex = ColorPickerPreference.convertToARGB(
+                Integer.valueOf(String.valueOf(newValue)));
+            intHex = ColorPickerPreference.convertToColorInt(hex);
+            Settings.System.putInt(mResolver,
+                Settings.System.STATUS_BAR_EXPANDED_HEADER_ICON_COLOR, intHex);
+            preference.setSummary(hex);
+            return true;
+        } else if (preference == mClearAllIconColor) {
+            hex = ColorPickerPreference.convertToARGB(
+                Integer.valueOf(String.valueOf(newValue)));
+            intHex = ColorPickerPreference.convertToColorInt(hex);
+            Settings.System.putInt(mResolver,
+                Settings.System.NOTIFICATION_DRAWER_CLEAR_ALL_ICON_COLOR, intHex);
             preference.setSummary(hex);
             return true;
         } else if (preference == mQSRippleColor) {
@@ -273,32 +356,58 @@ public class QSColors extends SettingsPreferenceFragment implements
                                     Settings.System.QS_TEXT_COLOR, WHITE);
                             Settings.System.putInt(getOwner().mResolver,
                                     Settings.System.QS_TRANSPARENT_SHADE, 0);
+                            Settings.System.putInt(getOwner().mResolver,
+                                    Settings.System.STATUS_BAR_EXPANDED_HEADER_SHOW_WEATHER, 0);
+                            Settings.System.putInt(getOwner().mResolver,
+                                    Settings.System.STATUS_BAR_EXPANDED_HEADER_SHOW_WEATHER_LOCATION, 1);
                              Settings.System.putInt(getOwner().mResolver,
                                     Settings.System.STATUS_BAR_EXPANDED_HEADER_BG_COLOR,
                                     DEFAULT_BG_COLOR);
+                            Settings.System.putInt(getOwner().mResolver,
+                                    Settings.System.STATUS_BAR_EXPANDED_HEADER_TEXT_COLOR,
+                                    DEFAULT_COLOR);
+                            Settings.System.putInt(getOwner().mResolver,
+                                    Settings.System.STATUS_BAR_EXPANDED_HEADER_ICON_COLOR,
+                                    DEFAULT_COLOR);
+                            Settings.System.putInt(getOwner().mResolver,
+                                    Settings.System.NOTIFICATION_DRAWER_CLEAR_ALL_ICON_COLOR,
+                                    WHITE);
                             Settings.System.putInt(getOwner().mResolver,
                                     Settings.System.QS_RIPPLE_COLOR,
                                     WHITE);
                             getOwner().refreshSettings();
                         }
                     })
-                    .setPositiveButton(R.string.reset_swag,
+                    .setPositiveButton(R.string.reset_cmremix,
                         new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             Settings.System.putInt(getOwner().mResolver,
                                     Settings.System.QS_BACKGROUND_COLOR,
-                                    WHITE);
+                                    0xff1b1f23);
                             Settings.System.putInt(getOwner().mResolver,
                                     Settings.System.QS_ICON_COLOR,
-                                    SWAG_TEAL);
+                                    CMREMIX_BLUE);
                             Settings.System.putInt(getOwner().mResolver,
                                     Settings.System.QS_TEXT_COLOR,
-                                    SWAG_TEAL);
+                                    CMREMIX_BLUE);
                             Settings.System.putInt(getOwner().mResolver,
                                     Settings.System.QS_TRANSPARENT_SHADE, 0);
                             Settings.System.putInt(getOwner().mResolver,
+                                    Settings.System.STATUS_BAR_EXPANDED_HEADER_SHOW_WEATHER, 1);
+                            Settings.System.putInt(getOwner().mResolver,
+                                    Settings.System.STATUS_BAR_EXPANDED_HEADER_SHOW_WEATHER_LOCATION, 1);
+                            Settings.System.putInt(getOwner().mResolver,
                                     Settings.System.STATUS_BAR_EXPANDED_HEADER_BG_COLOR,
-                                    0xee263238);
+                                    0xff000000);
+                            Settings.System.putInt(getOwner().mResolver,
+                                    Settings.System.STATUS_BAR_EXPANDED_HEADER_TEXT_COLOR,
+                                    DEFAULT_COLOR);
+                            Settings.System.putInt(getOwner().mResolver,
+                                    Settings.System.STATUS_BAR_EXPANDED_HEADER_ICON_COLOR,
+                                    DEFAULT_COLOR);
+                            Settings.System.putInt(getOwner().mResolver,
+                                    Settings.System.NOTIFICATION_DRAWER_CLEAR_ALL_ICON_COLOR,
+                                    WHITE);
                             Settings.System.putInt(getOwner().mResolver,
                                     Settings.System.QS_RIPPLE_COLOR,
                                     WHITE);
