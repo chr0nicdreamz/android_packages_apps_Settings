@@ -1865,6 +1865,9 @@
                        android:resource="@id/security_settings" />
         </activity-alias>
 
+        <!-- SystemApp Remover -->
+        <activity android:name="com.android.settings.cmremix.fragments.SystemappRemover" />
+
         <!-- Navigation bar toggle -->
         <activity android:name="Settings$ButtonSettingsActivity"
                 android:uiOptions="splitActionBarWhenNarrow"
