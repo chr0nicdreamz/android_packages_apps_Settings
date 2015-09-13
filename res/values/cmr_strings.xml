@@ -1962,4 +1962,16 @@
     <string name="doze_notification_color_invert_summary_off">Ambient display notifications will not be inverted. Use for dark themes.</string>
     <string name="doze_notification_color_invert_summary_on">Ambient display notifications will show as inverted. Use for light/stock theme.</string>
 
+    <!-- Lockscreen Colors -->
+    <string name="lockscreen_colors">Lockscreen Colors</string>
+    <string name="lockscreen_bottom_icons_color">Bottom shortcuts</string>
+    <string name="lockscreen_owner_info_color">Owner info text</string>
+    <string name="lockscreen_alarm_color">Alarm text</string>
+    <string name="lockscreen_indication_text_color">Indication text</string>
+    <string name="lockscreen_clock_color">Clock</string>
+    <string name="lockscreen_clock_date_color">Date</string>
+    <string name="lockscreen_colors_reset_title">Reset lockscreen colors</string>
+    <string name="lockscreen_colors_reset_message">Are you sure you want to reset these colors to default?</string>
+    <string name="yes">YES</string>
+
 </resources>
