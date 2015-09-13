@@ -30,7 +30,7 @@ import android.view.View;
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
 import com.android.settings.Utils;
-import com.android.settings.cmremix.utils.SeekBarPreferenceCham;
+import com.android.settings.cmremix.utils.CMRemixSeekBarPreference;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,7 +50,7 @@ public class StatusBarWeather extends SettingsPreferenceFragment
     private ListPreference mStatusBarTemperature;
     private ListPreference mStatusBarTemperatureStyle;
     private ColorPickerPreference mStatusBarTemperatureColor;
-    private SeekBarPreferenceCham mStatusBarTemperatureSize;
+    private CMRemixSeekBarPreference mStatusBarTemperatureSize;
     private ListPreference mStatusBarTemperatureFontStyle;
 
     @Override
@@ -85,7 +85,7 @@ public class StatusBarWeather extends SettingsPreferenceFragment
             mStatusBarTemperatureColor.setSummary(hexColor);
             mStatusBarTemperatureColor.setNewPreviewColor(intColor);
 
-        mStatusBarTemperatureSize = (SeekBarPreferenceCham) findPreference(PREF_STATUS_BAR_WEATHER_SIZE);
+        mStatusBarTemperatureSize = (CMRemixSeekBarPreference) findPreference(PREF_STATUS_BAR_WEATHER_SIZE);
         mStatusBarTemperatureSize.setValue(Settings.System.getInt(resolver,
                 Settings.System.STATUS_BAR_WEATHER_SIZE, 14));
         mStatusBarTemperatureSize.setOnPreferenceChangeListener(this);

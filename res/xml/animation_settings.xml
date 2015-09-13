@@ -82,11 +82,11 @@
             android:defaultValue="0"
             android:title="@string/task_move_to_back_title" />
 
-    <PreferenceScreen
-        android:key="overscroll_effects"
-        android:title="@string/ui_overscroll_title"
-        android:summary="@string/overscroll_weight_summary"
-        android:fragment="com.android.settings.cmremix.animations.OverscrollEffects" />
+        <PreferenceScreen
+            android:key="overscroll_effects"
+            android:title="@string/ui_overscroll_title"
+            android:summary="@string/overscroll_weight_summary"
+            android:fragment="com.android.settings.cmremix.animations.OverscrollEffects" />
 
         <ListPreference
             android:key="wallpaper_open"
@@ -128,7 +128,7 @@
             android:defaultValue="0"
             android:title="@string/task_open_behind_title" />
 
-        <com.android.settings.cmremix.utils.SeekBarPreferenceCham
+        <com.android.settings.cmremix.utils.CMRemixSeekBarPreference
             android:key="animation_duration"
             android:persistent="false"
             android:title="@string/animation_duration_title"
@@ -136,8 +136,7 @@
             android:max="100"
             settings:min="0"
             settings:interval="1"
-            settings:unitsLeft=""
-            settings:unitsRight="* 15ms"
+            settings:unitsRight=" * 15ms"
             android:defaultValue="0" />
     </PreferenceCategory>
 
@@ -182,7 +181,7 @@
             android:title="@string/listview_blacklist_title"
             android:summary="@string/listview_blacklist_summary" />
 
-        <com.android.settings.cmremix.utils.SeekBarPreferenceCham
+        <com.android.settings.cmremix.utils.CMRemixSeekBarPreference
             android:key="listview_anim_duration"
             android:persistent="false"
             android:title="@string/listview_duration_title"
@@ -190,10 +189,8 @@
             android:max="100"
             settings:min="0"
             settings:interval="1"
-            settings:unitsLeft=""
-            settings:unitsRight="* 15ms"
+            settings:unitsRight=" * 15ms"
             android:defaultValue="0" />
-
     </PreferenceCategory>
 
     <PreferenceCategory

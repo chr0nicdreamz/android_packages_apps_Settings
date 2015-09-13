@@ -42,7 +42,7 @@ import android.widget.EditText;
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
 import com.android.internal.util.cmremix.DeviceUtils;
-import com.android.settings.cmremix.utils.SeekBarPreference;
+import com.android.settings.cmremix.utils.CMRemixSeekBarPreference;
 import net.margaritov.preference.colorpicker.ColorPickerPreference;
 
 public class CarrierLabel extends SettingsPreferenceFragment implements OnPreferenceChangeListener {
@@ -59,7 +59,7 @@ public class CarrierLabel extends SettingsPreferenceFragment implements OnPrefer
     private SwitchPreference mStatusBarCarrier;
     private PreferenceScreen mCustomCarrierLabel;
     private String mCustomCarrierLabelText;
-    private SeekBarPreference mStatusBarCarrierSize;
+    private CMRemixSeekBarPreference mStatusBarCarrierSize;
     private ColorPickerPreference mCarrierColorPicker;
 
     @Override
@@ -79,7 +79,7 @@ public class CarrierLabel extends SettingsPreferenceFragment implements OnPrefer
         mStatusBarCarrier.setOnPreferenceChangeListener(this);
         mCustomCarrierLabel = (PreferenceScreen) prefSet.findPreference(CUSTOM_CARRIER_LABEL);
 
-        mStatusBarCarrierSize = (SeekBarPreference) findPreference(STATUS_BAR_CARRIER_FONT_SIZE);
+        mStatusBarCarrierSize = (CMRemixSeekBarPreference) findPreference(STATUS_BAR_CARRIER_FONT_SIZE);
         mStatusBarCarrierSize.setValue(Settings.System.getInt(getActivity().getContentResolver(),
                 Settings.System.STATUS_BAR_CARRIER_FONT_SIZE, 14));
         mStatusBarCarrierSize.setOnPreferenceChangeListener(this);

@@ -28,7 +28,7 @@ import android.provider.Settings;
 import android.view.Gravity;
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
-import com.android.settings.cmremix.utils.SeekBarPreferenceCham;
+import com.android.settings.cmremix.utils.CMRemixSeekBarPreference;
 
 public class GestureAnywhereSettings extends SettingsPreferenceFragment implements
         OnPreferenceChangeListener {
@@ -43,9 +43,9 @@ public class GestureAnywhereSettings extends SettingsPreferenceFragment implemen
 
     private SwitchPreference mEnabledPref;
     private ListPreference mPositionPref;
-    private SeekBarPreferenceCham mTriggerWidthPref;
-    private SeekBarPreferenceCham mTriggerTopPref;
-    private SeekBarPreferenceCham mTriggerBottomPref;
+    private CMRemixSeekBarPreference mTriggerWidthPref;
+    private CMRemixSeekBarPreference mTriggerTopPref;
+    private CMRemixSeekBarPreference mTriggerBottomPref;
 
     private CharSequence mPreviousTitle;
 
@@ -68,17 +68,17 @@ public class GestureAnywhereSettings extends SettingsPreferenceFragment implemen
         mPositionPref.setValue(String.valueOf(position));
         updatePositionSummary(position);
 
-        mTriggerWidthPref = (SeekBarPreferenceCham) findPreference(KEY_TRIGGER_WIDTH);
+        mTriggerWidthPref = (CMRemixSeekBarPreference) findPreference(KEY_TRIGGER_WIDTH);
         mTriggerWidthPref.setValue(Settings.CMREMIX.getInt(getContentResolver(),
                 Settings.CMREMIX.GESTURE_ANYWHERE_TRIGGER_WIDTH, 10));
         mTriggerWidthPref.setOnPreferenceChangeListener(this);
 
-        mTriggerTopPref = (SeekBarPreferenceCham) findPreference(KEY_TRIGGER_TOP);
+        mTriggerTopPref = (CMRemixSeekBarPreference) findPreference(KEY_TRIGGER_TOP);
         mTriggerTopPref.setValue(Settings.CMREMIX.getInt(getContentResolver(),
                 Settings.CMREMIX.GESTURE_ANYWHERE_TRIGGER_TOP, 0));
         mTriggerTopPref.setOnPreferenceChangeListener(this);
 
-        mTriggerBottomPref = (SeekBarPreferenceCham) findPreference(KEY_TRIGGER_BOTTOM);
+        mTriggerBottomPref = (CMRemixSeekBarPreference) findPreference(KEY_TRIGGER_BOTTOM);
         mTriggerBottomPref.setValue(Settings.CMREMIX.getInt(getContentResolver(),
                 Settings.CMREMIX.GESTURE_ANYWHERE_TRIGGER_HEIGHT, 100));
         mTriggerBottomPref.setOnPreferenceChangeListener(this);

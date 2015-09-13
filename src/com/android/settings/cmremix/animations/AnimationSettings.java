@@ -36,7 +36,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.android.settings.cmremix.utils.AppMultiSelectListPreference;
-import com.android.settings.cmremix.utils.SeekBarPreferenceCham;
+import com.android.settings.cmremix.utils.CMRemixSeekBarPreference;
 import com.android.settings.SettingsPreferenceFragment;
 import com.android.settings.R;
 
@@ -91,8 +91,8 @@ public class AnimationSettings extends SettingsPreferenceFragment  implements
     private ListPreference mWallpaperIntraOpen;
     private ListPreference mWallpaperIntraClose;
     private ListPreference mTaskOpenBehind;
-    private SeekBarPreferenceCham mAnimationDuration;
-    private SeekBarPreferenceCham mListViewDuration;
+    private CMRemixSeekBarPreference mAnimationDuration;
+    private CMRemixSeekBarPreference mListViewDuration;
     private ListPreference mListViewAnimation;
     private ListPreference mListViewInterpolator;
     private ListPreference mListViewCache;
@@ -234,7 +234,7 @@ public class AnimationSettings extends SettingsPreferenceFragment  implements
 
         int defaultDuration = Settings.CMREMIX.getInt(mResolver,
                 Settings.CMREMIX.ANIMATION_CONTROLS_DURATION, 25);
-        mAnimationDuration = (SeekBarPreferenceCham) prefSet.findPreference(ANIMATION_DURATION);
+        mAnimationDuration = (CMRemixSeekBarPreference) prefSet.findPreference(ANIMATION_DURATION);
         mAnimationDuration.setValue(defaultDuration);
         mAnimationDuration.setOnPreferenceChangeListener(this);
 
@@ -262,7 +262,7 @@ public class AnimationSettings extends SettingsPreferenceFragment  implements
 
         int listviewDuration = Settings.CMREMIX.getInt(mResolver,
                 Settings.CMREMIX.LISTVIEW_DURATION, 25);
-        mListViewDuration = (SeekBarPreferenceCham) prefSet.findPreference(LISTVIEW_ANIM_DURATION);
+        mListViewDuration = (CMRemixSeekBarPreference) prefSet.findPreference(LISTVIEW_ANIM_DURATION);
         mListViewDuration.setValue(listviewDuration);
         mListViewDuration.setOnPreferenceChangeListener(this);
 

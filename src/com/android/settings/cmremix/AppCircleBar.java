@@ -49,7 +49,7 @@ import java.util.ArrayList;
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
 import com.android.settings.Utils;
-import com.android.settings.cmremix.utils.SeekBarPreferenceCham;
+import com.android.settings.cmremix.utils.CMRemixSeekBarPreference;
 import com.android.settings.cmremix.utils.AppMultiSelectListPreference;
 
 import java.io.File;
@@ -71,9 +71,9 @@ public class AppCircleBar extends SettingsPreferenceFragment implements
 
     private AppMultiSelectListPreference mIncludedAppCircleBar;
 
-    private SeekBarPreferenceCham mTriggerWidthPref;
-    private SeekBarPreferenceCham mTriggerTopPref;
-    private SeekBarPreferenceCham mTriggerBottomPref;
+    private CMRemixSeekBarPreference mTriggerWidthPref;
+    private CMRemixSeekBarPreference mTriggerTopPref;
+    private CMRemixSeekBarPreference mTriggerBottomPref;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -90,17 +90,17 @@ public class AppCircleBar extends SettingsPreferenceFragment implements
         if (includedApps != null) mIncludedAppCircleBar.setValues(includedApps);
         mIncludedAppCircleBar.setOnPreferenceChangeListener(this);
 
-        mTriggerWidthPref = (SeekBarPreferenceCham) findPreference(KEY_TRIGGER_WIDTH);
+        mTriggerWidthPref = (CMRemixSeekBarPreference) findPreference(KEY_TRIGGER_WIDTH);
         mTriggerWidthPref.setValue(Settings.CMREMIX.getInt(getContentResolver(),
                 Settings.CMREMIX.APP_CIRCLE_BAR_TRIGGER_WIDTH, 10));
         mTriggerWidthPref.setOnPreferenceChangeListener(this);
 
-        mTriggerTopPref = (SeekBarPreferenceCham) findPreference(KEY_TRIGGER_TOP);
+        mTriggerTopPref = (CMRemixSeekBarPreference) findPreference(KEY_TRIGGER_TOP);
         mTriggerTopPref.setValue(Settings.CMREMIX.getInt(getContentResolver(),
                 Settings.CMREMIX.APP_CIRCLE_BAR_TRIGGER_TOP, 0));
         mTriggerTopPref.setOnPreferenceChangeListener(this);
 
-        mTriggerBottomPref = (SeekBarPreferenceCham) findPreference(KEY_TRIGGER_BOTTOM);
+        mTriggerBottomPref = (CMRemixSeekBarPreference) findPreference(KEY_TRIGGER_BOTTOM);
         mTriggerBottomPref.setValue(Settings.CMREMIX.getInt(getContentResolver(),
                 Settings.CMREMIX.APP_CIRCLE_BAR_TRIGGER_HEIGHT, 100));
         mTriggerBottomPref.setOnPreferenceChangeListener(this);

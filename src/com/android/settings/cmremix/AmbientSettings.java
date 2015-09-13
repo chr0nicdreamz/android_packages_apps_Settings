@@ -43,7 +43,7 @@ import android.widget.Button;
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
 import com.android.settings.cmremix.utils.CMRemixSwitchPreference;
-import com.android.settings.cmremix.utils.SeekBarPreferenceCham;
+import com.android.settings.cmremix.utils.CMRemixSeekBarPreference;
 import com.android.settings.cmremix.sensor.ShakeSensorManager;
 import com.android.settings.Utils;
 
@@ -70,9 +70,9 @@ public class AmbientSettings extends SettingsPreferenceFragment implements
     private int mOldAccValue;
     private SwitchPreference mDozePreference;
     private ListPreference mDozeListMode;
-    private SeekBarPreferenceCham mDozePulseIn;
-    private SeekBarPreferenceCham mDozePulseVisible;
-    private SeekBarPreferenceCham mDozePulseOut;
+    private CMRemixSeekBarPreference mDozePulseIn;
+    private CMRemixSeekBarPreference mDozePulseVisible;
+    private CMRemixSeekBarPreference mDozePulseOut;
     private ListPreference mDozeShakeThreshold;
     private CMRemixSwitchPreference mDozeTimeMode;
     private ShakeSensorManager mShakeSensorManager;
@@ -89,19 +89,19 @@ public class AmbientSettings extends SettingsPreferenceFragment implements
         mDozePreference = (SwitchPreference) findPreference(KEY_DOZE);
         mDozePreference.setOnPreferenceChangeListener(this);
 
-        mDozePulseIn = (SeekBarPreferenceCham) findPreference(KEY_DOZE_PULSE_IN);
+        mDozePulseIn = (CMRemixSeekBarPreference) findPreference(KEY_DOZE_PULSE_IN);
         int dozePulseIn = Settings.CMREMIX.getInt(getContentResolver(),
                 Settings.CMREMIX.DOZE_PULSE_DURATION_IN, 900);
         mDozePulseIn.setValue(dozePulseIn / 1);
         mDozePulseIn.setOnPreferenceChangeListener(this);
 
-        mDozePulseVisible = (SeekBarPreferenceCham) findPreference(KEY_DOZE_PULSE_VISIBLE);
+        mDozePulseVisible = (CMRemixSeekBarPreference) findPreference(KEY_DOZE_PULSE_VISIBLE);
         int dozePulseVisible = Settings.CMREMIX.getInt(getContentResolver(),
                 Settings.CMREMIX.DOZE_PULSE_DURATION_IN, 3000);
         mDozePulseVisible.setValue(dozePulseVisible / 1);
         mDozePulseVisible.setOnPreferenceChangeListener(this);
 
-        mDozePulseOut = (SeekBarPreferenceCham) findPreference(KEY_DOZE_PULSE_OUT);
+        mDozePulseOut = (CMRemixSeekBarPreference) findPreference(KEY_DOZE_PULSE_OUT);
         int dozePulseOut = Settings.CMREMIX.getInt(getContentResolver(),
                 Settings.CMREMIX.DOZE_PULSE_DURATION_IN, 600);
         mDozePulseOut.setValue(dozePulseOut / 1);

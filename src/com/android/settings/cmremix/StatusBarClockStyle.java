@@ -43,7 +43,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.EditText;
 
-import com.android.settings.cmremix.utils.SeekBarPreference;
+import com.android.settings.cmremix.utils.CMRemixSeekBarPreference;
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
 import com.android.settings.search.BaseSearchIndexProvider;
@@ -64,7 +64,7 @@ public class StatusBarClockStyle extends SettingsPreferenceFragment
 
     private static final String PREF_ENABLE = "clock_style";
     private static final String PREF_FONT_STYLE = "font_style";
-    private static final String PREF_FONT_SIZE  = "font_size";
+    private static final String PREF_STATUS_BAR_CLOCK_FONT_SIZE  = "status_bar_clock_font_size";
     private static final String PREF_AM_PM_STYLE = "status_bar_am_pm";
     private static final String PREF_COLOR_PICKER = "clock_color";
     private static final String PREF_CLOCK_DATE_DISPLAY = "clock_date_display";
@@ -83,7 +83,7 @@ public class StatusBarClockStyle extends SettingsPreferenceFragment
 
     private ListPreference mClockStyle;
     private ListPreference mFontStyle;
-    private SeekBarPreference mStatusBarDateSize;
+    private CMRemixSeekBarPreference mStatusBarDateSize;
     private ListPreference mClockAmPmStyle;
     private ColorPickerPreference mColorPicker;
     private ListPreference mClockDateDisplay;
@@ -132,7 +132,7 @@ public class StatusBarClockStyle extends SettingsPreferenceFragment
                 Settings.System.STATUSBAR_CLOCK_FONT_STYLE, 0)));
         mFontStyle.setSummary(mFontStyle.getEntry());
 
-        mStatusBarDateSize = (SeekBarPreference) findPreference(PREF_FONT_SIZE);
+        mStatusBarDateSize = (CMRemixSeekBarPreference) findPreference(PREF_STATUS_BAR_CLOCK_FONT_SIZE);
         mStatusBarDateSize.setValue(Settings.System.getInt(resolver,
                 Settings.System.STATUSBAR_CLOCK_FONT_SIZE, 14));
         mStatusBarDateSize.setOnPreferenceChangeListener(this);

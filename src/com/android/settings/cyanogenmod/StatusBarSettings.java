@@ -54,7 +54,7 @@ import com.android.settings.SettingsPreferenceFragment;
 import com.android.settings.Utils;
 import com.android.settings.search.BaseSearchIndexProvider;
 import com.android.settings.search.Indexable;
-import com.android.settings.cmremix.utils.SeekBarPreferenceCham;
+import com.android.settings.cmremix.utils.CMRemixSeekBarPreference;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -78,7 +78,7 @@ public class StatusBarSettings extends SettingsPreferenceFragment
     private ListPreference mStatusBarClock;
     private ListPreference mStatusBarAmPm;
     private SwitchPreference mStatusBarGreeting;
-    private SeekBarPreferenceCham mStatusBarGreetingTimeout;
+    private CMRemixSeekBarPreference mStatusBarGreetingTimeout;
     private String mCustomGreetingText = "";
     private PreferenceScreen mBreathingNotifications;
 
@@ -113,7 +113,7 @@ public class StatusBarSettings extends SettingsPreferenceFragment
         mStatusBarGreeting.setChecked(greeting);
 
         mStatusBarGreetingTimeout =
-                (SeekBarPreferenceCham) prefSet.findPreference(KEY_STATUS_BAR_GREETING_TIMEOUT);
+                (CMRemixSeekBarPreference) prefSet.findPreference(KEY_STATUS_BAR_GREETING_TIMEOUT);
         int statusBarGreetingTimeout = Settings.CMREMIX.getInt(getContentResolver(),
                 Settings.CMREMIX.STATUS_BAR_GREETING_TIMEOUT, 400);
         mStatusBarGreetingTimeout.setValue(statusBarGreetingTimeout / 1);
