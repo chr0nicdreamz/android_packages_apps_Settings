@@ -999,6 +999,7 @@
     <string name="qs_hwkeys_tile">Hardware Keys</string>
     <string name="qs_systemui_restart_tile">Restart SystemUI</string>
     <string name="qs_tile_slim_floats">Slim Floats</string>
+    <string name="qs_slim_pie_tile">Pie</string>
 
 
     <!-- Show bluetooth icon when disconnected -->
