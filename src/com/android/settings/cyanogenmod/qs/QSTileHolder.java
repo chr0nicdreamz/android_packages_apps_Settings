@@ -263,7 +263,10 @@ public class QSTileHolder {
                 resourceName = "ic_dynamic_qs_adb";
                 stringId = R.string.qs_dynamic_tile_adb;
                 break;
-
+            case QSConstants.TILE_SLIMACTION:
+                resourceName = "ic_qs_reboot_recovery";
+                stringId = R.string.qs_tile_slimaction;
+                break;
             default:
                 return null;
         }
