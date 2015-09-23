@@ -1940,9 +1940,10 @@
     <string name="reset_user_preferences_summary">Restores user interface preferences to default values</string>
     <string name="reset_user_preferences_dialog">Are you sure you want to reset your preferences?</string>
 
-   <string name="contextual_title">Contextual headers</string>
-   <string name="status_bar_custom_header_title">Custom header image</string>
-   <string name="status_bar_custom_header_summary">Enable notification panel header image</string>
+    <string name="contextual_title">Contextual headers</string>
+    <string name="status_bar_custom_header_title">Custom header image</string>
+    <string name="status_bar_custom_header_summary">Enable notification panel header image</string>
+    tring name="status_bar_custom_header_default_summary">Enable for poly hd images. Disable for original images.</string>
 
     <!-- Whether the keyguard will directly pass to gesture entry -->
     <string name="lock_directly_show_gesture">Directly show gesture </string>
