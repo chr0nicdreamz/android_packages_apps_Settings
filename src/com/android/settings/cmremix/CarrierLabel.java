@@ -25,6 +25,7 @@ import android.content.res.Resources;
 import android.database.ContentObserver;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.UserHandle;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
@@ -49,14 +50,14 @@ public class CarrierLabel extends SettingsPreferenceFragment implements OnPrefer
 
     private static final String TAG = "CarrierLabel";
 
-    private static final String STATUS_BAR_CARRIER = "status_bar_carrier";
+    private static final String STATUS_BAR_CUSTOM_CARRIER = "status_bar_custom_carrier";
     private static final String CUSTOM_CARRIER_LABEL = "custom_carrier_label";
     private static final String STATUS_BAR_CARRIER_FONT_SIZE  = "status_bar_carrier_font_size";
     private static final String STATUS_BAR_CARRIER_COLOR = "status_bar_carrier_color";
 
     static final int DEFAULT_STATUS_CARRIER_COLOR = 0xffffffff;
 
-    private SwitchPreference mStatusBarCarrier;
+    private ListPreference mStatusBarCarrier;
     private PreferenceScreen mCustomCarrierLabel;
     private String mCustomCarrierLabelText;
     private CMRemixSeekBarPreference mStatusBarCarrierSize;
@@ -71,11 +72,13 @@ public class CarrierLabel extends SettingsPreferenceFragment implements OnPrefer
         PreferenceScreen prefSet = getPreferenceScreen();
         ContentResolver resolver = getActivity().getContentResolver();
 
-        int intColor;
         String hexColor;
 
-        mStatusBarCarrier = (SwitchPreference) prefSet.findPreference(STATUS_BAR_CARRIER);
-        mStatusBarCarrier.setChecked((Settings.CMREMIX.getInt(resolver, Settings.CMREMIX.STATUS_BAR_CARRIER, 0) == 1));
+        mStatusBarCarrier = (ListPreference) findPreference(STATUS_BAR_CUSTOM_CARRIER);
+        int statusBarCarrier = Settings.System.getInt(getContentResolver(),
+                    Settings.System.STATUS_BAR_CUSTOM_CARRIER, 1);
+        mStatusBarCarrier.setValue(String.valueOf(statusBarCarrier));
+        mStatusBarCarrier.setSummary(mStatusBarCarrier.getEntry());
         mStatusBarCarrier.setOnPreferenceChangeListener(this);
         mCustomCarrierLabel = (PreferenceScreen) prefSet.findPreference(CUSTOM_CARRIER_LABEL);
 
@@ -86,24 +89,18 @@ public class CarrierLabel extends SettingsPreferenceFragment implements OnPrefer
 
         mCarrierColorPicker = (ColorPickerPreference) findPreference(STATUS_BAR_CARRIER_COLOR);
         mCarrierColorPicker.setOnPreferenceChangeListener(this);
-        intColor = Settings.CMREMIX.getInt(getContentResolver(),
-                    Settings.CMREMIX.STATUS_BAR_CARRIER_COLOR, DEFAULT_STATUS_CARRIER_COLOR);
+        int intColor = Settings.System.getInt(getContentResolver(),
+                    Settings.System.STATUS_BAR_CARRIER_COLOR, DEFAULT_STATUS_CARRIER_COLOR);
         hexColor = String.format("#%08x", (0xffffffff & intColor));
         mCarrierColorPicker.setSummary(hexColor);
         mCarrierColorPicker.setNewPreviewColor(intColor);
 
-        if (TelephonyManager.getDefault().isMultiSimEnabled()) {
-            prefSet.removePreference(mStatusBarCarrier);
-            prefSet.removePreference(mCustomCarrierLabel);
-        } else {
-            updateCustomLabelTextSummary();
-        }
-
+        updateCustomLabelTextSummary();
     }
 
     private void updateCustomLabelTextSummary() {
-        mCustomCarrierLabelText = Settings.CMREMIX.getString(
-            getActivity().getContentResolver(), Settings.CMREMIX.CUSTOM_CARRIER_LABEL);
+        mCustomCarrierLabelText = Settings.System.getString(
+            getActivity().getContentResolver(), Settings.System.CUSTOM_CARRIER_LABEL);
 
         if (TextUtils.isEmpty(mCustomCarrierLabelText)) {
             mCustomCarrierLabel.setSummary(R.string.custom_carrier_label_notset);
@@ -119,16 +116,15 @@ public class CarrierLabel extends SettingsPreferenceFragment implements OnPrefer
                     Integer.valueOf(String.valueOf(newValue)));
             preference.setSummary(hex);
             int intHex = ColorPickerPreference.convertToColorInt(hex);
-            Settings.CMREMIX.putInt(getActivity().getApplicationContext().getContentResolver(),
-                    Settings.CMREMIX.STATUS_BAR_CARRIER_COLOR, intHex);
+            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
+                    Settings.System.STATUS_BAR_CARRIER_COLOR, intHex);
             return true;
         } else if (preference == mStatusBarCarrier) {
-            boolean value = (Boolean) newValue;
-            Settings.CMREMIX.putInt(resolver, Settings.CMREMIX.STATUS_BAR_CARRIER, value ? 1 : 0);
-            //send intent to have network controller update network name
-            Intent i = new Intent();
-            i.setAction(Intent.ACTION_CUSTOM_CARRIER_LABEL_CHANGED);
-            getActivity().sendBroadcast(i);
+            int statusBarCarrier = Integer.valueOf((String) newValue);
+            int index = mStatusBarCarrier.findIndexOfValue((String) newValue);
+            Settings.System.putInt(
+                    getContentResolver(), Settings.System.STATUS_BAR_CUSTOM_CARRIER, statusBarCarrier);
+            mStatusBarCarrier.setSummary(mStatusBarCarrier.getEntries()[index]);
             return true;
          } else if (preference == mStatusBarCarrierSize) {
             int width = ((Integer)newValue).intValue();
@@ -162,7 +158,7 @@ public class CarrierLabel extends SettingsPreferenceFragment implements OnPrefer
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int whichButton) {
                             String value = ((Spannable) input.getText()).toString().trim();
-                            Settings.CMREMIX.putString(resolver, Settings.CMREMIX.CUSTOM_CARRIER_LABEL, value);
+                            Settings.System.putString(resolver, Settings.System.CUSTOM_CARRIER_LABEL, value);
                             updateCustomLabelTextSummary();
                             Intent i = new Intent();
                             i.setAction(Intent.ACTION_CUSTOM_CARRIER_LABEL_CHANGED);
