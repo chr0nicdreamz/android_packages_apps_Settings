@@ -1943,7 +1943,11 @@
     <string name="contextual_title">Contextual headers</string>
     <string name="status_bar_custom_header_title">Custom header image</string>
     <string name="status_bar_custom_header_summary">Enable notification panel header image</string>
-    tring name="status_bar_custom_header_default_summary">Enable for poly hd images. Disable for original images.</string>
+    <string name="status_bar_custom_header_default_title">Select your images</string>
+    <string name="status_bar_custom_header_default_summary">Default, modern and poly HD</string>
+    <string name="custom_header_image_0">Default</string>
+    <string name="custom_header_image_1">Modern</string>
+    <string name="custom_header_image_2">Poly HD</string>
 
     <!-- Whether the keyguard will directly pass to gesture entry -->
     <string name="lock_directly_show_gesture">Directly show gesture </string>
