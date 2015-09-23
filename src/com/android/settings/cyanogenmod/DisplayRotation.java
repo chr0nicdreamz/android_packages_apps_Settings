@@ -153,8 +153,8 @@ public class DisplayRotation extends SettingsPreferenceFragment {
         boolean value;
 
         if (preference == mAccelerometer) {
-            RotationPolicy.setRotationLockForAccessibility(getActivity(),
-                    !mAccelerometer.isChecked());
+            RotationPolicy.setRotationLock(getActivity(), !mAccelerometer.isChecked());
+            return true;
         } else if (preference == mRotation0Pref ||
                 preference == mRotation90Pref ||
                 preference == mRotation180Pref ||
@@ -164,12 +164,12 @@ public class DisplayRotation extends SettingsPreferenceFragment {
                 mode |= ROTATION_0_MODE;
                 mRotation0Pref.setChecked(true);
             }
-            Settings.System.putInt(getActivity().getContentResolver(),
+            Settings.System.putInt(getContentResolver(),
                     Settings.System.ACCELEROMETER_ROTATION_ANGLES, mode);
             return true;
         } else if (preference == mLockScreenRotationPref) {
             value = mLockScreenRotationPref.isChecked();
-            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
+            Settings.System.putInt(getContentResolver(),
                     Settings.System.LOCKSCREEN_ROTATION, value ? 1 : 0);
             return true;
         }
