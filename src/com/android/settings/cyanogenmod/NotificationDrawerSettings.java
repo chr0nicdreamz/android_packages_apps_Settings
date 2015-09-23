@@ -34,7 +34,6 @@ import com.android.settings.cyanogenmod.qs.DraggableGridView;
 import com.android.settings.cyanogenmod.qs.QSTiles;
 import com.android.settings.search.BaseSearchIndexProvider;
 import com.android.settings.search.Indexable;
-import com.android.settings.util.Helpers;
 
 import com.android.internal.widget.LockPatternUtils;
 
@@ -50,6 +49,7 @@ public class NotificationDrawerSettings extends SettingsPreferenceFragment imple
     private static final String PREF_ENABLE_TASK_MANAGER = "enable_task_manager";
     private static final String STATUS_BAR_POWER_MENU = "status_bar_power_menu";
     private static final String PREF_QS_TYPE = "qs_type";
+    private static final String PREF_CUSTOM_HEADER = "status_bar_custom_header";
     private static final String PREF_CUSTOM_HEADER_DEFAULT = "status_bar_custom_header_default";
 
     private ListPreference mQuickPulldown;
@@ -60,6 +60,7 @@ public class NotificationDrawerSettings extends SettingsPreferenceFragment imple
     private ListPreference mQSType;
     private ListPreference mNumColumns;
     private SwitchPreference mCustomHeader;
+    private SwitchPreference mCustomHeaderDefault;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -131,11 +132,17 @@ public class NotificationDrawerSettings extends SettingsPreferenceFragment imple
         mNumColumns.setOnPreferenceChangeListener(this);
         DraggableGridView.setColumnCount(numColumns);
 
-        // Status bar custom header default
-        mCustomHeader = (SwitchPreference) prefSet.findPreference(PREF_CUSTOM_HEADER_DEFAULT);
+        // Status bar custom header
+        mCustomHeader = (SwitchPreference) prefSet.findPreference(PREF_CUSTOM_HEADER);
         mCustomHeader.setChecked((Settings.System.getInt(getActivity().getContentResolver(),
-                Settings.System.STATUS_BAR_CUSTOM_HEADER_DEFAULT, 0) == 1));
+                Settings.System.STATUS_BAR_CUSTOM_HEADER, 0) == 1));
+        mCustomHeader.setOnPreferenceChangeListener(this);
 
+        // Status bar custom header default
+        mCustomHeaderDefault = (SwitchPreference) prefSet.findPreference(PREF_CUSTOM_HEADER_DEFAULT);
+        mCustomHeaderDefault.setChecked((Settings.System.getInt(getActivity().getContentResolver(),
+                Settings.System.STATUS_BAR_CUSTOM_HEADER_DEFAULT, 0) == 1));
+        mCustomHeaderDefault.setOnPreferenceChangeListener(this);
     }
 
     @Override
@@ -184,6 +191,22 @@ public class NotificationDrawerSettings extends SettingsPreferenceFragment imple
             updateNumColumnsSummary(numColumns);
             DraggableGridView.setColumnCount(numColumns);
             return true;
+        } else if (preference == mCustomHeader) {
+            Settings.System.putInt(getContentResolver(),
+                    Settings.System.STATUS_BAR_CUSTOM_HEADER,
+                    (Boolean) newValue ? 1 : 0);
+            return true;
+        } else if (preference == mCustomHeaderDefault) {
+            Settings.System.putInt(getContentResolver(),
+                    Settings.System.STATUS_BAR_CUSTOM_HEADER_DEFAULT,
+                    (Boolean) newValue ? 1 : 0);
+            Settings.System.putInt(getContentResolver(),
+                    Settings.System.STATUS_BAR_CUSTOM_HEADER,
+                    0);
+            Settings.System.putInt(getContentResolver(),
+                    Settings.System.STATUS_BAR_CUSTOM_HEADER,
+                    1);
+            return true;
         }
         return false;
     }
@@ -194,12 +217,6 @@ public class NotificationDrawerSettings extends SettingsPreferenceFragment imple
            boolean enabled = ((SwitchPreference)preference).isChecked();
            Settings.System.putInt(getActivity().getContentResolver(),
                    Settings.System.ENABLE_TASK_MANAGER, enabled ? 1:0);
-        }
-        if (preference == mCustomHeader) {
-           boolean customHeader = ((SwitchPreference)preference).isChecked();
-           Settings.System.putInt(getActivity().getContentResolver(),
-                   Settings.System.STATUS_BAR_CUSTOM_HEADER_DEFAULT, customHeader ? 1:0);
-           Helpers.restartSystemUI();
         }
         return super.onPreferenceTreeClick(preferenceScreen, preference);
     }
