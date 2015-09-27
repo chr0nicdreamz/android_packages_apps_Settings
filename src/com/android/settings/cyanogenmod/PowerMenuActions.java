@@ -48,10 +48,8 @@ import java.util.List;
 
 public class PowerMenuActions extends SettingsPreferenceFragment
         implements OnPreferenceChangeListener {
-
     final static String TAG = "PowerMenuActions";
 
-    private static final String POWER_MENU_ONTHEGO_ENABLED = "power_menu_onthego_enabled";
     private static final String SCREENSHOT_DELAY = "screenshot_delay";
     private static final String PREF_ON_THE_GO_ALPHA = "on_the_go_alpha";
 
@@ -65,7 +63,7 @@ public class PowerMenuActions extends SettingsPreferenceFragment
     private SwitchPreference mSettingsPref;
     private SwitchPreference mLockdownPref;
     private SwitchPreference mSilentPref;
-    private SwitchPreference mOnTheGoPowerMenu;
+    private SwitchPreference mOnTheGoPref;
     private SlimSeekBarPreference mOnTheGoAlphaPref;
 
     Context mContext;
@@ -91,16 +89,10 @@ public class PowerMenuActions extends SettingsPreferenceFragment
         mPrefSet = getPreferenceScreen();
 
         mCr = getActivity().getContentResolver();
-        final ContentResolver resolver = getActivity().getContentResolver();
 
         mAvailableActions = getActivity().getResources().getStringArray(
                 R.array.power_menu_actions_array);
         mAllActions = PowerMenuConstants.getAllActions();
-
-        mOnTheGoPowerMenu = (SwitchPreference) findPreference(POWER_MENU_ONTHEGO_ENABLED);
-        mOnTheGoPowerMenu.setChecked(Settings.System.getInt(resolver,
-                Settings.System.POWER_MENU_ONTHEGO_ENABLED, 0) == 1);
-        mOnTheGoPowerMenu.setOnPreferenceChangeListener(this);
 
         for (String action : mAllActions) {
         // Remove preferences not present in the overlay
@@ -127,6 +119,8 @@ public class PowerMenuActions extends SettingsPreferenceFragment
                 mLockdownPref = (SwitchPreference) findPreference(GLOBAL_ACTION_KEY_LOCKDOWN);
             } else if (action.equals(GLOBAL_ACTION_KEY_SILENT)) {
                 mSilentPref = (SwitchPreference) findPreference(GLOBAL_ACTION_KEY_SILENT);
+            } else if (action.equals(GLOBAL_ACTION_KEY_ONTHEGO)) {
+                mOnTheGoPref = (SwitchPreference) findPreference(GLOBAL_ACTION_KEY_ONTHEGO);
             }
         }
 
@@ -199,27 +193,9 @@ public class PowerMenuActions extends SettingsPreferenceFragment
             mSilentPref.setChecked(settingsArrayContains(GLOBAL_ACTION_KEY_SILENT));
         }
 
-    }
-
-    @Override
-    public boolean onPreferenceChange(Preference preference, Object newValue) {
-        ContentResolver resolver = getActivity().getContentResolver();
-        if (preference == mOnTheGoPowerMenu) {
-            boolean value = (Boolean) newValue;
-            Settings.System.putInt(resolver, Settings.System.POWER_MENU_ONTHEGO_ENABLED, value ? 1 : 0);
-            return true;
-        } else if (preference == mScreenshotDelay) {
-            int value = Integer.parseInt(newValue.toString());
-            Settings.System.putInt(mCr, Settings.System.SCREENSHOT_DELAY,
-                    value);
-            return true;
-        } else if (preference == mOnTheGoAlphaPref) {
-            float val = Float.parseFloat((String) newValue);
-            Settings.System.putFloat(mCr, Settings.System.ON_THE_GO_ALPHA,
-                    val / 100);
-            return true;
+        if (mOnTheGoPref != null) {
+            mOnTheGoPref.setChecked(settingsArrayContains(GLOBAL_ACTION_KEY_ONTHEGO));
         }
-        return false;
     }
 
     @Override
@@ -267,10 +243,30 @@ public class PowerMenuActions extends SettingsPreferenceFragment
             value = mSilentPref.isChecked();
             updateUserConfig(value, GLOBAL_ACTION_KEY_SILENT);
 
+        } else if (preference == mOnTheGoPref) {
+            value = mOnTheGoPref.isChecked();
+            updateUserConfig(value, GLOBAL_ACTION_KEY_ONTHEGO);
+
         } else {
             return super.onPreferenceTreeClick(preferenceScreen, preference);
         }
         return true;
+    }
+
+    @Override
+    public boolean onPreferenceChange(Preference preference, Object newValue) {
+        if (preference == mScreenshotDelay) {
+            int value = Integer.parseInt(newValue.toString());
+            Settings.System.putInt(mCr, Settings.System.SCREENSHOT_DELAY,
+                    value);
+            return true;
+        } else if (preference == mOnTheGoAlphaPref) {
+            float val = Float.parseFloat((String) newValue);
+            Settings.System.putFloat(mCr, Settings.System.ON_THE_GO_ALPHA,
+                    val / 100);
+            return true;
+        }
+        return false;
     }
 
     private boolean settingsArrayContains(String preference) {
