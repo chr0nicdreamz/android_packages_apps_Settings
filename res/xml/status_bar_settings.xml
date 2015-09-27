@@ -84,6 +84,12 @@
        android:summary="@string/network_traffic_vector_summary"
        android:title="@string/network_traffic_vector_title" />
 
+    <com.android.settings.cyanogenmod.SystemSettingSwitchPreference
+        android:key="status_bar_network_activity"
+        android:title="@string/status_bar_network_activity_title"
+        android:summary="@string/status_bar_network_activity_summary"
+        android:defaultValue="false"/>
+
     <PreferenceScreen
        android:key="status_bar_signal_settings"
        android:title="@string/status_bar_signal_settings_title"
