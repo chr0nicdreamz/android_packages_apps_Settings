@@ -19,12 +19,12 @@
     android:title="@string/cmremix_settings_title"
     xmlns:settings="http://schemas.android.com/apk/res/com.android.settings">
 
-    <PreferenceScreen android:key="cmremixbanner"
+        <PreferenceScreen android:key="cmremix_logo"
                 android:enabled="false"
-                android:layout="@layout/cmremixbanner_row"
+                android:layout="@layout/cmremix_logo_row"
                 android:selectable="false" />
 
-    <!-- Status bar -->
+        <!-- Status bar -->
         <PreferenceScreen
                 android:id="@+id/status_bar_settings"
                 android:key="status_bar_settings"
