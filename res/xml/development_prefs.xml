@@ -22,6 +22,16 @@
             android:title="@string/development_tools_title"
             android:persistent="false" />
 
+    <PreferenceScreen
+        android:key="adaway"
+        android:title="@string/adaway_settings_title"
+        android:persistent="false" >
+        <intent
+            android:action="android.intent.action.MAIN"
+            android:targetPackage="org.adaway"
+            android:targetClass="org.adaway.ui.BaseActivity" />
+    </PreferenceScreen>
+
     <SwitchPreference
         android:key="advanced_reboot"
         android:title="@string/advanced_reboot_title"
