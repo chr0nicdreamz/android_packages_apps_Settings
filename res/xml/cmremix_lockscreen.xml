@@ -19,6 +19,10 @@
         xmlns:settings="http://schemas.android.com/apk/res/com.android.settings"
         android:title="@string/cmremix_lockscreen_title">
 
+    <PreferenceCategory
+        android:key="general_category"
+        android:title="@string/title_general">
+
        <PreferenceScreen
             android:key="lockscreen_wallpaper"
             android:title="@string/lockscreen_wallpaper_title"
@@ -26,6 +30,12 @@
             android:persistent="false"
             android:fragment="com.android.settings.cmremix.LockscreenWallpaper">
         </PreferenceScreen>
+
+        <com.android.settings.cyanogenmod.SystemSettingSwitchPreference
+            android:key="lockscreen_media_metadata"
+            android:title="@string/media_art_title"
+            android:summary="@string/media_art_summary"
+            android:defaultValue="true" />
 
      <PreferenceScreen
             android:key="lock_screen_color_settings"
@@ -44,6 +54,20 @@
            android:key="long_press_lock_icon_torch"
            android:title="@string/longpress_lock_icon_torch_title"
            android:summary="@string/longpress_lock_icon_torch_summary" />
+
+        <com.android.settings.cmremix.utils.CMRemixSwitchPreference
+            android:key="double_tap_sleep_anywhere"
+            android:title="@string/double_tap_sleep_anywhere_title"
+            android:summary="@string/double_tap_sleep_anywhere_summary"
+            settings:advanced="true"/>
+
+        <com.android.settings.cyanogenmod.SecureSettingSwitchPreference
+            android:key="lockscreen_visualizer"
+            android:title="@string/lockscreen_visualizer_title"
+            android:defaultValue="true"
+            settings:advanced="true"/>
+
+    </PreferenceCategory>
 
     <!-- Weather -->
     <PreferenceCategory

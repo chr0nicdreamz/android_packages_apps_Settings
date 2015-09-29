@@ -49,6 +49,12 @@
             android:key="power_button_instantly_locks"
             android:title="@string/lockgesture_settings_enable_power_button_instantly_locks"/>
 
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="general_category"
+        android:title="@string/title_general">
+
         <PreferenceScreen
             android:fragment="com.android.settings.OwnerInfoSettings"
             android:key="owner_info_settings"

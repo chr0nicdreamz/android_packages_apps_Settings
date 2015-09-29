@@ -27,11 +27,6 @@
             android:title="@string/unlock_set_unlock_launch_picker_title"
             android:summary="@string/unlock_set_unlock_mode_none"
             android:persistent="false"/>
-    </PreferenceCategory>
-
-    <PreferenceCategory
-        android:key="general_category"
-        android:title="@string/title_general">
 
         <ListPreference
             android:key="lock_after_timeout"
@@ -45,11 +40,11 @@
             android:key="power_button_instantly_locks"
             android:title="@string/lockpattern_settings_enable_power_button_instantly_locks"/>
 
-        <com.android.settings.cmremix.utils.CMRemixSwitchPreference
-            android:key="double_tap_sleep_anywhere"
-            android:title="@string/double_tap_sleep_anywhere_title"
-            android:summary="@string/double_tap_sleep_anywhere_summary"
-            settings:advanced="true"/>
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="general_category"
+        android:title="@string/title_general">
 
         <PreferenceScreen
             android:key="owner_info_settings"
@@ -57,15 +52,6 @@
             android:title="@string/owner_info_settings_title"
             android:summary="@string/owner_info_settings_summary"/>
 
-        <com.android.settings.cyanogenmod.SecureSettingSwitchPreference
-            android:key="lockscreen_visualizer"
-            android:title="@string/lockscreen_visualizer_title"
-            android:defaultValue="true"
-            settings:advanced="true"/>
-
-        <SwitchPreference
-            android:key="lockscreen_bottom_shortcuts"
-            android:title="@string/lockscreen_bottom_shortcuts_title"/>
     </PreferenceCategory>
 
 </PreferenceScreen>
