@@ -58,7 +58,7 @@ import java.util.Map;
 import net.margaritov.preference.colorpicker.ColorPickerPreference;
 
 public class StatusBarClockStyle extends SettingsPreferenceFragment
-        implements OnPreferenceChangeListener, Indexable {
+    implements OnPreferenceChangeListener, Indexable {
 
     private static final String TAG = "StatusBarClockStyle";
 

@@ -41,8 +41,14 @@ import android.widget.ListView;
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
 
-public class DozeSettingsFragment extends SettingsPreferenceFragment implements
-        OnPreferenceChangeListener {
+import android.provider.SearchIndexableResource;
+import com.android.settings.search.BaseSearchIndexProvider;
+import com.android.settings.search.Indexable;
+import java.util.ArrayList;
+import java.util.List;
+
+public class DozeSettingsFragment extends SettingsPreferenceFragment 
+    implements Indexable, OnPreferenceChangeListener {
 
     private static final String KEY_DOZE_TIMEOUT = "doze_timeout";
     private static final String KEY_DOZE_TRIGGER_PICKUP = "doze_trigger_pickup";
@@ -253,4 +259,26 @@ public class DozeSettingsFragment extends SettingsPreferenceFragment implements
         }
         return i;
     }
+
+    public static final Indexable.SearchIndexProvider SEARCH_INDEX_DATA_PROVIDER =
+        new BaseSearchIndexProvider() {
+        @Override
+        public List<SearchIndexableResource> getXmlResourcesToIndex(Context context,
+                                                                    boolean enabled) {
+            ArrayList<SearchIndexableResource> result =
+                new ArrayList<SearchIndexableResource>();
+
+            SearchIndexableResource sir = new SearchIndexableResource(context);
+            sir.xmlResId = R.xml.doze_settings;
+            result.add(sir);
+
+            return result;
+        }
+
+        @Override
+        public List<String> getNonIndexableKeys(Context context) {
+            ArrayList<String> result = new ArrayList<String>();
+            return result;
+        }
+    };
 }

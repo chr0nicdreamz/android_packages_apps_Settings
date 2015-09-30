@@ -72,6 +72,12 @@ import com.android.settings.cmremix.utils.AbstractAsyncSuCMDProcessor;
 import com.android.settings.cmremix.utils.CMDProcessor;
 import com.android.settings.Utils;
 
+import android.provider.SearchIndexableResource;
+import com.android.settings.search.BaseSearchIndexProvider;
+import com.android.settings.search.Indexable;
+import java.util.ArrayList;
+import java.util.List;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -92,7 +98,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
 public class DisplaySettings extends SettingsPreferenceFragment implements
-        Preference.OnPreferenceChangeListener {
+        Indexable, Preference.OnPreferenceChangeListener {
 
     private static final String TAG = "DisplaySettings";
 
@@ -605,4 +611,26 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
             throw new IllegalArgumentException("unknown id " + id);
         }
     }
+
+    public static final Indexable.SearchIndexProvider SEARCH_INDEX_DATA_PROVIDER =
+        new BaseSearchIndexProvider() {
+        @Override
+        public List<SearchIndexableResource> getXmlResourcesToIndex(Context context,
+                                                                    boolean enabled) {
+            ArrayList<SearchIndexableResource> result =
+                new ArrayList<SearchIndexableResource>();
+
+            SearchIndexableResource sir = new SearchIndexableResource(context);
+            sir.xmlResId = R.xml.cmremix_display_settings;
+            result.add(sir);
+
+            return result;
+        }
+
+        @Override
+        public List<String> getNonIndexableKeys(Context context) {
+            ArrayList<String> result = new ArrayList<String>();
+            return result;
+        }
+    };
 }

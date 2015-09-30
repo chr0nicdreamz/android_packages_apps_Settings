@@ -17,6 +17,7 @@
 package com.android.settings.cmremix;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.ContentResolver;
@@ -38,8 +39,14 @@ import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
 import net.margaritov.preference.colorpicker.ColorPickerPreference;
 
-public class StatusBarBatteryStatusSettings extends SettingsPreferenceFragment implements
-        OnPreferenceChangeListener {
+import android.provider.SearchIndexableResource;
+import com.android.settings.search.BaseSearchIndexProvider;
+import com.android.settings.search.Indexable;
+import java.util.ArrayList;
+import java.util.List;
+
+public class StatusBarBatteryStatusSettings extends SettingsPreferenceFragment 
+    implements Indexable, OnPreferenceChangeListener {
 
     private static final String PREF_CAT_CIRCLE_OPTIONS =
             "battery_status_cat_circle_options";
@@ -359,4 +366,26 @@ public class StatusBarBatteryStatusSettings extends SettingsPreferenceFragment i
 
         }
     }
+
+    public static final Indexable.SearchIndexProvider SEARCH_INDEX_DATA_PROVIDER =
+        new BaseSearchIndexProvider() {
+        @Override
+        public List<SearchIndexableResource> getXmlResourcesToIndex(Context context,
+                                                                    boolean enabled) {
+            ArrayList<SearchIndexableResource> result =
+                new ArrayList<SearchIndexableResource>();
+
+            SearchIndexableResource sir = new SearchIndexableResource(context);
+            sir.xmlResId = R.xml.status_bar_battery_status_settings;
+            result.add(sir);
+
+            return result;
+        }
+
+        @Override
+        public List<String> getNonIndexableKeys(Context context) {
+            ArrayList<String> result = new ArrayList<String>();
+            return result;
+        }
+    };
 }

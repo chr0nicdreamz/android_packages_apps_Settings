@@ -38,10 +38,16 @@ import android.view.MenuItem;
 import com.android.settings.SettingsPreferenceFragment;
 import com.android.settings.R;
 
+import android.provider.SearchIndexableResource;
+import com.android.settings.search.BaseSearchIndexProvider;
+import com.android.settings.search.Indexable;
+import java.util.ArrayList;
+import java.util.List;
+
 import net.margaritov.preference.colorpicker.ColorPickerPreference;
 
-public class NavBarButtonStyle extends SettingsPreferenceFragment implements
-        OnPreferenceChangeListener {
+public class NavBarButtonStyle extends SettingsPreferenceFragment 
+    implements Indexable, OnPreferenceChangeListener {
 
     private static final String TAG = "NavBarButtonStyle";
     private static final String PREF_NAV_BUTTON_COLOR = "nav_button_color";
@@ -201,4 +207,26 @@ public class NavBarButtonStyle extends SettingsPreferenceFragment implements
                 Settings.System.NAVIGATION_BAR_BUTTON_TINT_MODE, 3);
         mNavigationBarButtonColor.setEnabled(navigationBarButtonColorMode != 3);
     }
+
+    public static final Indexable.SearchIndexProvider SEARCH_INDEX_DATA_PROVIDER =
+        new BaseSearchIndexProvider() {
+        @Override
+        public List<SearchIndexableResource> getXmlResourcesToIndex(Context context,
+                                                                    boolean enabled) {
+            ArrayList<SearchIndexableResource> result =
+                new ArrayList<SearchIndexableResource>();
+
+            SearchIndexableResource sir = new SearchIndexableResource(context);
+            sir.xmlResId = R.xml.navbar_button_style;
+            result.add(sir);
+
+            return result;
+        }
+
+        @Override
+        public List<String> getNonIndexableKeys(Context context) {
+            ArrayList<String> result = new ArrayList<String>();
+            return result;
+        }
+    };
 }

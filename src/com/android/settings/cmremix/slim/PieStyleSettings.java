@@ -38,10 +38,16 @@ import android.view.MenuItem;
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
 
+import android.provider.SearchIndexableResource;
+import com.android.settings.search.BaseSearchIndexProvider;
+import com.android.settings.search.Indexable;
+import java.util.ArrayList;
+import java.util.List;
+
 import net.margaritov.preference.colorpicker.ColorPickerPreference;
 
-public class PieStyleSettings extends SettingsPreferenceFragment implements
-        OnPreferenceChangeListener {
+public class PieStyleSettings extends SettingsPreferenceFragment 
+    implements Indexable, OnPreferenceChangeListener {
 
     private static final String TAG = "PieStyleSettings";
     private static final String PREF_PIE_BACKGROUND_COLOR = "pie_background_color";
@@ -352,4 +358,26 @@ public class PieStyleSettings extends SettingsPreferenceFragment implements
 
         }
     }
+
+    public static final Indexable.SearchIndexProvider SEARCH_INDEX_DATA_PROVIDER =
+        new BaseSearchIndexProvider() {
+        @Override
+        public List<SearchIndexableResource> getXmlResourcesToIndex(Context context,
+                                                                    boolean enabled) {
+            ArrayList<SearchIndexableResource> result =
+                new ArrayList<SearchIndexableResource>();
+
+            SearchIndexableResource sir = new SearchIndexableResource(context);
+            sir.xmlResId = R.xml.pie_style;
+            result.add(sir);
+
+            return result;
+        }
+
+        @Override
+        public List<String> getNonIndexableKeys(Context context) {
+            ArrayList<String> result = new ArrayList<String>();
+            return result;
+        }
+    };
 }

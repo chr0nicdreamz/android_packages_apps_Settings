@@ -20,6 +20,7 @@ import android.annotation.ChaosLab;
 import android.annotation.ChaosLab.Classification;
 import android.app.ActionBar;
 import android.content.Intent;
+import android.content.Context;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
@@ -29,9 +30,16 @@ import android.provider.Settings;
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
 
+import android.provider.SearchIndexableResource;
+import com.android.settings.search.BaseSearchIndexProvider;
+import com.android.settings.search.Indexable;
+import java.util.ArrayList;
+import java.util.List;
+
 @ChaosLab(name="QuickStats", classification=Classification.NEW_CLASS)
-public class IdenticonsSettings extends SettingsPreferenceFragment implements
-        OnPreferenceChangeListener {
+public class IdenticonsSettings extends SettingsPreferenceFragment 
+    implements Indexable, OnPreferenceChangeListener {
+    
     private static final String TAG = "IdenticonsSettings";
 
     private static final String KEY_ENABLED = "identicons_enabled";
@@ -115,4 +123,26 @@ public class IdenticonsSettings extends SettingsPreferenceFragment implements
         Settings.System.putInt(getContentResolver(),
                 Settings.System.IDENTICONS_STYLE, value);
     }
+
+    public static final Indexable.SearchIndexProvider SEARCH_INDEX_DATA_PROVIDER =
+        new BaseSearchIndexProvider() {
+        @Override
+        public List<SearchIndexableResource> getXmlResourcesToIndex(Context context,
+                                                                    boolean enabled) {
+            ArrayList<SearchIndexableResource> result =
+                new ArrayList<SearchIndexableResource>();
+
+            SearchIndexableResource sir = new SearchIndexableResource(context);
+            sir.xmlResId = R.xml.identicons_prefs;
+            result.add(sir);
+
+            return result;
+        }
+
+        @Override
+        public List<String> getNonIndexableKeys(Context context) {
+            ArrayList<String> result = new ArrayList<String>();
+            return result;
+        }
+    };
 }

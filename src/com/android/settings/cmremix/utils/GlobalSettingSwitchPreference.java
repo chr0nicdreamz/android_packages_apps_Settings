@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.settings.cmremix;
+package com.android.settings.cmremix.utils;
 
 import android.content.Context;
 import android.preference.SwitchPreference;

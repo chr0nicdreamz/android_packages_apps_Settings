@@ -57,6 +57,12 @@ import com.android.settings.cyanogenmod.PackageListAdapter;
 import com.android.settings.cyanogenmod.PackageListAdapter.PackageItem;
 import com.android.settings.cmremix.utils.CMRemixSeekBarPreference;
 
+import android.provider.SearchIndexableResource;
+import com.android.settings.search.BaseSearchIndexProvider;
+import com.android.settings.search.Indexable;
+import java.util.ArrayList;
+import java.util.List;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -65,9 +71,9 @@ import java.util.Map;
 import net.margaritov.preference.colorpicker.ColorPickerPreference;
 
 public class HeadsUpSettings extends SettingsPreferenceFragment
-        implements BaseSystemSettingSwitchBar.SwitchBarChangeCallback,
-                AdapterView.OnItemLongClickListener, Preference.OnPreferenceClickListener,
-                            OnPreferenceChangeListener {
+    implements BaseSystemSettingSwitchBar.SwitchBarChangeCallback,
+               AdapterView.OnItemLongClickListener, Preference.OnPreferenceClickListener,
+               Indexable, OnPreferenceChangeListener {
 
     private static final int DIALOG_DND_APPS = 0;
     private static final int DIALOG_BLACKLIST_APPS = 1;
@@ -513,4 +519,26 @@ public class HeadsUpSettings extends SettingsPreferenceFragment
                 : getResources().getString(R.string.heads_up_snooze_disabled_summary);
         mHeadsUpSnoozeTime.setSummary(summary);
     }
+
+    public static final Indexable.SearchIndexProvider SEARCH_INDEX_DATA_PROVIDER =
+        new BaseSearchIndexProvider() {
+        @Override
+        public List<SearchIndexableResource> getXmlResourcesToIndex(Context context,
+                                                                    boolean enabled) {
+            ArrayList<SearchIndexableResource> result =
+                new ArrayList<SearchIndexableResource>();
+
+            SearchIndexableResource sir = new SearchIndexableResource(context);
+            sir.xmlResId = R.xml.heads_up_settings;
+            result.add(sir);
+
+            return result;
+        }
+
+        @Override
+        public List<String> getNonIndexableKeys(Context context) {
+            ArrayList<String> result = new ArrayList<String>();
+            return result;
+        }
+    };
 }

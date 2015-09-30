@@ -1,6 +1,7 @@
 package com.android.settings.cmremix;
 
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.ListPreference;
@@ -14,8 +15,14 @@ import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
 import com.android.settings.cmremix.utils.CMRemixSeekBarPreference;
 
+import android.provider.SearchIndexableResource;
+import com.android.settings.search.BaseSearchIndexProvider;
+import com.android.settings.search.Indexable;
+import java.util.ArrayList;
+import java.util.List;
+
 public class AppSidebar extends SettingsPreferenceFragment implements
-        OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
+        Indexable, OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
     private static final String TAG = "AppSideBar";
 
     private static final String KEY_ENABLED = "sidebar_enable";
@@ -163,4 +170,26 @@ public class AppSidebar extends SettingsPreferenceFragment implements
         Settings.CMREMIX.putInt(getContentResolver(),
                 Settings.CMREMIX.APP_SIDEBAR_SHOW_TRIGGER, 1);
     }
+
+    public static final Indexable.SearchIndexProvider SEARCH_INDEX_DATA_PROVIDER =
+        new BaseSearchIndexProvider() {
+        @Override
+        public List<SearchIndexableResource> getXmlResourcesToIndex(Context context,
+                                                                    boolean enabled) {
+            ArrayList<SearchIndexableResource> result =
+                new ArrayList<SearchIndexableResource>();
+
+            SearchIndexableResource sir = new SearchIndexableResource(context);
+            sir.xmlResId = R.xml.app_sidebar_settings;
+            result.add(sir);
+
+            return result;
+        }
+
+        @Override
+        public List<String> getNonIndexableKeys(Context context) {
+            ArrayList<String> result = new ArrayList<String>();
+            return result;
+        }
+    };
 }

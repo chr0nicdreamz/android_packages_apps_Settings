@@ -39,6 +39,12 @@ import com.android.internal.util.cm.PowerMenuConstants;
 import com.android.internal.util.cm.QSUtils;
 import com.android.internal.util.cmremix.DeviceUtils;
 
+import android.provider.SearchIndexableResource;
+import com.android.settings.search.BaseSearchIndexProvider;
+import com.android.settings.search.Indexable;
+import java.util.ArrayList;
+import java.util.List;
+
 import static com.android.internal.util.cm.PowerMenuConstants.*;
 import com.android.settings.widget.NumberPickerPreference;
 
@@ -47,7 +53,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PowerMenuActions extends SettingsPreferenceFragment
-        implements OnPreferenceChangeListener {
+        implements Indexable, OnPreferenceChangeListener {
     final static String TAG = "PowerMenuActions";
 
     private static final String SCREENSHOT_DELAY = "screenshot_delay";
@@ -342,4 +348,26 @@ public class PowerMenuActions extends SettingsPreferenceFragment
         u.setAction(Intent.UPDATE_POWER_MENU);
         mContext.sendBroadcastAsUser(u, UserHandle.ALL);
     }
+
+    public static final Indexable.SearchIndexProvider SEARCH_INDEX_DATA_PROVIDER =
+        new BaseSearchIndexProvider() {
+        @Override
+        public List<SearchIndexableResource> getXmlResourcesToIndex(Context context,
+                                                                    boolean enabled) {
+            ArrayList<SearchIndexableResource> result =
+                new ArrayList<SearchIndexableResource>();
+
+            SearchIndexableResource sir = new SearchIndexableResource(context);
+            sir.xmlResId = R.xml.cmremix_ui_settings;
+            result.add(sir);
+
+            return result;
+        }
+
+        @Override
+        public List<String> getNonIndexableKeys(Context context) {
+            ArrayList<String> result = new ArrayList<String>();
+            return result;
+        }
+    };
 }

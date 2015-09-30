@@ -79,7 +79,7 @@ public class FloatingWindow extends SettingsPreferenceFragment
                             new ArrayList<SearchIndexableResource>();
 
                     SearchIndexableResource sir = new SearchIndexableResource(context);
-                    sir.xmlResId = R.xml.cmremix_tweaks;
+                    sir.xmlResId = R.xml.cmremix_floating_window;
                     result.add(sir);
 
                     return result;

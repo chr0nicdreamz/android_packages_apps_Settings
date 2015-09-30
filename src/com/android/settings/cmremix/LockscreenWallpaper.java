@@ -17,6 +17,7 @@
  */
 package com.android.settings.cmremix;
 
+import android.content.Context;
 import android.app.Activity;
 import android.app.WallpaperManager;
 import android.content.ContentResolver;
@@ -33,12 +34,20 @@ import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
 import com.android.settings.cmremix.utils.CMRemixSeekBarPreference;
 
-public class LockscreenWallpaper extends SettingsPreferenceFragment implements OnPreferenceChangeListener {
+import android.provider.SearchIndexableResource;
+import com.android.settings.search.BaseSearchIndexProvider;
+import com.android.settings.search.Indexable;
+import java.util.ArrayList;
+import java.util.List;
+
+public class LockscreenWallpaper extends SettingsPreferenceFragment 
+    implements Indexable, OnPreferenceChangeListener {
+    
     public static final int IMAGE_PICK = 1;
 
     private static final String KEY_WALLPAPER_SET = "lockscreen_wallpaper_set";
     private static final String KEY_WALLPAPER_CLEAR = "lockscreen_wallpaper_clear";
-	private static final String KEY_LOCKSCREEN_BLUR_RADIUS = "lockscreen_blur_radius";
+    private static final String KEY_LOCKSCREEN_BLUR_RADIUS = "lockscreen_blur_radius";
 
     private Preference mSetWallpaper;
     private Preference mClearWallpaper;
@@ -111,4 +120,26 @@ public class LockscreenWallpaper extends SettingsPreferenceFragment implements O
         wallpaperManager = WallpaperManager.getInstance(getActivity());
         wallpaperManager.clearKeyguardWallpaper();
     }
+
+    public static final Indexable.SearchIndexProvider SEARCH_INDEX_DATA_PROVIDER =
+        new BaseSearchIndexProvider() {
+        @Override
+        public List<SearchIndexableResource> getXmlResourcesToIndex(Context context,
+                                                                    boolean enabled) {
+            ArrayList<SearchIndexableResource> result =
+                new ArrayList<SearchIndexableResource>();
+
+            SearchIndexableResource sir = new SearchIndexableResource(context);
+            sir.xmlResId = R.xml.lockscreen_wallpaper;
+            result.add(sir);
+
+            return result;
+        }
+
+        @Override
+        public List<String> getNonIndexableKeys(Context context) {
+            ArrayList<String> result = new ArrayList<String>();
+            return result;
+        }
+    };
 }

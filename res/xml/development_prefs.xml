@@ -198,7 +198,7 @@
             android:title="@string/wifi_allow_scan_with_traffic"
             android:summary="@string/wifi_allow_scan_with_traffic_summary"/>
 
-        <com.android.settings.cmremix.GlobalSettingSwitchPreference
+        <com.android.settings.cmremix.utils.GlobalSettingSwitchPreference
             android:key="captive_portal_detection_enabled"
             android:title="@string/captive_portal_detection"
             android:summary="@string/captive_portal_detection_summary" />

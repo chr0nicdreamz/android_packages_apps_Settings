@@ -16,6 +16,7 @@
 
 package com.android.settings.cmremix.gestureanywhere;
 
+import android.content.Context;
 import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
@@ -30,8 +31,14 @@ import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
 import com.android.settings.cmremix.utils.CMRemixSeekBarPreference;
 
-public class GestureAnywhereSettings extends SettingsPreferenceFragment implements
-        OnPreferenceChangeListener {
+import android.provider.SearchIndexableResource;
+import com.android.settings.search.BaseSearchIndexProvider;
+import com.android.settings.search.Indexable;
+import java.util.ArrayList;
+import java.util.List;
+
+public class GestureAnywhereSettings extends SettingsPreferenceFragment 
+    implements Indexable, OnPreferenceChangeListener {
     private static final String TAG = "GestureAnywhereSettings";
 
     private static final String KEY_ENABLED = "gesture_anywhere_enabled";
@@ -161,4 +168,26 @@ public class GestureAnywhereSettings extends SettingsPreferenceFragment implemen
         Settings.CMREMIX.putInt(getContentResolver(),
                 Settings.CMREMIX.GESTURE_ANYWHERE_SHOW_TRIGGER, 1);
     }
+
+    public static final Indexable.SearchIndexProvider SEARCH_INDEX_DATA_PROVIDER =
+        new BaseSearchIndexProvider() {
+        @Override
+        public List<SearchIndexableResource> getXmlResourcesToIndex(Context context,
+                                                                    boolean enabled) {
+            ArrayList<SearchIndexableResource> result =
+                new ArrayList<SearchIndexableResource>();
+
+            SearchIndexableResource sir = new SearchIndexableResource(context);
+            sir.xmlResId = R.xml.gesture_anywhere;
+            result.add(sir);
+
+            return result;
+        }
+
+        @Override
+        public List<String> getNonIndexableKeys(Context context) {
+            ArrayList<String> result = new ArrayList<String>();
+            return result;
+        }
+    };
 }

@@ -16,6 +16,7 @@
 
 package com.android.settings.cmremix.slim;
 
+import android.content.Context;
 import android.app.ActivityManager;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -44,12 +45,17 @@ import com.android.settings.DialogCreatable;
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
 
-import com.android.internal.util.cmremix.DeviceUtils;
+import android.provider.SearchIndexableResource;
+import com.android.settings.search.BaseSearchIndexProvider;
+import com.android.settings.search.Indexable;
+import java.util.ArrayList;
+import java.util.List;
 
+import com.android.internal.util.cmremix.DeviceUtils;
 import net.margaritov.preference.colorpicker.ColorPickerPreference;
 
-public class RecentPanel extends SettingsPreferenceFragment implements DialogCreatable,
-        Preference.OnPreferenceChangeListener {
+public class RecentPanel extends SettingsPreferenceFragment 
+    implements DialogCreatable, Indexable, Preference.OnPreferenceChangeListener {
 
     private static final String TAG = "RecentPanelSettings";
 
@@ -320,4 +326,25 @@ public class RecentPanel extends SettingsPreferenceFragment implements DialogCre
         mRecentPanelExpandedMode.setOnPreferenceChangeListener(this);
     }
 
+    public static final Indexable.SearchIndexProvider SEARCH_INDEX_DATA_PROVIDER =
+        new BaseSearchIndexProvider() {
+        @Override
+        public List<SearchIndexableResource> getXmlResourcesToIndex(Context context,
+                                                                    boolean enabled) {
+            ArrayList<SearchIndexableResource> result =
+                new ArrayList<SearchIndexableResource>();
+
+            SearchIndexableResource sir = new SearchIndexableResource(context);
+            sir.xmlResId = R.xml.slim_recent_panel_settings;
+            result.add(sir);
+
+            return result;
+        }
+
+        @Override
+        public List<String> getNonIndexableKeys(Context context) {
+            ArrayList<String> result = new ArrayList<String>();
+            return result;
+        }
+    };
 }
