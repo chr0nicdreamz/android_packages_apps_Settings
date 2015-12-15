@@ -20,4 +20,8 @@
     <string name="cmremix_version">CMRemix version</string>
     <string name="cmremix_version_default">Unknown</string>
 
+    <!-- About device screen, CPU and RAM info. -->
+    <string name="cpu_info">CPU</string>
+    <string name="mem_info">RAM</string>
+
 </resources>
