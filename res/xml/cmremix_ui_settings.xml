@@ -68,4 +68,10 @@
                 android:icon="@drawable/ic_cmremix_tweaks"
                 />
 
+        <!-- CMRemix Change Log -->
+       <PreferenceScreen android:key="changelog"
+               android:title="@string/changelog_title"
+               android:icon="@drawable/ic_settings_about"
+               android:fragment="com.android.settings.cmremix.ChangeLog" />
+
 </PreferenceScreen>
