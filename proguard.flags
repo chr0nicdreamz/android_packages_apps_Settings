@@ -17,11 +17,16 @@
 -keep class com.android.settings.nfc.*
 -keep class com.android.settings.notification.*
 -keep class com.android.settings.cyanogenmod.*
+-keep class com.android.settings.cmremix.*Settings
 
 -keep class com.android.settings.cyanogenmod.*Settings
 -keep class com.android.settings.privacyguard.*
 
--keep class com.android.settings.cmremix.*Settings
+# These would be stripped out since they are being created with reflection
+-keep class com.android.settings.dashboard.GenericSwitchToggle { *; }
+-keep class com.android.settings.wifi.WifiEnabler { *; }
+-keep class com.android.settings.bluetooth.BluetoothEnabler { *; }
+-keep class com.android.settings.dashboard.MobileNetworksEnabler { *; }
 
 # Keep click responders
 -keepclassmembers class com.android.settings.inputmethod.UserDictionaryAddWordActivity {
