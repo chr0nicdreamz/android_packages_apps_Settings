@@ -39,4 +39,7 @@
     <string name="sm_flags">Optimizations</string>
     <string name="sm_flags_default">None</string>
 
+        <!-- SuperSU -->
+    <string name="supersu_title">SuperSU</string>
+
 </resources>
