@@ -49,4 +49,9 @@
     <string name="changelog_unknown">Unknown</string>
     <string name="changelog_version">Version</string>
 
+    <!-- CMRemix Updater -->
+    <string name="cmremixupdate_settings_title">CMRemix updates</string>
+    <string name="cmremixupdate_settings_alternate_title">System updates</string>
+    <string name="cmremixupdate_settings_summary">Check for, view or install available updates</string>
+
 </resources>

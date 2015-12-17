@@ -23,6 +23,16 @@
                           android:layout="@layout/cmremixbanner_row"
                           android:selectable="false" />
 
+        <!-- CMRemix Updater -->
+        <PreferenceScreen android:key="cmremix_updates"
+                android:title="@string/cmremixupdate_settings_title"
+                android:icon="@drawable/ic_settings_cmremixupdater"
+                android:summary="@string/cmremixupdate_settings_summary">
+            <intent android:action="android.intent.action.MAIN"
+                    android:targetPackage="com.cmremix.updater"
+                    android:targetClass="com.cmremix.updater.UpdatesSettings" />
+        </PreferenceScreen>
+
         <!-- CMRemiX version -->
         <Preference android:key="cmremix_version"
                 style="?android:preferenceInformationStyle"
