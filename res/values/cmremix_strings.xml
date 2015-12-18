@@ -59,4 +59,11 @@
     <string name="su_indicator_summary_on">Superuser indicator is visible when a session is active</string>
     <string name="su_indicator_summary_off">Toggle to show superuser indicator when a session is active</string>
 
+    <!-- long press back to kill configurable timeout -->
+    <string name="kill_app_longpress_timeout_title">Long press back button timeout</string>
+    <string name="timeout_2000">2 seconds (default)</string>
+    <string name="timeout_1500">1,5 seconds</string>
+    <string name="timeout_1000">1 second</string>
+    <string name="timeout_500">0,5 second</string>
+
 </resources>
