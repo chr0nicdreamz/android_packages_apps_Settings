@@ -70,4 +70,9 @@
     <string name="battery_saver_color_title">Warning color</string>
     <string name="battery_saver_color_summary">Enable orange status and navigation bars when battery saver is activated</string>
 
+    <!-- RAM bar -->
+    <string name="recents_show_membar_title">RAM memory bar</string>
+    <string name="recents_show_membar_summary_on">Available RAM memory bar will be displayed on recents view</string>
+    <string name="recents_show_membar_summary_off">Toggle to display available RAM memory bar on recents view</string>
+
 </resources>
