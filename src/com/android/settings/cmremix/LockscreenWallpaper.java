@@ -31,7 +31,7 @@ import android.widget.Toast;
 
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
-import com.android.settings.cmremix.utils.CMRemixSeekBarPreference;
+import com.android.settings.cmremix.utils.SeekBarPreference;
 
 import com.android.internal.logging.MetricsLogger;
 
@@ -44,7 +44,7 @@ public class LockscreenWallpaper extends SettingsPreferenceFragment implements O
 
     private Preference mSetWallpaper;
     private Preference mClearWallpaper;
-    private CMRemixSeekBarPreference mBlurRadius;
+    private SeekBarPreference mBlurRadius;
 
     @Override
     protected int getMetricsCategory() {
@@ -60,7 +60,7 @@ public class LockscreenWallpaper extends SettingsPreferenceFragment implements O
         mSetWallpaper = (Preference) findPreference(KEY_WALLPAPER_SET);
         mClearWallpaper = (Preference) findPreference(KEY_WALLPAPER_CLEAR);
         
-        mBlurRadius = (CMRemixSeekBarPreference) findPreference(KEY_LOCKSCREEN_BLUR_RADIUS);
+        mBlurRadius = (SeekBarPreference) findPreference(KEY_LOCKSCREEN_BLUR_RADIUS);
         mBlurRadius.setValue(Settings.System.getInt(resolver,
                 Settings.System.LOCKSCREEN_BLUR_RADIUS, 14));
         mBlurRadius.setOnPreferenceChangeListener(this);
